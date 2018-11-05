@@ -1,0 +1,38 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+  - "3.7-dev"
+
+env:
+  - COV_CORE_SOURCE=secretsanta
+  - COV_CORE_CONFIG=.coveragerc
+
+install:
+  - pip install -r requirements.txt
+  - pip install codecov
+
+script: pytest --cov=secretsanta
+
+after_success:
+  - codecov --token=""
+
+# https://blog.travis-ci.com/2017-05-11-introducing-build-stages
+#jobs:
+#  include:
+#    - stage: covupload
+#      python: 3.5
+#      install:
+#        - pip install codecov
+#      script: codecov --token=""
+
+# https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications
+# https://github.com/travis-ci/travis-ci/issues/2894#issuecomment-161461962
+notifications:
+  slack:
+    rooms:
+      - secure: KJSJeHygQ1oPMdwJGo3MzGLXvzPZYYB1Cgszq0d/K5wq4ukZk/QudCigeEC9OknuWHUd/e5qb57qM+MYj5/sIDmH1QTMczbmnD0L94wMVOBUAHXga53Z7i2UrcJIjvDWLKxzLb3zwq+Key24uYp5minggkQ13RD46XS1c0wqIsRpL4vVQhz7Bg7YvPYMHOEk3JoMwiUa4Qu3790GAfyQJDNufkIYun5eiloJL3bWPs1dzBFnriyInBT7kNMJjYHL0GQtxUlPKrjtx9SpggMmivH1v8905FUMbuOi4NPuy3i+aVDausc5TfeB9/OXmKqozfsCtQRrjkZNb+yis22pICsOHxAx9r7Czo3MVxuXYg8ibkd8Vdo2Vjy4UXonM5mHS/yDFJhHw4tYphw3l6e8SqWdGcWW4wrEPLgh3LiWUyctDVSi8idq+Lyd3+8gQOqgpU2wYePZB2QwWZYbTnBQcWm3MmDIEsz+eV07nnce/8FqhR9r7VQJfNb47v/rCIIojJZv4/0tKLVN7F0O+J+HsVve7GaKUhzhWFa5Hf9pGNaPBpXiX46fL3lsgAdTYnY16lPGIgXRf0Nl43GEY7jsVK66qecpN8LmkES//Mrj5VEstcwypENavaW/0MCfJ4xF4772UGaPUJurogt9B1N2lMInXGj22YPg1/tP5IFNaCE=
+    on_success: always
+    on_pull_requests: true

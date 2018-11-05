@@ -1,0 +1,16 @@
+# this could also reside in tox.ini or setup.cfg
+# https://coverage.readthedocs.io/en/coverage-4.4.2/config.html
+
+[html]
+# Directory where coverage report should be written.
+directory = coverage
+
+[report]
+# Show which lines were missed in summary report.
+show_missing = true
+
+[run]
+# Measure branch coverage in addition to statement coverage.
+branch = true
+# The source directory to measure. This is already in 'tox.ini'.
+#source = secretsanta
