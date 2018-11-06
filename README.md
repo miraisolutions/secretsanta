@@ -9,13 +9,17 @@ Secret Santa Python version
 [![Build Status](https://travis-ci.org/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.org/miraisolutions/secretsanta)
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
-<https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
+### Development
+We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment.
 
-<https://docs.python-guide.org/dev/virtualenvs/>
+In PyCharm, first check out this repository into a new project.  
+Next, open the **Terminal** pane.
 
-Open the **Terminal** pane.  
 Sorry but there is no shortcut in PyCharm to send code to the terminal...  
 (I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)
+
+<https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
+<https://docs.python-guide.org/dev/virtualenvs/>
 
 Install support for virtual environments with Python 3.x if you don't have it yet:
 ```{bash, eval=FALSE}
@@ -41,7 +45,7 @@ Check version of Python:
 python --version
 ```
 
-Upgrade pip (don't do this outside the virtual environment!):
+Upgrade `pip` (don't do this outside the virtual environment!):
 ```{bash, eval=FALSE}
 pip install --upgrade pip
 ```
@@ -52,7 +56,7 @@ pip --version
 #> pip 18.1 from /home/mirai/PycharmProjects/secretsanta/lib/python3.5/site-packages/pip (python 3.5)
 ```
 
-Install pip-tools:
+Install `pip-tools`:
 ```{bash, eval=FALSE}
 pip install pip-tools
 ```
@@ -73,7 +77,7 @@ pip list
 #> six           1.11.0 
 ```
 
-Re-generate requirements.txt from requirements.in:
+Re-generate `requirements.txt` from `requirements.in`:
 ```{bash, eval=FALSE}
 pip-compile
 ```
