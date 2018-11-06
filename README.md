@@ -101,6 +101,56 @@ File > Settings > Editor > File Types
 ```
 E.g. use this to get `.coveragerc` marked up as `INI` (.ini support is available through a plugin).
 
+#### Documentation
+Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
+
+Prerequisite: Installation. Open a terminal and run below command:
+```{bash, eval=FALSE}
+sudo apt-get install python3-sphinx
+```
+Check installation (and version):
+```{bash, eval=FALSE}
+sphinx-build --version
+```
+
+##### Initializing documentation - already done - for reference:
+```{bash, eval=FALSE}
+sphinx-quickstart
+```
+This will lead through an interactive generation process.
+
+Suggested values / options are listed here.
+Hitting enter without typing anything will take the suggested default shown inside square brackets [].
+* Root path for the documentation: docs
+* Separate source and build directories: y
+* Source file suffix: .rst
+* Sphinx extensions: autodoc, doctest, intersphinx, coverage, mathjax, viewcode
+* Create Makefile: y
+
+In order to use `autodoc`, one needs to uncomment the corresponding line in `conf.py`:
+
+```sys.path.insert(0, os.path.abspath(...```
+
+And set the appropriate path to the directory containing the modules to be documented.
+
+##### Building docs
+You should be inside the documentation root directory.  
+Using the Makefile:
+```{bash, eval=FALSE}
+cd docs
+make html
+```
+You can view the documentation by opening `index.html` (`docs/build/html`) in your browser of choice.
+
+Alternative build without Makefile:
+```{bash, eval=FALSE}
+sphinx-build -b html <sourcedir> <builddir>
+```
+PDF output:
+```
+make latexpdf
+```
+
 #### Miscellaneous
 `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 
@@ -110,3 +160,22 @@ E.g. use this to get `.coveragerc` marked up as `INI` (.ini support is available
 Note that this file also exposes a webhook URL into Slack, which ideally shouldn't be shared publicly.
 
 Leave the virtual environment with the command `deactivate`.
+
+##### autodoc notes
+For Sphinx/autodoc to work, the docstrings must of course be written in correct reStructuredText. You can then use all of the usual Sphinx markup in the docstrings, and it will end up correctly in the documentation. Together with hand-written documentation, this technique eases the pain of having to maintain two locations for documentation, while at the same time avoiding auto-generated-looking pure API documentation.
+
+For more on autodoc see <http://sphinx.pocoo.org/ext/autodoc.html>.
+
+The main autodoc features I use are:
+
+    .. automodule:: <module_name>
+    .. autoclass:: <class_name> and
+    .. autofunction:: <function_name>
+
+The key to using these features is the :members: attribute. If:
+
+    You don’t include it at all, only the docstring for the object is brought in:
+    You just use :members: with no arguments, then all public functions, classes, and methods are brought it that have docstring.
+    If you explictly list the members like :members: fn0, class0, _fn1 those explict members are brought.
+
+We’ll examine these points in the full example "Full Code Example" (<https://pythonhosted.org/an_example_pypi_project/sphinx.html>).
