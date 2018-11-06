@@ -85,7 +85,7 @@ Install dependencies defined in `requirements.txt`:
 pip-sync
 ```
 
-#### Testing
+### Testing
 Tests are kept under `tests/` and make use of the `unittest` framework.
 
 Run code style checks with flake8:
@@ -109,7 +109,7 @@ File > Settings > Editor > File Types
 ```
 E.g. use this to get `.coveragerc` marked up as `INI` (.ini support is available through a plugin).
 
-#### Documentation
+### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
 
 Prerequisite: Installation. Open a terminal and run below command:
@@ -159,7 +159,7 @@ PDF output:
 make latexpdf
 ```
 
-#### Miscellaneous
+### Miscellaneous
 `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 
 `.travis.yml` is untested and not being used currently, since private repositories require a paid plan.
