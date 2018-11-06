@@ -1,6 +1,11 @@
 # secretsanta
 Secret Santa Python version
 
+[![PyPI](https://img.shields.io/pypi/v/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/secretsanta.svg)](https://pypistats.org/packages/secretsanta)
+[![Build Status](https://travis-ci.org/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.org/miraisolutions/secretsanta)
+[![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
+
 <https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
 
 <https://docs.python-guide.org/dev/virtualenvs/>
