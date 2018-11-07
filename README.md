@@ -91,6 +91,8 @@ Install dependencies defined in `requirements.txt`:
 pip-sync
 ```
 
+Now you're ready to go.
+
 ### Testing
 Tests are kept under `tests/` and make use of the `unittest` framework.
 
@@ -134,7 +136,7 @@ sphinx-quickstart
 This will lead through an interactive generation process.
 
 Suggested values / options are listed here.
-Hitting enter without typing anything will take the suggested default shown inside square brackets [].
+Hitting enter without typing anything will take the suggested default shown inside square brackets [ ].
 * Root path for the documentation: docs
 * Separate source and build directories: y
 * Source file suffix: .rst
