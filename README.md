@@ -18,8 +18,10 @@ Next, open the **Terminal** pane.
 Sorry but there is no shortcut in PyCharm to send code to the terminal...  
 (I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)
 
-<https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
-<https://docs.python-guide.org/dev/virtualenvs/>
+We'll use a virtual environment to keep things neat and tidy (and you don't want to be Mr. Messy, now do you).  
+A couple of useful references about virtual environments if you've never used them before:
+* <https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
+* <https://docs.python-guide.org/dev/virtualenvs/>
 
 Install support for virtual environments with Python 3.x if you don't have it yet:
 ```{bash, eval=FALSE}
