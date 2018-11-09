@@ -9,13 +9,19 @@ Secret Santa Python version
 [![Build Status](https://travis-ci.org/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.org/miraisolutions/secretsanta)
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
-<https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
+### Development
+We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment.
 
-<https://docs.python-guide.org/dev/virtualenvs/>
+In PyCharm, first check out this repository into a new project.  
+Next, open the **Terminal** pane.
 
-Open the **Terminal** pane.  
 Sorry but there is no shortcut in PyCharm to send code to the terminal...  
 (I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)
+
+We'll use a virtual environment to keep things neat and tidy (and you don't want to be Mr. Messy, now do you).  
+A couple of useful references about virtual environments if you've never used them before:
+* <https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
+* <https://docs.python-guide.org/dev/virtualenvs/>
 
 Install support for virtual environments with Python 3.x if you don't have it yet:
 ```{bash, eval=FALSE}
@@ -41,7 +47,7 @@ Check version of Python:
 python --version
 ```
 
-Upgrade pip (don't do this outside the virtual environment!):
+Upgrade `pip` (don't do this outside the virtual environment!):
 ```{bash, eval=FALSE}
 pip install --upgrade pip
 ```
@@ -52,7 +58,7 @@ pip --version
 #> pip 18.1 from /home/mirai/PycharmProjects/secretsanta/lib/python3.5/site-packages/pip (python 3.5)
 ```
 
-Install pip-tools:
+Install `pip-tools`:
 ```{bash, eval=FALSE}
 pip install pip-tools
 ```
@@ -73,7 +79,7 @@ pip list
 #> six           1.11.0 
 ```
 
-Re-generate requirements.txt from requirements.in:
+Re-generate `requirements.txt` from `requirements.in`:
 ```{bash, eval=FALSE}
 pip-compile
 ```
@@ -85,7 +91,9 @@ Install dependencies defined in `requirements.txt`:
 pip-sync
 ```
 
-#### Testing
+Now you're ready to go.
+
+### Testing
 Tests are kept under `tests/` and make use of the `unittest` framework.
 
 Run code style checks with flake8:
@@ -109,7 +117,7 @@ File > Settings > Editor > File Types
 ```
 E.g. use this to get `.coveragerc` marked up as `INI` (.ini support is available through a plugin).
 
-#### Documentation
+### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
 
 Prerequisite: Installation. Open a terminal and run below command:
@@ -128,7 +136,7 @@ sphinx-quickstart
 This will lead through an interactive generation process.
 
 Suggested values / options are listed here.
-Hitting enter without typing anything will take the suggested default shown inside square brackets [].
+Hitting enter without typing anything will take the suggested default shown inside square brackets [ ].
 * Root path for the documentation: docs
 * Separate source and build directories: y
 * Source file suffix: .rst
@@ -159,7 +167,7 @@ PDF output:
 make latexpdf
 ```
 
-#### Miscellaneous
+### Miscellaneous
 `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 
 `.travis.yml` is untested and not being used currently, since private repositories require a paid plan.
