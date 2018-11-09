@@ -2,7 +2,7 @@ import io
 import os
 import re
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 PROJ_DIR = os.path.abspath(os.path.dirname(__file__))
 # PROJ_DIR = os.getcwd()
@@ -45,7 +45,7 @@ setup(
     author='RSc',
     author_email='roland.schmid@mirai-solutions.com',
     license='MIT',
-    packages=['secretsanta'],
+    packages=find_packages(exclude=('tests', 'tests.*', 'tests.*.*')),
     install_requires=get_install_requirements(),
     zip_safe=False
 )
