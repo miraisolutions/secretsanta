@@ -10,13 +10,16 @@ Secret Santa Python version
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
 ### Development
+
 We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment.
 
-In PyCharm, first check out this repository into a new project.  
-Next, open the **Terminal** pane.
+In PyCharm, check out this repository into a new project, e.g. using menu `VCS > Checkout from Version Control`.
 
+Shell commands below should be entered in the **Terminal** pane of PyCharm.
 Sorry but there is no shortcut in PyCharm to send code to the terminal...  
 (I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)
+
+#### Virtual environment
 
 We'll use a virtual environment to keep things neat and tidy (and you don't want to be Mr. Messy, now do you).  
 A couple of useful references about virtual environments if you've never used them before:
@@ -24,42 +27,54 @@ A couple of useful references about virtual environments if you've never used th
 * <https://docs.python-guide.org/dev/virtualenvs/>
 
 Install support for virtual environments with Python 3.x if you don't have it yet:
-```{bash, eval=FALSE}
+```bash
 sudo apt-get install python3-venv
 ```
-Configure project with Python 3 virtual environment:
-```{bash, eval=FALSE}
-python3 -m venv .
+
+Configure the PyCharm project with a Python 3 virtual environment under
+```
+File > Settings > Project > Project interpreter
+```
+Click on the top-right *gear* icon and select `Add...`, then create a new `Virtualenv Environment`, using `<PROJECT_PATH>/venv` as location and Python 3.x as interpreter. Also un-tick all checkboxes.
+
+With these settings, anything you execute within the PyCharm project, either at the Terminal or in the Python Console, will run in the virtual environment. Close and re-open PyCharm to make sure the settings are picked.
+
+Note that you can still temporarily leave the virtual environment from an active Terminal using command
+```bash
+deactivate
+```
+and re-activate it using
+```bash
+source ./venv/bin/activate
 ```
 
-Activate virtual environment (same command to re-activate on another session later on).
-```{bash, eval=FALSE}
-source ./bin/activate
-```
+#### Project requirements
 
-Below onwards should be inside the virtual environment, e.g. at such a prompt:
-```{bash, eval=FALSE}
-#> (secretsanta) mirai@MiraiUbuntu:~/PycharmProjects/secretsanta$
+The project includes files `requirements.in` and `requirements-package.in`, defining module / package dependencies. Such files are compiled into an actual `requirements.txt` files, which is not committed to Git and should be re-created for the local checkout.
+
+NOTE: make sure all commands are executed inside the virtual environment, e.g. at such a prompt:
+```
+#> (venv) mirai@MiraiUbuntu:~/PycharmProjects/secretsanta$
 ```
 
 Check version of Python:
-```{bash, eval=FALSE}
+```bash
 python --version
 ```
 
-Upgrade `pip` (don't do this outside the virtual environment!):
-```{bash, eval=FALSE}
+Upgrade `pip`
+```bash
 pip install --upgrade pip
 ```
 
 Check version of pip:
-```{bash, eval=FALSE}
+```bash
 pip --version
 #> pip 18.1 from /home/mirai/PycharmProjects/secretsanta/lib/python3.5/site-packages/pip (python 3.5)
 ```
 
 Install `pip-tools`:
-```{bash, eval=FALSE}
+```bash
 pip install pip-tools
 ```
 (<https://github.com/jazzband/pip-tools>)
@@ -91,7 +106,7 @@ Install dependencies defined in `requirements.txt`:
 pip-sync
 ```
 
-Now you're ready to go.
+Now you're ready to go. Would there be any update to the requirements `.in` files, make sure you re-execute `pip-compile` and `pip-sync`.
 
 ### Testing
 Tests are kept under `tests/` and make use of the `unittest` framework.
@@ -116,6 +131,7 @@ In PyCharm, you can associate files to a certain type under:
 File > Settings > Editor > File Types
 ```
 E.g. use this to get `.coveragerc` marked up as `INI` (.ini support is available through a plugin).
+Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *existing* 'Buildout Config' file type [](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206585245/comments/205965729).
 
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
@@ -143,7 +159,7 @@ Hitting enter without typing anything will take the suggested default shown insi
 * Sphinx extensions: autodoc, doctest, intersphinx, coverage, mathjax, viewcode
 * Create Makefile: y
 
-In order to use `autodoc`, one needs to uncomment the corresponding line in `conf.py`:
+In order to use `autodoc`, one needs to uncomment the corresponding line in `docs/source/conf.py`:
 
 ```sys.path.insert(0, os.path.abspath(...```
 
@@ -175,7 +191,6 @@ make latexpdf
 `.codecov.yml` is similarly untested and unused, since Travis CI is not set up.  
 Note that this file also exposes a webhook URL into Slack, which ideally shouldn't be shared publicly.
 
-Leave the virtual environment with the command `deactivate`.
 
 ##### autodoc notes
 For Sphinx/autodoc to work, the docstrings must of course be written in correct reStructuredText. You can then use all of the usual Sphinx markup in the docstrings, and it will end up correctly in the documentation. Together with hand-written documentation, this technique eases the pain of having to maintain two locations for documentation, while at the same time avoiding auto-generated-looking pure API documentation.
