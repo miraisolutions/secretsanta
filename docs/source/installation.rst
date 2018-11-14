@@ -27,3 +27,8 @@ Alternatively you can install the latest development version using::
     pip3 install --user git+https://RolandASc@github.com/miraisolutions/secretsanta
 
 Make sure to substitute ``RolandASc`` with your Github user name!
+
+(If you are in a virtual environment, simply use below instead)::
+
+    pip install git+https://RolandASc@github.com/miraisolutions/secretsanta
+
