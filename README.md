@@ -50,7 +50,7 @@ source ./venv/bin/activate
 
 #### Project requirements
 
-The project includes files `requirements.in` and `requirements-package.in`, defining module / package dependencies. Such files are compiled into an actual `requirements.txt` files, which is not committed to Git and should be re-created for the local checkout.
+The project includes files `requirements.in` and `requirements-package.in`, defining module / package dependencies. Such files are compiled into an actual `requirements.txt` file, which is not committed to Git and should be re-created for the local checkout.
 
 NOTE: make sure all commands are executed inside the virtual environment, e.g. at such a prompt:
 ```
@@ -70,7 +70,7 @@ pip install --upgrade pip
 Check version of pip:
 ```bash
 pip --version
-#> pip 18.1 from /home/mirai/PycharmProjects/secretsanta/lib/python3.5/site-packages/pip (python 3.5)
+#> pip 18.1 from /home/mirai/PycharmProjects/secretsanta/venv/lib/python3.5/site-packages/pip (python 3.5)
 ```
 
 Install `pip-tools`:
