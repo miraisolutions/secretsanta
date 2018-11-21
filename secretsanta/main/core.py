@@ -34,7 +34,7 @@ class SecretSanta:
         self.email = email
         self.person = person
 
-    def send(self, subject, from_address, message, mailserver):
+    def send(self, subject, from_address, message, mailserver, test=False):
         """
         send method
 
@@ -42,13 +42,22 @@ class SecretSanta:
         :param from_address:
         :param message:
         :param mailserver:
+        :param test:
         :return:
         """
-        message = 'Hi there!\n\n%s %s\n\nThis is an automated message. Please do not reply!' % (message, self.person)
+        message = 'Hi there!\n\n%s %s.\n\nOh Oh Oh,\n\nSanta\n\n' % (message, self.person) + \
+                  'This is an automated message. Please do not reply!'
+
+        if test:
+            message = 'THIS IS JUST A TEST, NOT THE FINAL SECRET SANTA ASSIGNMENT!\n\n' + message
+            subject += ' - THIS IS JUST A TEST!'
 
         msg = MIMEMultipart("alternative")
+        # https://mail.python.org/pipermail//bangpypers/2012-October/008356.html
+        sender = 'santa@mirai-solutions.com'
+        msg.add_header('reply-to', sender)
+        msg["From"] = sender + ' <' + from_address + '>'
         msg["Subject"] = subject
-        msg["From"] = from_address
         # ternary operator: https://en.wikipedia.org/wiki/%3F:#Python
         msg["To"] = ','.join(self.email) if isinstance(self.email, list) and len(self.email) > 1 else self.email
         msg.attach(MIMEText(message, 'plain'))

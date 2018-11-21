@@ -1,12 +1,13 @@
 import smtplib
 import numpy as np
+import datetime
 from contextlib import suppress
 from secretsanta.main.core import SecretSanta
 
 # PyCharm: ctrl-p inside parentheses shows function args!
 
 
-def make_santa_dict(dictionary, i):
+def make_santa_dict(dictionary, seed=None, verbose=False):
     # type triple-quotes and press enter to generate empty docstring stub
     """
     creates a randomized 'santa' dictionary from an initial dictionary of names with associated email addresses
@@ -24,12 +25,13 @@ def make_santa_dict(dictionary, i):
     swap = False
     swapname2 = swapname1 = ''
 
-    np.random.seed(i)
+    np.random.seed(seed)
 
     # "dict"s are always unordered, therefore iterating through them has unpredictable order
     for name in dictionary:
         # print(dictionary.get(name))
-        print(name)
+        if verbose:
+            print(name)
         pick = names.copy()
         if len(pick) == 2:
             swapname1 = name
@@ -46,7 +48,8 @@ def make_santa_dict(dictionary, i):
             with suppress(ValueError):
                 pick.remove(name)
             picked = np.random.choice(pick, 1)[0]
-        print(picked)
+        if verbose:
+            print(picked)
         senddict[name] = dictionary.get(picked)
         names.remove(picked)
 
@@ -59,7 +62,7 @@ def make_santa_dict(dictionary, i):
     return senddict
 
 
-def send_santa_dict(smtpserverwithport, sender, pwd, senddict, i):
+def send_santa_dict(smtpserverwithport, sender, pwd, senddict, test=False):
     """
     loops over a 'santa' dictionary and sends respective emails
 
@@ -79,12 +82,12 @@ def send_santa_dict(smtpserverwithport, sender, pwd, senddict, i):
     from_addr = sender
     server.login(from_addr, pwd)
 
-    subj = 'Secret Santa Test %i' % i
+    subj = 'Secret Santa %d' % datetime.datetime.now().year
     check = 0
 
     for name in senddict:
         obj = SecretSanta(senddict.get(name), name)
-        check = obj.send(subj, from_addr, 'you picked', server)
+        check = obj.send(subj, sender, 'You picked', server, test)
 
     server.quit()
     return check
