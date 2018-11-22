@@ -87,7 +87,7 @@ def send_santa_dict(smtpserverwithport, sender, pwd, senddict, test=False):
 
     for name in senddict:
         obj = SecretSanta(senddict.get(name), name)
-        check = obj.send(subj, sender, 'You picked', server, test)
+        check = obj.send(subj, sender, 'Lucky you! You got the lovely', server, test)
 
     server.quit()
     return check

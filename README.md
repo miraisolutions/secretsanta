@@ -168,27 +168,46 @@ And set the appropriate path to the directory containing the modules to be docum
 ##### Building docs
 You should be inside the documentation root directory.  
 Using the Makefile:
-```{bash, eval=FALSE}
+```bash
 cd docs
 make html
 ```
 You can view the documentation by opening `index.html` (`docs/build/html`) in your browser of choice.
 
 Alternative build without Makefile:
-```{bash, eval=FALSE}
+```bash
 sphinx-build -b html <sourcedir> <builddir>
 ```
 PDF output:
-```
+```bash
 make latexpdf
 ```
 
+### Usage
+The `Jupyter` notebook `SecretSanta.ipynb` illustrates the usage of the `secretsanta` package.
+
+It can be run either directly in PyCharm or maybe more typically in your browser:
+```bash
+jupyter notebook SecretSanta.ipynb
+```
+
+Below gives you some useful information about the location of `Jupyter` related directories, e.g. configuration:
+```bash
+jupyter --path
+```
+
+<!-- `etc/jupyter/custom/custom.js` -->
+
+A few additional links to some typical early `Jupyter` topics:
+* [Closing running Jupyter notebook servers](https://github.com/jupyter/notebook/issues/2844)
+* [Checkpoints and autosave](https://groups.google.com/forum/#!topic/jupyter/DGCKE5fS4kQ)
+
 ### Miscellaneous
-`MANIFEST.in` specifies extra files that shall be included in a source distribution.
+* `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 
-`.travis.yml` is untested and not being used currently, since private repositories require a paid plan.
+* `.travis.yml` is untested and not being used currently, since private repositories require a paid plan.
 
-`.codecov.yml` is similarly untested and unused, since Travis CI is not set up.  
+* `.codecov.yml` is similarly untested and unused, since Travis CI is not set up.  
 Note that this file also exposes a webhook URL into Slack, which ideally shouldn't be shared publicly.
 
 
