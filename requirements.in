@@ -1,6 +1,7 @@
 -r ./requirements-package.in
 
 flake8
+jupyter
 pip-tools
 pytest
 pytest-cov

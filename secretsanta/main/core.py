@@ -45,7 +45,7 @@ class SecretSanta:
         :param test:
         :return:
         """
-        message = 'Hi there!\n\n%s %s.\n\nOh Oh Oh,\n\nSanta\n\n' % (message, self.person) + \
+        message = 'Hi there!\n\n%s %s.\n\nHo Ho Ho,\n\nSanta\n\n' % (message, self.person) + \
                   'This is an automated message. Please do not reply!'
 
         if test:

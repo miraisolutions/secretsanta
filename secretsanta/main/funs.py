@@ -12,9 +12,10 @@ def make_santa_dict(dictionary, seed=None, verbose=False):
     """
     creates a randomized 'santa' dictionary from an initial dictionary of names with associated email addresses
 
-    :param dictionary:
-    :param i:
-    :return:
+    :param dictionary: mapping names to email addresses
+    :param seed: seed for numpy RNG
+    :param verbose: boolean to control print output
+    :return: shuffled (randomized) dictionary
     """
     # unpack dict_keys object into list literal (no control over order!)
     # https://stackoverflow.com/questions/16819222/how-to-return-dictionary-keys-as-a-list-in-python
@@ -66,12 +67,12 @@ def send_santa_dict(smtpserverwithport, sender, pwd, senddict, test=False):
     """
     loops over a 'santa' dictionary and sends respective emails
 
-    :param smtpserverwithport:
-    :param sender:
-    :param pwd:
-    :param senddict:
-    :param i:
-    :return:
+    :param smtpserverwithport: SMTP server including port (colon-separated)
+    :param sender: email address from which to send emails
+    :param pwd: password for sender's email account
+    :param senddict: mapping of names to email addresses
+    :param test: boolean to allow test-run
+    :return: send-status of last email
     """
     # create SMTP server object and connect
     server = smtplib.SMTP(smtpserverwithport)
@@ -79,8 +80,7 @@ def send_santa_dict(smtpserverwithport, sender, pwd, senddict, test=False):
     # start TLS, following SMTP commands will be encrypted
     server.starttls()
 
-    from_addr = sender
-    server.login(from_addr, pwd)
+    server.login(sender, pwd)
 
     subj = 'Secret Santa %d' % datetime.datetime.now().year
     check = 0
