@@ -6,6 +6,7 @@ Modules
 
 .. automodule:: secretsanta.main.core
    :members:
+   :special-members: __init__
 
 ``secretsanta.main.funs``
 -------------------------

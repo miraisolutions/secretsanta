@@ -18,6 +18,7 @@ class SecretSanta:
 
     # constructor
     def __init__(self, email, person):
+        # https://stackoverflow.com/questions/5599254/how-to-use-sphinxs-autodoc-to-document-a-classs-init-self-method
         """
         init method
 
@@ -38,12 +39,12 @@ class SecretSanta:
         """
         send method
 
-        :param subject:
-        :param from_address:
-        :param message:
-        :param mailserver:
-        :param test:
-        :return:
+        :param subject: subject for email
+        :param from_address: sender email address
+        :param message: customizable part of email body (message), which is prepended to ``self.person``
+        :param mailserver: SMTP server object (initialized via :func:`smtplib.SMTP`)
+        :param test: boolean to switch on extra subject and message text, indicating the email is sent for test purposes
+        :return: send-status of email
         """
         message = 'Hi there!\n\n%s %s.\n\nHo Ho Ho,\n\nSanta\n\n' % (message, self.person) + \
                   'This is an automated message. Please do not reply!'
