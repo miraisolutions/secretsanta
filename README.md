@@ -1,5 +1,5 @@
 # secretsanta
-Secret Santa Python version
+This repository implements a basic Python version of a *secret santa* utility. It is meant to serve as a tutorial for beginners interested in Python package development.
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)
 [![PyPI](https://img.shields.io/pypi/v/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)
