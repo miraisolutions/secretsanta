@@ -1,13 +1,17 @@
 import smtplib
+from typing import Optional, Dict, Tuple, Union
 import numpy as np
 import datetime
 from contextlib import suppress
 from secretsanta.main.core import SecretSanta
 
 # PyCharm: ctrl-p inside parentheses shows function args!
+sendmailDictOrInt = Union[Dict[str, Tuple[int, bytes]], int]
 
 
-def make_santa_dict(dictionary, seed=None, verbose=False):
+# Todo: figure out how to deal with missing library stub file for module 'numpy'
+# workaround: append --ignore-missing-imports to the mypy call (see https://github.com/python/mypy/issues/3905)
+def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verbose: bool = False) -> Dict[str, str]:
     # type triple-quotes and press enter to generate empty docstring stub
     """
     creates a randomized 'santa' dictionary from an initial dictionary of names with associated email addresses
@@ -63,7 +67,8 @@ def make_santa_dict(dictionary, seed=None, verbose=False):
     return senddict
 
 
-def send_santa_dict(smtpserverwithport, sender, pwd, senddict, test=False):
+def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
+                    senddict: Dict[str, str], test: bool = False) -> sendmailDictOrInt:
     """
     loops over a 'santa' dictionary and sends respective emails
 
@@ -83,7 +88,9 @@ def send_santa_dict(smtpserverwithport, sender, pwd, senddict, test=False):
     server.login(sender, pwd)
 
     subj = 'Secret Santa %d' % datetime.datetime.now().year
-    check = 0
+    # Note: Need to explicitly state type to avoid 'incompatible types in assignment' error,
+    # see https://stackoverflow.com/questions/43910979/mypy-error-incompatible-types-in-assignment
+    check = 0  # type: sendmailDictOrInt
 
     for name in senddict:
         obj = SecretSanta(senddict.get(name), name)
