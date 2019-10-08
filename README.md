@@ -23,7 +23,7 @@ Sorry but there is no shortcut in PyCharm to send code to the terminal...
 
 We'll use a virtual environment to keep things neat and tidy (and you don't want to be [Mr. Messy](https://mrmen.fandom.com/wiki/Mr._Messy), now do you).  
 A couple of useful references about virtual environments if you've never used them before:
-* <https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
+* <https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments> (SPc : clarify if pipenv is needed as in this doc)
 * <https://docs.python-guide.org/dev/virtualenvs/>
 
 Install support for virtual environments with Python 3.x if you don't have it yet:
@@ -37,7 +37,7 @@ File > Settings > Project > Project interpreter
 ```
 Click on the top-right *gear* icon and select `Add...`, then create a new `Virtualenv Environment`, using `<PROJECT_PATH>/venv` as location and Python 3.x as interpreter. Also un-tick all checkboxes.
 
-With these settings, anything you execute within the PyCharm project, either at the Terminal or in the Python Console, will run in the virtual environment. Close and re-open PyCharm to make sure the settings are picked.
+With these settings, anything you execute within the PyCharm project, either at the Terminal or in the Python Console, will run in the virtual environment. Close and re-open PyCharm to make sure the settings are picked up.
 
 Note that you can still temporarily leave the virtual environment from an active Terminal using command
 ```bash
@@ -136,7 +136,7 @@ Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *e
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
 
-Prerequisite: Installation. Open a terminal and run below command:
+Prerequisite: Installation. Open a terminal and run below command: (SPc: specify not in venv ?)
 ```{bash, eval=FALSE}
 sudo apt-get install python3-sphinx
 ```
@@ -173,6 +173,8 @@ cd docs
 make html
 ```
 You can view the documentation by opening `index.html` (`docs/build/html`) in your browser of choice.
+Previewing the .rst files does not work properly in PyCharm, apparently because 
+[it only supports a subset of Sphinx](https://stackoverflow.com/questions/53130720/sphinx-unknown-directive-type-toctree-error-in-pycharm-but-index-html-works).
 
 Alternative build without Makefile:
 ```bash
@@ -212,9 +214,11 @@ Note that this file also exposes a webhook URL into Slack, which ideally shouldn
 
 
 ##### autodoc notes
-For Sphinx/autodoc to work, the docstrings must of course be written in correct reStructuredText. You can then use all of the usual Sphinx markup in the docstrings, and it will end up correctly in the documentation. Together with hand-written documentation, this technique eases the pain of having to maintain two locations for documentation, while at the same time avoiding auto-generated-looking pure API documentation.
+For Sphinx/autodoc to work, the docstrings must of course be written in correct reStructuredText. You can then use all of the usual Sphinx markup in the docstrings, 
+wand it will end up correctly in the documentation. Together with hand-written documentation, this technique eases the pain of having to maintain two locations for
+documentation, while at the same time avoiding auto-generated-looking pure API documentation.
 
-For more on autodoc see <http://sphinx.pocoo.org/ext/autodoc.html>.
+For more on autodoc see <http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc>.
 
 The main autodoc features I use are:
 
@@ -224,8 +228,8 @@ The main autodoc features I use are:
 
 The key to using these features is the :members: attribute. If:
 
-    You don’t include it at all, only the docstring for the object is brought in:
-    You just use :members: with no arguments, then all public functions, classes, and methods are brought it that have docstring.
-    If you explictly list the members like :members: fn0, class0, _fn1 those explict members are brought.
+* You don’t include it at all, only the docstring for the object is brought in:
+* You just use :members: with no arguments, then all public functions, classes, and methods are brought it that have docstring.
+* You explictly list the members like :members: fn0, class0, _fn1 those explict members are brought.
 
 We’ll examine these points in the full example "Full Code Example" (<https://pythonhosted.org/an_example_pypi_project/sphinx.html>).
