@@ -16,8 +16,10 @@ We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment.
 In PyCharm, check out this repository into a new project, e.g. using menu `VCS > Checkout from Version Control`.
 
 Shell commands below should be entered in the **Terminal** pane of PyCharm.
-Sorry but there is no shortcut in PyCharm to send code to the terminal...  
-(I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)
+
+[//]: # "See https://stackoverflow.com/questions/4823468/comments-in-markdown" 
+[//]: # "Sorry but there is no shortcut in PyCharm to send code to the terminal..."  
+[//]: # "(I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)"
 
 #### Virtual environments
 
@@ -151,7 +153,7 @@ Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *e
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
 
-Prerequisite: Installation. Open a terminal (outside of PyCharm) and run below command:
+Prerequisite: Installation. Open a terminal (outside of a virtual environment) and run below command:
 ```{bash, eval=FALSE}
 sudo apt-get install python3-sphinx
 ```
@@ -229,13 +231,15 @@ Note that this file also exposes a webhook URL into Slack, which ideally shouldn
 
 
 ##### autodoc notes
-For Sphinx/autodoc to work, the docstrings must of course be written in correct reStructuredText. You can then use all of the usual Sphinx markup in the docstrings, 
-wand it will end up correctly in the documentation. Together with hand-written documentation, this technique eases the pain of having to maintain two locations for
+For Sphinx/autodoc to work, the docstrings must of course be written in correct 
+[reStructuredText](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html).
+You can then use all of the usual Sphinx markup in the docstrings, and it will end up correctly in the documentation. 
+Together with hand-written documentation, this technique eases the pain of having to maintain two locations for
 documentation, while at the same time avoiding auto-generated-looking pure API documentation.
 
 For more on autodoc see <http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc>.
 
-The main autodoc features I use are:
+The main autodoc features used in this documentation are:
 
     .. automodule:: <module_name>
     .. autoclass:: <class_name> and
@@ -244,7 +248,9 @@ The main autodoc features I use are:
 The key to using these features is the :members: attribute. If:
 
 * You don’t include it at all, only the docstring for the object is brought in;
-* You just use :members: with no arguments, then all public functions, classes, and methods that have a docstring are brought in;
+* You just use `:members:` with no arguments, then all public functions, classes, and methods that have a docstring are brought in;
 * You explicitly list the members like `:members: fn0, class0, _fn1`, those explicit members are brought in.
+
+[//]: # "TODO Is the below still required ?" 
 
 We’ll examine these points in the full example "Full Code Example" (<https://pythonhosted.org/an_example_pypi_project/sphinx.html>).
