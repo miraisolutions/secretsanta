@@ -19,11 +19,11 @@ Shell commands below should be entered in the **Terminal** pane of PyCharm.
 Sorry but there is no shortcut in PyCharm to send code to the terminal...  
 (I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)
 
-#### Virtual environment
+#### Virtual environments
 
 We'll use a virtual environment to keep things neat and tidy (and you don't want to be [Mr. Messy](https://mrmen.fandom.com/wiki/Mr._Messy), now do you).  
 A couple of useful references about virtual environments if you've never used them before:
-* <https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments> (SPc : clarify if pipenv is needed as in this doc)
+* <https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
 * <https://docs.python-guide.org/dev/virtualenvs/>
 
 Install support for virtual environments with Python 3.x if you don't have it yet:
@@ -35,9 +35,14 @@ Configure the PyCharm project with a Python 3 virtual environment under
 ```
 File > Settings > Project > Project interpreter
 ```
-Click on the top-right *gear* icon and select `Add...`, then create a new `Virtualenv Environment`, using `<PROJECT_PATH>/venv` as location and Python 3.x as interpreter. Also un-tick all checkboxes.
+Click on the top-right *gear* icon and select `Add...`, then create a new `Virtualenv Environment`, using `<PROJECT_PATH>/venv` 
+as location and Python 3.x as interpreter. Also un-tick all checkboxes.
 
-With these settings, anything you execute within the PyCharm project, either at the Terminal or in the Python Console, will run in the virtual environment. Close and re-open PyCharm to make sure the settings are picked up.
+_We do not use `pipenv` here. You may however use it to create a new environment 
+[in the same way](https://www.jetbrains.com/help/pycharm/pipenv.html#pipenv-existing-project)._
+
+With these settings, anything you execute within the PyCharm project, either at the Terminal or in the Python Console, 
+will run in the virtual environment. Close and re-open PyCharm to make sure the settings are picked up.
 
 Note that you can still temporarily leave the virtual environment from an active Terminal using command
 ```bash
@@ -47,10 +52,13 @@ and re-activate it using
 ```bash
 source ./venv/bin/activate
 ```
+You can also switch to a different project interpreter in PyCharm (Ctrl + Shift + A, search for _Switch Project Interpreter_).
+Open terminals and Python consoles then need to be restarted for the environment to match the project interpreter.
 
 #### Project requirements
 
-The project includes files `requirements.in` and `requirements-package.in`, defining module / package dependencies. Such files are compiled into an actual `requirements.txt` file, which is not committed to Git and should be re-created for the local checkout.
+The project includes files `requirements.in` and `requirements-package.in`, defining module / package dependencies. 
+Such files are compiled into an actual `requirements.txt` file, which is not committed to Git and should be re-created for the local checkout.
 
 NOTE: make sure all commands are executed inside the virtual environment, e.g. at such a prompt:
 ```
@@ -106,6 +114,9 @@ Install dependencies defined in `requirements.txt`:
 pip-sync
 ```
 
+_If you change the virtual environment you work with, you should run `pip-compile -U` and rerun `pip-sync` to make 
+sure that compatible versions of your dependencies are used in the new environment._ 
+
 Now you're ready to go. Would there be any update to the requirements `.in` files, make sure you re-execute `pip-compile` and `pip-sync`.
 
 ### Testing
@@ -121,22 +132,26 @@ Run tests for multiple Python versions, using `tox` (<https://tox.readthedocs.io
 ```{bash, eval=FALSE}
 tox
 ```
-See `tox.ini` for `tox`, `pytest` (which is used as a test runner) and `flake8` configuration.
+See `tox.ini` (where the Python versions to test with are defined) for `tox`, `pytest` (which is used as a test runner) 
+and `flake8` configuration.
 
 Coverage is measured and reported using the `pytest-cov` package.
-Related configuration resides in `tox.ini` and `.coveragerc`.
+The related configuration resides in `tox.ini` and `.coveragerc`.
+
+_The tests will only be run for any Python version that is available in the environment where you run them. 
+(See `skip_missing_interpreters` configuration key)_
 
 In PyCharm, you can associate files to a certain type under:
 ```
 File > Settings > Editor > File Types
 ```
-E.g. use this to get `.coveragerc` marked up as `INI` (.ini support is available through a plugin).
+E.g. use this to get `.coveragerc` marked up as `INI` (you can do this after installing the .ini support PyCharm plugin).
 Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *existing* 'Buildout Config' file type [](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206585245/comments/205965729).
 
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
 
-Prerequisite: Installation. Open a terminal and run below command: (SPc: specify not in venv ?)
+Prerequisite: Installation. Open a terminal (outside of PyCharm) and run below command:
 ```{bash, eval=FALSE}
 sudo apt-get install python3-sphinx
 ```
@@ -228,8 +243,8 @@ The main autodoc features I use are:
 
 The key to using these features is the :members: attribute. If:
 
-* You don’t include it at all, only the docstring for the object is brought in:
-* You just use :members: with no arguments, then all public functions, classes, and methods are brought it that have docstring.
-* You explictly list the members like :members: fn0, class0, _fn1 those explict members are brought.
+* You don’t include it at all, only the docstring for the object is brought in;
+* You just use :members: with no arguments, then all public functions, classes, and methods that have a docstring are brought in;
+* You explicitly list the members like `:members: fn0, class0, _fn1`, those explicit members are brought in.
 
 We’ll examine these points in the full example "Full Code Example" (<https://pythonhosted.org/an_example_pypi_project/sphinx.html>).
