@@ -46,7 +46,7 @@ _We do not use `pipenv` here. You may however use it to create a new environment
 With these settings, anything you execute within the PyCharm project, either at the Terminal or in the Python Console, 
 will run in the virtual environment. Close and re-open PyCharm to make sure the settings are picked up.
 
-Note that you can still temporarily leave the virtual environment from an active Terminal using command
+Note that you can still temporarily leave the virtual environment from an active Terminal using
 ```bash
 deactivate
 ```
@@ -148,7 +148,7 @@ In PyCharm, you can associate files to a certain type under:
 File > Settings > Editor > File Types
 ```
 E.g. use this to get `.coveragerc` marked up as `INI` (you can do this after installing the .ini support PyCharm plugin).
-Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *existing* 'Buildout Config' file type [](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206585245/comments/205965729).
+Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *existing* 'Buildout Config' [file type](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206585245/comments/205965729).
 
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
@@ -224,6 +224,8 @@ A few additional links to some typical early `Jupyter` topics:
 ### Miscellaneous
 * `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 
+[//]: # "TODO remove the following 2 bullets just before making public ?"
+
 * `.travis.yml` is untested and not being used currently, since private repositories require a paid plan.
 
 * `.codecov.yml` is similarly untested and unused, since Travis CI is not set up.  
@@ -249,7 +251,7 @@ The key to using these features is the :members: attribute. If:
 
 * You don’t include it at all, only the docstring for the object is brought in;
 * You just use `:members:` with no arguments, then all public functions, classes, and methods that have a docstring are brought in;
-* You explicitly list the members like `:members: fn0, class0, _fn1`, those explicit members are brought in.
+* You explicitly list the members as in `:members: fn0, class0, _fn1`, those explicit members are brought in.
 
 [//]: # "TODO Is the below still required ?" 
 
