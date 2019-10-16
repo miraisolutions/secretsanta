@@ -163,7 +163,18 @@ Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *e
 [file type](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206585245/comments/205965729).
 
 #### Type hints
-[//]: # "TODO"
+Type hints define what type function arguments and return values should be. They are both a source of documentation
+and testing framework to identify bugs more easily, see also [PEP 484](https://www.python.org/dev/peps/pep-0484/).
+
+In order to use them, install [mypy](http://www.mypy-lang.org/) (outside of a virtual environment):
+```{bash, eval=FALSE}
+sudo apt install mypy
+```
+Then run e.g.:
+```{bash, eval=FALSE}
+mypy ./secretsanta/main/core.py
+```
+to test if the type hints of a given `.py` file are correct (in which case there is no output).
 
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
