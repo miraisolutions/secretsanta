@@ -18,7 +18,7 @@ class SecretSanta:
     def helper(self: "SecretSanta") -> str:
         return self._helper
 
-    # "SectretSanta" string type hint follows Python > 3.7 convention, see
+    # "SecretSanta" string type hint follows Python 3.6 convention, see
     # https://stackoverflow.com/questions/33533148/how-do-i-specify-that-the-return-type-of-a-method-is-the-same-as-the-class-itsel
     # for more modern ways to use a class within its own definition as a type hint
 

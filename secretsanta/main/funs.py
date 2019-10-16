@@ -55,7 +55,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
             picked = np.random.choice(pick, 1)[0]
         if verbose:
             print(picked)
-        senddict[name] = dictionary.get(picked)
+        senddict[name] = dictionary[picked]
         names.remove(picked)
 
     # if swap is necessary ...
@@ -90,10 +90,10 @@ def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
     subj = 'Secret Santa %d' % datetime.datetime.now().year
     # Note: Need to explicitly state type to avoid 'incompatible types in assignment' error,
     # see https://stackoverflow.com/questions/43910979/mypy-error-incompatible-types-in-assignment
-    check = 0  # type: sendmailDictOrInt
+    check: sendmailDictOrInt = 0
 
     for name in senddict:
-        obj = SecretSanta(senddict.get(name), name)
+        obj = SecretSanta(senddict[name], name)
         check = obj.send(subj, sender, 'Lucky you! You got the lovely', server, test)
 
     server.quit()
