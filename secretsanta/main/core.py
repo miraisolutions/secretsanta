@@ -10,7 +10,7 @@ class SecretSanta:
     # https://thomas-cokelaer.info/tutorials/sphinx/docstring_python.html
 
     # leading underscore indicates this attribute is protected (convention only!)
-    _helper = 'roland'
+    _helper = 'rudolph'
 
     # getter-only decorator @property, exposing the helper attribute.
     # It is afterwards accessed like any attribute, i.e. without ().
@@ -36,7 +36,7 @@ class SecretSanta:
 
         >>> obj = SecretSanta('me@gmail.com', 'you')
         >>> obj.helper
-        'roland'
+        'rudolph'
         """
         self.email = email
         self.person = person
