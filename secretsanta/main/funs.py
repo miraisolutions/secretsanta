@@ -37,6 +37,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
         # print(dictionary.get(name))
         if verbose:
             print(name)
+        # PyCharm: Alt+Enter (on variable definition) -> Add type hint - automatically generates type given assignment
         pick = names.copy()
         if len(pick) == 2:
             swapname1 = name
