@@ -1,7 +1,9 @@
 ###### Note: add intro and table of contents; review formatting consistency and spelling
 
 # secretsanta
-This repository implements a basic Python version of a *secret santa* utility. It is meant to serve as a tutorial for beginners interested in Python package development.
+This repository implements a basic Python version of a *secret santa* utility.
+It is meant to serve as a tutorial for beginners interested in Python package development.
+Each section below mentions typical tools and utilities in a natural order of developing Python packages.
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)
 [![PyPI](https://img.shields.io/pypi/v/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)
@@ -11,12 +13,27 @@ This repository implements a basic Python version of a *secret santa* utility. I
 [![Build Status](https://travis-ci.org/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.org/miraisolutions/secretsanta)
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
+[//]: # "Update notes: All links reviewed and format aligned"
+[//]: # "TODO: Review before making public if still aligned"
+### Table of Contents
+1. [Development](#Development)
+    1.1 [Virtual environments](#Virtual environments)
+    1.2 [Project requirements](#Project requirements)
+2. [Testing](#Testing)
+    2.1 [PyCharm file types](#PyCharm file types)
+3. [Documentation](#Documentation)
+4. [Usage / Jupyter notebook](#Usage)
+5. [Miscellaneous](#Miscellaneous)
+
 ### Development
 
-###### Note: I guess we planning to support other OS? Then this should be added to list of tasks
+[//]: # "TODO: Consider testing other distributions or perhaps even OS"
 We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment.
 
-In PyCharm, check out this repository into a new project, e.g. using menu `VCS > Checkout from Version Control`.
+In PyCharm, check out this repository into a new project, e.g. under
+```
+VCS > Checkout from Version Control
+```
 
 Shell commands below should be entered in the **Terminal** pane of PyCharm.
 
@@ -26,12 +43,10 @@ Shell commands below should be entered in the **Terminal** pane of PyCharm.
 [//]: # "(I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)"
 
 #### Virtual environments
-
-###### Note: Probably should not keep Mr. Messy part, does not even seem related to progamming directly; verified other links are not outdated
-We'll use a virtual environment to keep things neat and tidy (and you don't want to be [Mr. Messy](https://mrmen.fandom.com/wiki/Mr._Messy), now do you).  
+We'll use a virtual environment to keep things neat and tidy.  
 A couple of useful references about virtual environments if you've never used them before:
-* <https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments>
-* <https://docs.python-guide.org/dev/virtualenvs/>
+* [Virtual environments](https://docs.python-guide.org/dev/virtualenvs/)
+* [Creating virtual environments](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments)
 
 Install support for virtual environments with Python 3.x if you don't have it yet:
 ```bash
@@ -45,8 +60,8 @@ File > Settings > Project > Project interpreter
 Click on the top-right *gear* icon and select `Add...`, then create a new `Virtualenv Environment`, using `<PROJECT_PATH>/venv` 
 as location and Python 3.x as interpreter. Also un-tick all checkboxes.
 
-_We do not use `pipenv` here. You may however use it to create a new environment 
-[in the same way](https://www.jetbrains.com/help/pycharm/pipenv.html#pipenv-existing-project)._
+*We do not use `pipenv` here. You may however use it to create a new environment 
+[in the same way](https://www.jetbrains.com/help/pycharm/pipenv.html#pipenv-existing-project).*
 
 With these settings, anything you execute within the PyCharm project, either at the Terminal or in the Python Console, 
 will run in the virtual environment. Close and re-open PyCharm to make sure the settings are picked up.
@@ -59,18 +74,18 @@ and re-activate it using
 ```bash
 source ./venv/bin/activate
 ```
-You can also switch to a different project interpreter in PyCharm (Ctrl + Shift + A, search for _Switch Project Interpreter_).
+You can also switch to a different project interpreter in PyCharm (Ctrl + Shift + A, search for `Switch Project Interpreter`).
 Open terminals and Python consoles then need to be restarted for the environment to match the project interpreter.
 
 #### Project requirements
 
 The project includes files `requirements.in` and `requirements-package.in`, defining module / package dependencies. 
-Such files are compiled into an actual `requirements.txt` file, which is not committed to Git and should be re-created for the local checkout.
+Such files are compiled into an actual `requirements.txt` file,
+which is not committed to Git and should be re-created for the local checkout.
 
 NOTE: make sure all commands are executed inside the virtual environment, e.g. at such a prompt:
-###### Note: generalize. also, I don't see the #> part
 ```
-#> (venv) mirai@MiraiUbuntu:~/PycharmProjects/secretsanta$
+#> (venv) localuser@Ubuntu:~/PyCharm/secretsanta$
 ```
 
 Check version of Python:
@@ -78,7 +93,7 @@ Check version of Python:
 python --version
 ```
 
-###### Note: pip sometimes seems to be buggy. is it worth mentioning?
+[//]: # "Note: some pip versions (like the latest as of some weeks ago) are buggy. is it worth mentioning?"
 Upgrade `pip`
 ```bash
 pip install --upgrade pip
@@ -87,21 +102,18 @@ pip install --upgrade pip
 Check version of pip:
 ```bash
 pip --version
-#> pip 18.1 from /home/mirai/PycharmProjects/secretsanta/venv/lib/python3.5/site-packages/pip (python 3.5)
+#> pip 19.1.1 from /home/localuser/PyCharm/secretsanta/venv/lib/python3.5/site-packages/pip (python 3.6)
 ```
 
 ###### Note: would put link here instead of below
-Install `pip-tools`:
+Install [pip-tools](<https://github.com/jazzband/pip-tools>):
 ```bash
 pip install pip-tools
 ```
-(<https://github.com/jazzband/pip-tools>)
 
 List installed modules:
 ```{bash, eval=FALSE}
 pip list
-```
-```
 #> Package       Version
 #> ------------- -------
 #> Click         7.0    
@@ -124,46 +136,44 @@ Install dependencies defined in `requirements.txt`:
 pip-sync
 ```
 
-_If you change the virtual environment you work with, you should run `pip-compile -U` and rerun `pip-sync` to make 
-sure that compatible versions of your dependencies are used in the new environment._ 
+Now you're ready to go. Would there be any update to the requirements `.in` files,
+make sure you re-execute `pip-compile` and `pip-sync`. 
 
-Now you're ready to go. Would there be any update to the requirements `.in` files, make sure you re-execute `pip-compile` and `pip-sync`.
+*If you change the virtual environment you work with, you should instead run `pip-compile -U` (then
+rerun `pip-sync`) to make sure that compatible versions of your dependencies are used in the new environment.*
 
 ### Testing
-###### Note: `./tests` or `tests` seems more intuitive to me
-Tests are kept under `tests/` and make use of the `unittest` framework.
+Tests are kept under `tests` and make use of the `unittest` framework.
 
-Run code style checks with flake8:
+Run code style checks with [flake8](http://flake8.pycqa.org/en/latest/):
 ```{bash, eval=FALSE}
 flake8
 ```
 If all is fine, you will not see any output.
 
-###### Note: keep link like this? then this should be aligned in other places
-Run tests for multiple Python versions, using `tox` (<https://tox.readthedocs.io/en/latest/>):
+Run tests for multiple Python versions, using [tox](<https://tox.readthedocs.io/en/latest/>):
 ```{bash, eval=FALSE}
 tox
 ```
-###### Note: requires more clarity where these things are / links probably
-See `tox.ini` (where the Python versions to test with are defined) for `tox`, `pytest` (which is used as a test runner) 
-and `flake8` configuration.
+Note the `tox.ini` file which contains following configurations:
+* `flake8` (checks code style and reports potential issues)
+* `pytest` (which is used as a test runner)
+* `pytest-cov` (measures and reports test coverage, see also `.coveragerc`)
+* `tox` (where the Python versions to test with are defined)
 
-Coverage is measured and reported using the `pytest-cov` package.
-The related configuration resides in `tox.ini` and `.coveragerc`.
+*The tests will only be run for any Python version that is available in the environment where you run them
+(see `skip_missing_interpreters` configuration key).*
 
-_The tests will only be run for any Python version that is available in the environment where you run them. 
-(See `skip_missing_interpreters` configuration key)_
-
-###### Note: how does this relate to testing?
+#### PyCharm file types
 In PyCharm, you can associate files to a certain type under:
 ```
 File > Settings > Editor > File Types
 ```
 E.g. use this to get `.coveragerc` marked up as `INI` (you can do this after installing the .ini support PyCharm plugin).
-Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *existing* 'Buildout Config' [file type](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206585245/comments/205965729).
+Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *existing* **Buildout Config**
+[file type](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206585245/comments/205965729).
 
 ### Documentation
-###### Note: my prefferred way to link stuff, should be aligned
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
 
 Prerequisite: Installation. Open a terminal (outside of a virtual environment) and run below command:
@@ -181,8 +191,6 @@ sphinx-quickstart
 ```
 This will lead through an interactive generation process.
 
-###### Note: seems much more complex compared to other things, did not re-check but should be fine
-###### Note: also, the actual documentation must be updated
 Suggested values / options are listed here.
 Hitting enter without typing anything will take the suggested default shown inside square brackets [ ].
 * Root path for the documentation: docs
@@ -191,37 +199,69 @@ Hitting enter without typing anything will take the suggested default shown insi
 * Sphinx extensions: autodoc, doctest, intersphinx, coverage, mathjax, viewcode
 * Create Makefile: y
 
-###### Note: and what does autodoc do?
-In order to use `autodoc`, one needs to uncomment the corresponding line in `docs/source/conf.py`:
+In order to use [autodoc](http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc),
+one needs to uncomment the corresponding line in `docs/source/conf.py`:
 
 ```sys.path.insert(0, os.path.abspath(...```
 
 And set the appropriate path to the directory containing the modules to be documented.
 
+<details><summary>Autodoc details</summary>
+
+[//]: # "TODO: Review autodoc details"
+
+##### autodoc notes
+For Sphinx/autodoc to work,
+the docstrings must be written in correct 
+[reStructuredText](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html).
+You can then use all of the usual Sphinx markup in the docstrings, and it will end up correctly in the documentation. 
+Together with hand-written documentation, this technique eases the pain of having to maintain two locations for
+documentation, while at the same time avoiding auto-generated-looking pure API documentation.
+
+###### Note: adjust link, link verified
+For more on autodoc see <>.
+The main autodoc features used in this documentation are:
+
+    .. automodule:: <module_name>
+    .. autoclass:: <class_name> and
+    .. autofunction:: <function_name>
+
+###### Note: this part should be re-thought
+The key to using these features is the :members: attribute. If:
+
+* You don’t include it at all, only the docstring for the object is brought in;
+* You just use `:members:` with no arguments, then all public functions, classes, and methods that have a docstring are brought in;
+* You explicitly list the members as in `:members: fn0, class0, _fn1`, those explicit members are brought in.
+
+[//]: # "TODO Is the below still required ?" 
+
+We’ll examine these points in the full example "Full Code Example" (<https://pythonhosted.org/an_example_pypi_project/sphinx.html>).
+
+</details>
+
 ##### Building docs
 You should be inside the documentation root directory.  
 Using the Makefile:
-###### Note: get a warning about html_static_path entry '...' not existing
+
+[//]: # "TODO there is a warning about html_static_path entry '...' not existing" 
 ```bash
 cd docs
 make html
 ```
-###### Note: add 'by right-click + open in browser -> your browser
-You can view the documentation by opening `index.html` (`docs/build/html`) in your browser of choice.
+You can view the documentation by right-click opening `index.html` (`docs/build/html`) in your browser of choice.
 Previewing the .rst files does not work properly in PyCharm, apparently because 
 [it only supports a subset of Sphinx](https://stackoverflow.com/questions/53130720/sphinx-unknown-directive-type-toctree-error-in-pycharm-but-index-html-works).
 
-###### Note: result is totally different, seems not like a viable option
+[//]: # "TODO mention about different results + why that is the case"
 Alternative build without Makefile:
 ```bash
 sphinx-build -b html <sourcedir> <builddir>
 ```
-###### Note: consider warning about latex etc. issues
 PDF output:
 ```bash
 make latexpdf
 ```
-
+[//]: # "TODO continue"
 ### Usage
 The `Jupyter` notebook `SecretSanta.ipynb` illustrates the usage of the `secretsanta` package.
 
@@ -251,33 +291,5 @@ A few additional links to some typical early `Jupyter` topics:
 ###### Note: don't forget to update once public and travisCI is added
 * `.codecov.yml` is similarly untested and unused, since Travis CI is not set up.  
 Note that this file also exposes a webhook URL into Slack, which ideally shouldn't be shared publicly.
-
-
-##### autodoc notes
-For Sphinx/autodoc to work, the docstrings must be written in correct 
-[reStructuredText](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html).
-You can then use all of the usual Sphinx markup in the docstrings, and it will end up correctly in the documentation. 
-Together with hand-written documentation, this technique eases the pain of having to maintain two locations for
-documentation, while at the same time avoiding auto-generated-looking pure API documentation.
-
-###### Note: adjust link, link verified
-For more on autodoc see <http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc>.
-
-The main autodoc features used in this documentation are:
-
-    .. automodule:: <module_name>
-    .. autoclass:: <class_name> and
-    .. autofunction:: <function_name>
-
-###### Note: this part should be re-thought
-The key to using these features is the :members: attribute. If:
-
-* You don’t include it at all, only the docstring for the object is brought in;
-* You just use `:members:` with no arguments, then all public functions, classes, and methods that have a docstring are brought in;
-* You explicitly list the members as in `:members: fn0, class0, _fn1`, those explicit members are brought in.
-
-[//]: # "TODO Is the below still required ?" 
-
-We’ll examine these points in the full example "Full Code Example" (<https://pythonhosted.org/an_example_pypi_project/sphinx.html>).
 
 ###### Note: new features to be added: type hints, cli
