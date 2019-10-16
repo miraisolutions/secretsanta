@@ -12,15 +12,15 @@ Each section below mentions typical tools and utilities in a natural order of de
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
 ### Table of Contents
-1. [Development](#Development)  
-    a. [Virtual environments](#Virtual%20environments)  
-    b. [Project requirements](#Project%20requirements)  
-2. [Testing](#Testing)  
-    a. [PyCharm file types](#PyCharm%20file%20types)  
-    b. [Type hints](#Type%20hints)  
-3. [Documentation](#Documentation)  
-4. [Usage / Jupyter notebook](#Usage)  
-5. [Miscellaneous](#Miscellaneous)  
+1. [Development](#development)  
+    a. [Virtual environments](#virtual-environments)  
+    b. [Project requirements](#project-requirements)  
+2. [Testing](#testing)  
+    a. [PyCharm file types](#pycharm-file-types)  
+    b. [Type hints](#type-hints)  
+3. [Documentation](#documentation)  
+4. [Usage / Jupyter notebook](#usage)  
+5. [Miscellaneous](#miscellaneous)  
 
 ### Development
 
