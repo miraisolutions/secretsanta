@@ -1,3 +1,5 @@
+from smtplib import SMTP  # Note: Required for the type hint to work
+from typing import Dict, Tuple
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -13,11 +15,15 @@ class SecretSanta:
     # getter-only decorator @property, exposing the helper attribute.
     # It is afterwards accessed like any attribute, i.e. without ().
     @property
-    def helper(self):
+    def helper(self: "SecretSanta") -> str:
         return self._helper
 
+    # "SecretSanta" string type hint follows Python 3.6 convention, see
+    # https://stackoverflow.com/questions/33533148/how-do-i-specify-that-the-return-type-of-a-method-is-the-same-as-the-class-itsel
+    # for more modern ways to use a class within its own definition as a type hint
+
     # constructor
-    def __init__(self, email, person):
+    def __init__(self: "SecretSanta", email: str, person: str) -> None:
         # https://stackoverflow.com/questions/5599254/how-to-use-sphinxs-autodoc-to-document-a-classs-init-self-method
         """
         init method
@@ -35,7 +41,9 @@ class SecretSanta:
         self.email = email
         self.person = person
 
-    def send(self, subject, from_address, message, mailserver, test=False):
+    # Note: Instead of returning a dictionary, it may also raise an error (see SMTP.sendmail documentation)
+    def send(self: "SecretSanta", subject: str, from_address: str,
+             message: str, mailserver: SMTP, test: bool = False) -> Dict[str, Tuple[int, bytes]]:
         """
         send method
 
