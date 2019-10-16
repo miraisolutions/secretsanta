@@ -9,7 +9,7 @@ from secretsanta.main.core import SecretSanta
 sendmailDictOrInt = Union[Dict[str, Tuple[int, bytes]], int]
 
 
-# Todo: figure out how to deal with missing library stub file for module 'numpy'
+# mypy is missing a library stub file for module 'numpy' and will complain about it
 # workaround: append --ignore-missing-imports to the mypy call (see https://github.com/python/mypy/issues/3905)
 def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verbose: bool = False) -> Dict[str, str]:
     # type triple-quotes and press enter to generate empty docstring stub
