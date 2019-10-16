@@ -13,11 +13,11 @@ Each section below mentions typical tools and utilities in a natural order of de
 
 ### Table of Contents
 1. [Development](#Development)  
-    a. [Virtual environments](#Virtual)  
-    b. [Project requirements](#Project)  
+    a. [Virtual environments](#Virtual%20environments)  
+    b. [Project requirements](#Project%20requirements)  
 2. [Testing](#Testing)  
-    a. [PyCharm file types](#PyCharm)  
-    b. [Type hints](#Type)  
+    a. [PyCharm file types](#PyCharm%20file%20types)  
+    b. [Type hints](#Type%20hints)  
 3. [Documentation](#Documentation)  
 4. [Usage / Jupyter notebook](#Usage)  
 5. [Miscellaneous](#Miscellaneous)  
