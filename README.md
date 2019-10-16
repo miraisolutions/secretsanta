@@ -13,11 +13,11 @@ Each section below mentions typical tools and utilities in a natural order of de
 
 ### Table of Contents
 1. [Development](#Development)  
-    a. [Virtual environments](#Virtual environments)  
-    b. [Project requirements](#Project requirements)  
+    a. [Virtual environments](#Virtual)  
+    b. [Project requirements](#Project)  
 2. [Testing](#Testing)  
-    a. [PyCharm file types](#PyCharm file types)  
-    b. [Type hints](#Type hints)  
+    a. [PyCharm file types](#PyCharm)  
+    b. [Type hints](#Type)  
 3. [Documentation](#Documentation)  
 4. [Usage / Jupyter notebook](#Usage)  
 5. [Miscellaneous](#Miscellaneous)  
@@ -79,7 +79,7 @@ The project includes files `requirements.in` and `requirements-package.in`, defi
 Such files are compiled into an actual `requirements.txt` file,
 which is not committed to Git and should be re-created for the local checkout.
 
-IMPORTANT: make sure all commands are executed inside the virtual environment, e.g. at such a prompt:
+**Important:** make sure all commands are executed inside the virtual environment, e.g. at such a prompt:
 ```
 #> (venv) localuser@Ubuntu:~/PyCharm/secretsanta$
 ```
