@@ -1,5 +1,3 @@
-###### Note: add intro and table of contents; review formatting consistency and spelling
-
 # secretsanta
 This repository implements a basic Python version of a *secret santa* utility.
 It is meant to serve as a tutorial for beginners interested in Python package development.
@@ -13,17 +11,16 @@ Each section below mentions typical tools and utilities in a natural order of de
 [![Build Status](https://travis-ci.org/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.org/miraisolutions/secretsanta)
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
-[//]: # "Update notes: All links reviewed and format aligned"
-[//]: # "TODO: Review before making public if still aligned"
 ### Table of Contents
-1. [Development](#Development)
-    1.1 [Virtual environments](#Virtual environments)
-    1.2 [Project requirements](#Project requirements)
-2. [Testing](#Testing)
-    2.1 [PyCharm file types](#PyCharm file types)
-3. [Documentation](#Documentation)
-4. [Usage / Jupyter notebook](#Usage)
-5. [Miscellaneous](#Miscellaneous)
+1. [Development](#Development)  
+    a. [Virtual environments](#Virtual environments)  
+    b. [Project requirements](#Project requirements)  
+2. [Testing](#Testing)  
+    a. [PyCharm file types](#PyCharm file types)  
+    b. [Type hints](#Type hints)  
+3. [Documentation](#Documentation)  
+4. [Usage / Jupyter notebook](#Usage)  
+5. [Miscellaneous](#Miscellaneous)  
 
 ### Development
 
@@ -37,7 +34,6 @@ VCS > Checkout from Version Control
 
 Shell commands below should be entered in the **Terminal** pane of PyCharm.
 
-###### Note: Worth double checking again and adding something like PyCharm, version blabla
 [//]: # "See https://stackoverflow.com/questions/4823468/comments-in-markdown" 
 [//]: # "Sorry but there is no shortcut in PyCharm to send code to the terminal..."  
 [//]: # "(I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)"
@@ -83,29 +79,23 @@ The project includes files `requirements.in` and `requirements-package.in`, defi
 Such files are compiled into an actual `requirements.txt` file,
 which is not committed to Git and should be re-created for the local checkout.
 
-NOTE: make sure all commands are executed inside the virtual environment, e.g. at such a prompt:
+IMPORTANT: make sure all commands are executed inside the virtual environment, e.g. at such a prompt:
 ```
 #> (venv) localuser@Ubuntu:~/PyCharm/secretsanta$
 ```
 
-Check version of Python:
+Check version of Python, upgrade [pip](https://pypi.org/project/pip/) and check its version:
 ```bash
 python --version
-```
+#> Python 3.6.7
 
-[//]: # "Note: some pip versions (like the latest as of some weeks ago) are buggy. is it worth mentioning?"
-Upgrade `pip`
-```bash
 pip install --upgrade pip
-```
+#> ...
 
-Check version of pip:
-```bash
 pip --version
 #> pip 19.1.1 from /home/localuser/PyCharm/secretsanta/venv/lib/python3.5/site-packages/pip (python 3.6)
 ```
 
-###### Note: would put link here instead of below
 Install [pip-tools](<https://github.com/jazzband/pip-tools>):
 ```bash
 pip install pip-tools
@@ -128,16 +118,15 @@ Re-generate `requirements.txt` from `requirements.in`:
 ```{bash, eval=FALSE}
 pip-compile
 ```
-You can right-click on the `secretsanta` project folder in the `Project` explorer and click
-**Synchronize 'secretsanta'** to refresh and see the generated file `requirements.txt`.
-
 Install dependencies defined in `requirements.txt`:
 ```{bash, eval=FALSE}
 pip-sync
 ```
+*Alternatively, you can right-click on the `secretsanta` project folder in the `Project` explorer and click
+**Synchronize 'secretsanta'** to refresh and see the generated file `requirements.txt`.*
 
-Now you're ready to go. Would there be any update to the requirements `.in` files,
-make sure you re-execute `pip-compile` and `pip-sync`. 
+Now you're ready to go. Would there be any update to the `requirements.in` files,
+make sure you re-execute `pip-compile` and `pip-sync`.
 
 *If you change the virtual environment you work with, you should instead run `pip-compile -U` (then
 rerun `pip-sync`) to make sure that compatible versions of your dependencies are used in the new environment.*
@@ -155,10 +144,10 @@ Run tests for multiple Python versions, using [tox](<https://tox.readthedocs.io/
 ```{bash, eval=FALSE}
 tox
 ```
-Note the `tox.ini` file which contains following configurations:
+The `tox.ini` file contains the following configurations:
 * `flake8` (checks code style and reports potential issues)
 * `pytest` (which is used as a test runner)
-* `pytest-cov` (measures and reports test coverage, see also `.coveragerc`)
+* `pytest-cov` (measures and reports test coverage, see also `.coveragerc` file)
 * `tox` (where the Python versions to test with are defined)
 
 *The tests will only be run for any Python version that is available in the environment where you run them
@@ -172,6 +161,9 @@ File > Settings > Editor > File Types
 E.g. use this to get `.coveragerc` marked up as `INI` (you can do this after installing the .ini support PyCharm plugin).
 Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *existing* **Buildout Config**
 [file type](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206585245/comments/205965729).
+
+#### Type hints
+[//]: # "TODO"
 
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
@@ -199,51 +191,21 @@ Hitting enter without typing anything will take the suggested default shown insi
 * Sphinx extensions: autodoc, doctest, intersphinx, coverage, mathjax, viewcode
 * Create Makefile: y
 
-In order to use [autodoc](http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc),
-one needs to uncomment the corresponding line in `docs/source/conf.py`:
+In order to use `autodoc`, one needs to uncomment the corresponding line in `docs/source/conf.py`:
 
 ```sys.path.insert(0, os.path.abspath(...```
 
 And set the appropriate path to the directory containing the modules to be documented.
-
-<details><summary>Autodoc details</summary>
-
-[//]: # "TODO: Review autodoc details"
-
-##### autodoc notes
-For Sphinx/autodoc to work,
-the docstrings must be written in correct 
-[reStructuredText](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html).
-You can then use all of the usual Sphinx markup in the docstrings, and it will end up correctly in the documentation. 
-Together with hand-written documentation, this technique eases the pain of having to maintain two locations for
-documentation, while at the same time avoiding auto-generated-looking pure API documentation.
-
-###### Note: adjust link, link verified
-For more on autodoc see <>.
-The main autodoc features used in this documentation are:
-
-    .. automodule:: <module_name>
-    .. autoclass:: <class_name> and
-    .. autofunction:: <function_name>
-
-###### Note: this part should be re-thought
-The key to using these features is the :members: attribute. If:
-
-* You don’t include it at all, only the docstring for the object is brought in;
-* You just use `:members:` with no arguments, then all public functions, classes, and methods that have a docstring are brought in;
-* You explicitly list the members as in `:members: fn0, class0, _fn1`, those explicit members are brought in.
-
-[//]: # "TODO Is the below still required ?" 
-
-We’ll examine these points in the full example "Full Code Example" (<https://pythonhosted.org/an_example_pypi_project/sphinx.html>).
-
-</details>
+ 
+*For Sphinx/autodoc to work, the docstrings must be written in correct 
+[reStructuredText](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html),
+see [documentation](https://pythonhosted.org/an_example_pypi_project/sphinx.html#auto-directives) for details.*
 
 ##### Building docs
 You should be inside the documentation root directory.  
 Using the Makefile:
 
-[//]: # "TODO there is a warning about html_static_path entry '...' not existing" 
+[//]: # "TODO this produces a warning about html_static_path entry '...' not existing" 
 ```bash
 cd docs
 make html
@@ -252,7 +214,6 @@ You can view the documentation by right-click opening `index.html` (`docs/build/
 Previewing the .rst files does not work properly in PyCharm, apparently because 
 [it only supports a subset of Sphinx](https://stackoverflow.com/questions/53130720/sphinx-unknown-directive-type-toctree-error-in-pycharm-but-index-html-works).
 
-[//]: # "TODO mention about different results + why that is the case"
 Alternative build without Makefile:
 ```bash
 sphinx-build -b html <sourcedir> <builddir>
@@ -261,12 +222,11 @@ PDF output:
 ```bash
 make latexpdf
 ```
-[//]: # "TODO continue"
+
 ### Usage
-The `Jupyter` notebook `SecretSanta.ipynb` illustrates the usage of the `secretsanta` package.
+The [Jupyter](https://jupyter.org/) notebook `SecretSanta.ipynb` illustrates the usage of the `secretsanta` package.
 
 It can be run either directly in PyCharm or maybe more typically in your browser:
-###### Note: should not contain the mirai names once public; did not test notebook
 ```bash
 jupyter notebook SecretSanta.ipynb
 ```
@@ -276,6 +236,7 @@ Below gives you some useful information about the location of `Jupyter` related 
 jupyter --path
 ```
 
+[//]: # "TODO what is this? remove?"
 <!-- `etc/jupyter/custom/custom.js` -->
 
 A few additional links to some typical early `Jupyter` topics:
@@ -285,11 +246,9 @@ A few additional links to some typical early `Jupyter` topics:
 ### Miscellaneous
 * `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 
-###### Note: don't forget to update once public and travisCI is added
+[//]: # "TODO update once public and travisCI is added"
 * `.travis.yml` is untested and not being used currently, since private repositories require a paid plan.
 
-###### Note: don't forget to update once public and travisCI is added
+[//]: # "TODO update once public and travisCI is added"
 * `.codecov.yml` is similarly untested and unused, since Travis CI is not set up.  
 Note that this file also exposes a webhook URL into Slack, which ideally shouldn't be shared publicly.
-
-###### Note: new features to be added: type hints, cli
