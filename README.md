@@ -139,7 +139,7 @@ flake8
 ```
 If all is fine, you will not see any output.
 
-Run tests for multiple Python versions, using [tox](<https://tox.readthedocs.io/en/latest/>):
+Run tests using [tox](<https://tox.readthedocs.io/en/latest/>):
 ```{bash, eval=FALSE}
 tox
 ```
@@ -149,8 +149,9 @@ The `tox.ini` file contains the following configurations:
 * `pytest-cov` (measures and reports test coverage, see also `.coveragerc` file)
 * `tox` (where the Python versions to test with are defined)
 
-*The tests will only be run for any Python version that is available in the environment where you run them
-(see `skip_missing_interpreters` configuration key).*
+If you run `tox` outside of the virtual environment, it can run tests for multiple Python versions - this is configured
+using `envlist`.The tests will only be run for any Python version that is available in the environment where you run them
+(see `skip_missing_interpreters` configuration key).
 
 #### PyCharm file types
 In PyCharm, you can associate files to a certain type under:
@@ -173,7 +174,7 @@ Then run e.g.:
 ```{bash, eval=FALSE}
 mypy ./secretsanta/main/core.py
 ```
-to test if the type hints of a given `.py` file are correct (in which case there is no output).
+to test if the type hints of a given `.py` file are correct (in which case there may be no output).
 
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
