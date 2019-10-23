@@ -97,12 +97,12 @@ def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
     def parameterized_send(santa: SecretSanta) -> Dict[str, Tuple[int, bytes]]:
         return santa.send(subj, sender, 'Lucky you! You got the lovely', server, test)
 
-    # Dictionary comprehension: https://www.datacamp.com/community/tutorials/python-dictionary-comprehension
+    # Dictionary comprehension: https://www.python.org/dev/peps/pep-0274/#semantics
     checks = {email: error
               # For each entry (name and email address to send to) ...
               for (name, mail) in senddict.items()
               # ... we initialize a SecretSanta instance, and call send.
-              # we capture the results as individual variables from each call's result Dict,
+              # We capture the results as individual variables from each call's result Dict,
               # so we can construct a single Dict containing all failed attempts.
               for (email, error) in parameterized_send(SecretSanta(mail, name)).items()
               }
