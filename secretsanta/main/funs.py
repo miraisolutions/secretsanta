@@ -93,15 +93,14 @@ def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
     server.login(sender, pwd)
 
     subj = 'Secret Santa %d' % datetime.datetime.now().year
-    # Note: Need to explicitly state type to avoid the error `Need type annotation for 'check'`, because of the later
-    # reassignment.
-    check: Dict[str, Tuple[int, bytes]] = {}
 
-    for name in senddict:
-        obj = SecretSanta(senddict[name], name)
-        # Concatenate already existing entries with the result of sending to senddict[name] as keyword arguments (**)
-        # see https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists
-        check = dict(check, **obj.send(subj, sender, 'Lucky you! You got the lovely', server, test))
+    def parameterized_send(santa: SecretSanta) -> Dict[str, Tuple[int, bytes]]:
+        return santa.send(subj, sender, 'Lucky you! You got the lovely', server, test)
+
+    checks = {email: error
+              for (name, mail) in senddict.items()
+              for (email, error) in parameterized_send(SecretSanta(mail, name)).items()
+              }
 
     server.quit()
-    return check
+    return checks
