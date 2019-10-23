@@ -1,12 +1,14 @@
-import smtplib
-from typing import Optional, Dict, Tuple, Union
-import numpy as np
 import datetime
+import smtplib
 from contextlib import suppress
+from typing import Optional, Dict, Tuple
+
+import numpy as np
+
 from secretsanta.main.core import SecretSanta
 
+
 # PyCharm: ctrl-p inside parentheses shows function args!
-sendmailDictOrInt = Union[Dict[str, Tuple[int, bytes]], int]
 
 
 # mypy is missing a library stub file for module 'numpy' and will complain about it
@@ -69,7 +71,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
 
 
 def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
-                    senddict: Dict[str, str], test: bool = False) -> sendmailDictOrInt:
+                    senddict: Dict[str, str], test: bool = False) -> Dict[str, Tuple[int, bytes]]:
     """
     loops over a 'santa' dictionary and sends respective emails
 
@@ -78,8 +80,10 @@ def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
     :param pwd: password for sender's email account
     :param senddict: mapping of names to email addresses
     :param test: boolean to allow test-run
-    :return: send-status of last email
+    :return: All failed email sending attempts as returned by :func:`smtplib.sendmail()`, empty if all\
+    were successful
     """
+    # note use of "\" in the docstring above to escape line ending in sphinx output
     # create SMTP server object and connect
     server = smtplib.SMTP(smtpserverwithport)
 
@@ -89,13 +93,15 @@ def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
     server.login(sender, pwd)
 
     subj = 'Secret Santa %d' % datetime.datetime.now().year
-    # Note: Need to explicitly state type to avoid 'incompatible types in assignment' error,
-    # see https://stackoverflow.com/questions/43910979/mypy-error-incompatible-types-in-assignment
-    check: sendmailDictOrInt = 0
+    # Note: Need to explicitly state type to avoid the error `Need type annotation for 'check'`, because of the later
+    # reassignment.
+    check: Dict[str, Tuple[int, bytes]] = {}
 
     for name in senddict:
         obj = SecretSanta(senddict[name], name)
-        check = obj.send(subj, sender, 'Lucky you! You got the lovely', server, test)
+        # Concatenate already existing entries with the result of sending to senddict[name] as keyword arguments (**)
+        # see https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists
+        check = dict(check, **obj.send(subj, sender, 'Lucky you! You got the lovely', server, test))
 
     server.quit()
     return check
