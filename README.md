@@ -1,6 +1,6 @@
 # secretsanta
-This repository implements a basic Python version of a *secret santa* utility.
-It is meant to serve as a tutorial for beginners interested in Python package development.
+This repository implements a basic Python version of a [Secret Santa](https://en.wikipedia.org/wiki/Secret_Santa)
+utility. It is meant to serve as a tutorial for beginners interested in Python package development.
 Each section below mentions typical tools and utilities in a natural order of developing Python packages.
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)

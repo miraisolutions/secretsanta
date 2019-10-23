@@ -55,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'secretsanta'
-copyright = '2019, Mirai Solutions'
+copyright = '2019, Mirai Solutions GmbH'
 author = 'Mirai Solutions'
 
 # The version info for the project you're documenting, acts as replacement for
