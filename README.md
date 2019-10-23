@@ -24,7 +24,6 @@ Each section below mentions typical tools and utilities in a natural order of de
 
 ### Development
 
-[//]: # "TODO: Consider testing other distributions or perhaps even OS"
 We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment.
 
 In PyCharm, check out this repository into a new project, e.g. under
@@ -247,8 +246,7 @@ Below gives you some useful information about the location of `Jupyter` related 
 jupyter --path
 ```
 
-[//]: # "TODO what is this? remove?"
-<!-- `etc/jupyter/custom/custom.js` -->
+<!-- e.g.: `etc/jupyter/custom/custom.js` -->
 
 A few additional links to some typical early `Jupyter` topics:
 * [Closing running Jupyter notebook servers](https://github.com/jupyter/notebook/issues/2844)
