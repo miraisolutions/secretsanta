@@ -81,7 +81,7 @@ def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
     :param pwd: password for sender's email account
     :param senddict: mapping of names to email addresses
     :param test: boolean to allow test-run
-    :return: All failed email sending attempts as returned by :func:`smtplib.sendmail()`, empty if all\
+    :return: all failed email sending attempts as returned by :func:`smtplib.sendmail()`, empty if all\
     were successful
     """
     # create SMTP server object and connect
