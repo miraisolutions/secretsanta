@@ -33,9 +33,10 @@ VCS > Checkout from Version Control
 
 Shell commands below should be entered in the **Terminal** pane of PyCharm.
 
-[//]: # "See https://stackoverflow.com/questions/4823468/comments-in-markdown" 
-[//]: # "Sorry but there is no shortcut in PyCharm to send code to the terminal..."  
+*There is no shortcut in PyCharm to send code from the editor to the terminal, so you need to copy-paste commands instead.*
+
 [//]: # "(I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)"
+[//]: # "This is a comment. See https://stackoverflow.com/questions/4823468/comments-in-markdown"
 
 #### Virtual environments
 We'll use a virtual environment to keep things neat and tidy.  
@@ -236,7 +237,7 @@ make latexpdf
 ### Usage
 The [Jupyter](https://jupyter.org/) notebook `SecretSanta.ipynb` illustrates the usage of the `secretsanta` package.
 
-It can be run either directly in PyCharm or maybe more typically in your browser:
+It can be run in your browser (or directly in PyCharm if you have the professional edition):
 ```bash
 jupyter notebook SecretSanta.ipynb
 ```
