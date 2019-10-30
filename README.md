@@ -216,7 +216,6 @@ see [documentation](https://pythonhosted.org/an_example_pypi_project/sphinx.html
 You should be inside the documentation root directory.  
 Using the Makefile:
 
-[//]: # "TODO this produces a warning about html_static_path entry '...' not existing" 
 ```bash
 cd docs
 make html
