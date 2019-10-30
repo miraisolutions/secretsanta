@@ -174,7 +174,7 @@ Then run e.g.:
 ```{bash, eval=FALSE}
 mypy ./secretsanta/main/core.py
 ```
-to test if the type hints of a given `.py` file are correct (in which case there may be no output).
+to test if the type hints of `.py` file(s) are correct (in which case there may be no output).
 
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
