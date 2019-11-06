@@ -14,7 +14,7 @@ is recommended).
 Building and publishing
 -----------------------
 
-The Sphinx documentation source files are reStructuredText files, and
+The Sphinx documentation source files are ``reStructuredText`` files, and
 are contained in the ``docs/source`` sub-folder. ``docs`` also contains the ``Makefile``
 for the build. To do a new build make sure you are in the ``docs`` sub-folder
 and run

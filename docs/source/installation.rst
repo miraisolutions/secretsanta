@@ -24,11 +24,11 @@ by running something like::
 
 Alternatively you can install the latest development version using::
 
-    pip3 install --user git+https://RolandASc@github.com/miraisolutions/secretsanta
+    pip3 install --user git+https://userName@github.com/miraisolutions/secretsanta
 
-Make sure to substitute ``RolandASc`` with your Github user name!
+Make sure to substitute ``userName`` with your Github user name!
 
 (If you are in a virtual environment, simply use below instead)::
 
-    pip install git+https://RolandASc@github.com/miraisolutions/secretsanta
+    pip install git+https://userName@github.com/miraisolutions/secretsanta
 

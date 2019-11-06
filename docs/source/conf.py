@@ -4,7 +4,7 @@
 # secretsanta documentation build configuration file, created by
 # sphinx-quickstart on Tue Nov  6 11:40:06 2018.
 #
-# This file is execfile()d with the current directory set to its
+# This file is executed with the current directory set to its
 # containing dir.
 #
 # Note that not all possible configuration values are present in this
@@ -21,7 +21,6 @@ import os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('../..'))
 print(os.path.abspath('.'))
-# RSc: current directory is the directory containing 'conf.py'!
 
 # -- General configuration ------------------------------------------------
 
@@ -56,8 +55,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'secretsanta'
-copyright = '2018, Roland A. Schmid'
-author = 'Roland A. Schmid'
+copyright = '2019, Mirai Solutions GmbH'
+author = 'Mirai Solutions'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -232,7 +231,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'secretsanta.tex', 'secretsanta Documentation',
-     'Roland A. Schmid', 'manual'),
+     author, 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

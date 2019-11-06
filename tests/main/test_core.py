@@ -4,9 +4,9 @@ from secretsanta.main.core import SecretSanta
 
 
 class InitializeSecretSanta(TestCase):
-    def test_secret_santa_init___result_has_helper_roland(self):
+    def test_secret_santa_init___result_has_helper_rudolph(self):
         res = SecretSanta('me@gmail.com', 'you')
-        self.assertEqual('roland', res.helper)
+        self.assertEqual('rudolph', res.helper)
 
     def test_secret_santa_init___email_attribute_is_string(self):
         res = SecretSanta('me@gmail.com', 'you')
