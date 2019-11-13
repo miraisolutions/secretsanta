@@ -13,6 +13,7 @@ jobs:
         - COV_CORE_CONFIG=.coveragerc
 
       install:
+        - pip install pip-tools
         - pip-compile -U
         - pip install -r requirements.txt
         - pip install codecov
