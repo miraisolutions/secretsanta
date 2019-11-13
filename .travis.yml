@@ -1,30 +1,41 @@
 language: python
+
+# https://blog.travis-ci.com/2017-05-11-introducing-build-stages
 matrix:
   include:
-  - python: '3.5'
-    env:
-    - COV_CORE_SOURCE=secretsanta
-    - COV_CORE_CONFIG=.coveragerc
-  - python: '3.6'
-    env:
-    - COV_CORE_SOURCE=secretsanta
-    - COV_CORE_CONFIG=.coveragerc
-  - python: '3.7'
-    env:
-    - COV_CORE_SOURCE=secretsanta
-    - COV_CORE_CONFIG=.coveragerc
-  - python: 3.8-dev
-    env:
-    - COV_CORE_SOURCE=secretsanta
-    - COV_CORE_CONFIG=.coveragerc
+    - python: "3.5"
+      env:
+        - COV_CORE_SOURCE=secretsanta
+        - COV_CORE_CONFIG=.coveragerc
+    - python: "3.6"
+      env:
+        - COV_CORE_SOURCE=secretsanta
+        - COV_CORE_CONFIG=.coveragerc
+    - python: "3.7"
+      env:
+        - COV_CORE_SOURCE=secretsanta
+        - COV_CORE_CONFIG=.coveragerc
+    - python: "3.8-dev"
+      env:
+        - COV_CORE_SOURCE=secretsanta
+        - COV_CORE_CONFIG=.coveragerc
+
 install:
-- pip install pip-tools
-- pip-compile -U
-- pip install -r requirements.txt
-- pip install codecov
-script: pytest --cov=secretsanta
+  - pip install pip-tools
+  - pip-compile -U
+  - pip install -r requirements.txt
+  - pip install codecov
+
+script: pytest --cov=secretsanta # https://stackoverflow.com/questions/58635279/pytest-and-codecov-no-coverage-report-found
+
 after_success:
-- codecov
+  - codecov
+
+# https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications
+# https://github.com/travis-ci/travis-ci/issues/2894#issuecomment-161461962
 notifications:
   slack:
-    secure: i5qFucT6FGwXLtJa4IH/GDITWz5ySnjePYUpm+4nj07184aMEeWCHG/9+xXxMLrGkXvNJFGts8D3+/4aAHc8L0R7rskJGfjaTG5HTzecxYjliBa/P5JfjScSVZXF1vSk5o1zZM7wS0+/hpTKlMC84MHna0rksbO91aAF/QhJjzjYmV8sTakL1lE1rl+pCPFoO2MFNFJ4iCry+FfuAPOy2g/Qm6xRNLYpd8hgtjUVOdmtl5EZl1frnLnM3EGNQU2DiU9a2WGyTZal/tLMFOj780+b4Cs6NDz25++N9k98qX9sQn7gwKeAQ06W5NBFWOkQnQYvUzX0DO3X/RB7IiZca/IXNUJS/D/IU65fav1MotzdXXDRPSHIVqcRvIdMWV3ZtG/YtIFmrHlOPXfmti84BEMxIIo/FX4Iy1Xaij+gizf+wYyHiCoS3goOQnCC3T47kEq40h8KBi9rz9xdf9slQQl42wuMIczy6+zZR0Y8/ZRVKUJp3AMENzFMgBGZTnr2goy9IzNgMt/3S1MS0R+jF3CXgIsNWLh/5SPbzzRSfEMH913VzY4i9O43zAya0EsETBpaOXjpViK7LkH865SafDjyKUDUm84LkLgOpFhfN8ddLj21cMLY4z5GXNKX8ta0b2diFUqHjQPKkuS2Ukq61qylWDWAc+GKfc/RJm0FU/Y=
+    rooms:
+      - secure: i5qFucT6FGwXLtJa4IH/GDITWz5ySnjePYUpm+4nj07184aMEeWCHG/9+xXxMLrGkXvNJFGts8D3+/4aAHc8L0R7rskJGfjaTG5HTzecxYjliBa/P5JfjScSVZXF1vSk5o1zZM7wS0+/hpTKlMC84MHna0rksbO91aAF/QhJjzjYmV8sTakL1lE1rl+pCPFoO2MFNFJ4iCry+FfuAPOy2g/Qm6xRNLYpd8hgtjUVOdmtl5EZl1frnLnM3EGNQU2DiU9a2WGyTZal/tLMFOj780+b4Cs6NDz25++N9k98qX9sQn7gwKeAQ06W5NBFWOkQnQYvUzX0DO3X/RB7IiZca/IXNUJS/D/IU65fav1MotzdXXDRPSHIVqcRvIdMWV3ZtG/YtIFmrHlOPXfmti84BEMxIIo/FX4Iy1Xaij+gizf+wYyHiCoS3goOQnCC3T47kEq40h8KBi9rz9xdf9slQQl42wuMIczy6+zZR0Y8/ZRVKUJp3AMENzFMgBGZTnr2goy9IzNgMt/3S1MS0R+jF3CXgIsNWLh/5SPbzzRSfEMH913VzY4i9O43zAya0EsETBpaOXjpViK7LkH865SafDjyKUDUm84LkLgOpFhfN8ddLj21cMLY4z5GXNKX8ta0b2diFUqHjQPKkuS2Ukq61qylWDWAc+GKfc/RJm0FU/Y=
+    on_success: always
+    on_pull_requests: true
