@@ -254,11 +254,10 @@ A few additional links to some typical early `Jupyter` topics:
 * [Checkpoints and autosave](https://groups.google.com/forum/#!topic/jupyter/DGCKE5fS4kQ)
 
 ### Miscellaneous
+
 * `MANIFEST.in` specifies extra files that shall be included in a source distribution.
-
-[//]: # "TODO update once public and travisCI is added"
-* `.travis.yml` is untested and not being used currently, since private repositories require a paid plan.
-
-[//]: # "TODO update once public and travisCI is added"
-* `.codecov.yml` is similarly untested and unused, since Travis CI is not set up.  
-Note that this file also exposes a webhook URL into Slack, which ideally shouldn't be shared publicly.
+* `.travis.yml` : configuration for [Travis continuous integration](https://travis-ci.org) -
+* `.codecov.yml` : configuration for [codecov.io](https://codecov.io/), which provides test coverage reporting and
+visualisation. Note that this file also exposes a webhook URL into Slack, which ideally shouldn't be shared publicly.
+* Badges: This README features various badges (at the beginning), including a build status badge and a code coverage 
+status badge.
