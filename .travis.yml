@@ -1,27 +1,26 @@
 language: python
 
 # https://blog.travis-ci.com/2017-05-11-introducing-build-stages
-jobs:
-  include:
-    - stage: test
-      matrix:
-        include:
-          - python: "3.5"
-          - python: "3.6"
-          - python: "3.7"
-          - python: "3.8-dev"
-      env:
-        - COV_CORE_SOURCE=secretsanta
-        - COV_CORE_CONFIG=.coveragerc
 
-      install:
-        - pip install pip-tools
-        - pip-compile -U
-        - pip install -r requirements.txt
-        - pip install codecov
-      script: pytest --cov=secretsanta # https://stackoverflow.com/questions/58635279/pytest-and-codecov-no-coverage-report-found
-      after_success:
-        - codecov
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8-dev"
+env:
+  - COV_CORE_SOURCE=secretsanta
+  - COV_CORE_CONFIG=.coveragerc
+
+install:
+  - pip install pip-tools
+  - pip-compile -U
+  - pip install -r requirements.txt
+  - pip install codecov
+
+script: pytest --cov=secretsanta # https://stackoverflow.com/questions/58635279/pytest-and-codecov-no-coverage-report-found
+
+after_success:
+  - codecov
 
 # https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications
 # https://github.com/travis-ci/travis-ci/issues/2894#issuecomment-161461962
