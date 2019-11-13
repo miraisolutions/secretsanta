@@ -1,32 +1,27 @@
 language: python
 
-python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
-  - "3.7-dev"
-
-env:
-  - COV_CORE_SOURCE=secretsanta
-  - COV_CORE_CONFIG=.coveragerc
-
-install:
-  - pip install -r requirements.txt
-  - pip install codecov
-
-script: pytest --cov=secretsanta
-
-after_success:
-  - codecov --token=""
-
 # https://blog.travis-ci.com/2017-05-11-introducing-build-stages
-#jobs:
-#  include:
-#    - stage: covupload
-#      python: 3.5
-#      install:
-#        - pip install codecov
-#      script: codecov --token=""
+jobs:
+  include:
+    - stage: test
+      python:
+        - "2.7"
+        - "3.5"
+        - "3.6"
+        - "3.7-dev"
+      env:
+        - COV_CORE_SOURCE=secretsanta
+        - COV_CORE_CONFIG=.coveragerc
+
+      install:
+        - pip install -r requirements.txt
+        - pip install codecov
+      script: pytest --cov=secretsanta
+    - stage: covupload
+      python: 3.6
+      install:
+        - pip install codecov
+      script: codecov --token=""
 
 # https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications
 # https://github.com/travis-ci/travis-ci/issues/2894#issuecomment-161461962
