@@ -17,12 +17,10 @@ jobs:
         - pip install pip-tools
         - pip-compile -U
         - pip install -r requirements.txt
-      script: pytest --cov=secretsanta
-    - stage: covupload
-      python: 3.6
-      install:
         - pip install codecov
-      script: codecov --token=""
+      script: pytest --cov=secretsanta # https://stackoverflow.com/questions/58635279/pytest-and-codecov-no-coverage-report-found
+      after_success:
+        - codecov
 
 # https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications
 # https://github.com/travis-ci/travis-ci/issues/2894#issuecomment-161461962
