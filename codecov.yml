@@ -9,14 +9,3 @@ coverage:
     project: yes
     patch: yes
     changes: no
-
-  notify:
-    slack:
-      default:
-        # this hook is an invalid example
-        url: "https://hooks.slack.com/services/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"
-        threshold: 1%
-        only_pulls: false
-        branches: null
-        flags: null
-        paths: null

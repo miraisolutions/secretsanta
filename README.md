@@ -258,8 +258,8 @@ A few additional links to some typical early `Jupyter` topics:
 ### Continuous Integration
 
 Continuous Integration (CI) aims to keep state updated to always match the code currently checked in a repository.
-This typically includes a build, automated test runs, up to making sure that the newly built artifacts are
-deployed to a target environment. This helps developers by providing timely feedback and users by showing what the
+This typically includes a build, automated test runs, and possibly making sure that the newly built artifacts are
+deployed to a target environment. This helps developers and users by providing timely feedback and showing what the
 results of certain checks were on a given version of the code.
 
 This repository uses [Travis CI](https://travis-ci.org) to run tests automatically when new commits are pushed. Results
@@ -275,11 +275,13 @@ tests in; tests will be run for each specified environment. The steps required b
 `after_success`). A notification about completed builds is sent to our Slack channel using a
 [secure notification hook](https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications).
 
-Codecov is configured in `codecov.yml`, defining the coverage range (in percent) to match to a color scale, as well as
-the coverage checks to be performed and their success criteria. See codecov's documentation about
+Codecov is configured in `codecov.yml`, defining the coverage value range (in percent) to match to a color scale, as 
+well as the coverage checks to be performed and their success criteria. See codecov's documentation about
 [its yaml configuration](https://docs.codecov.io/docs/codecov-yaml) and
-[commit status evaluation](https://docs.codecov.io/docs/commit-status) for more information. Note that this file also
-exposes a webhook URL (invalid in this example's case) into Slack, which ideally shouldn't be shared publicly.
+[commit status evaluation](https://docs.codecov.io/docs/commit-status) for more information.
+
+_Notifications from codecov can only be delivered via unencrypted webhook URLs. In order to avoid exposing such hooks in
+a public repository, we do not use this functionality here._
 
 ### Miscellaneous
 
