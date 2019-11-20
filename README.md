@@ -275,10 +275,10 @@ tests in; tests will be run for each specified environment. The steps required b
 `after_success`). A notification about completed builds is sent to our Slack channel using a
 [secure notification hook](https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications).
 
-Codecov is configured in `codecov.yml`, defining the coverage value range (in percent) to match to a color scale, as 
-well as the coverage checks to be performed and their success criteria. See codecov's documentation about
-[its yaml configuration](https://docs.codecov.io/docs/codecov-yaml) and
-[commit status evaluation](https://docs.codecov.io/docs/commit-status) for more information.
+Codecov is configured in `codecov.yml`, defining the coverage value range (in percent) to match to a color scale, as
+well as the coverage checks to be performed and their success criteria. See codecov's
+[general configuration](https://docs.codecov.io/docs/codecov-yaml) and
+[commit status evaluation](https://docs.codecov.io/docs/commit-status) documentation for more information.
 
 _Notifications from codecov can only be delivered via unencrypted webhook URLs. In order to avoid exposing such hooks in
 a public repository, we do not use this functionality here._
