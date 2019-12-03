@@ -12,6 +12,7 @@ Each section below mentions typical tools and utilities in a natural order of de
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
 ### Table of Contents
+
 1. [Development](#development)  
     a. [Virtual environments](#virtual-environments)  
     b. [Project requirements](#project-requirements)  
@@ -20,7 +21,8 @@ Each section below mentions typical tools and utilities in a natural order of de
     b. [Type hints](#type-hints)  
 3. [Documentation](#documentation)  
 4. [Usage / Jupyter notebook](#usage)  
-5. [Miscellaneous](#miscellaneous)  
+5. [Continuous Integration](#continuous-integration)
+6. [Miscellaneous](#miscellaneous)  
 
 ### Development
 
@@ -253,12 +255,36 @@ A few additional links to some typical early `Jupyter` topics:
 * [Closing running Jupyter notebook servers](https://github.com/jupyter/notebook/issues/2844)
 * [Checkpoints and autosave](https://groups.google.com/forum/#!topic/jupyter/DGCKE5fS4kQ)
 
+### Continuous Integration
+
+Continuous Integration (CI) aims to keep state updated to always match the code currently checked in a repository.
+This typically includes a build, automated test runs, and possibly making sure that the newly built artifacts are
+deployed to a target environment. This helps developers and users by providing timely feedback and showing what the
+results of certain checks were on a given version of the code.
+
+This repository uses [Travis CI](https://travis-ci.org) to run tests automatically when new commits are pushed. Results
+can be viewed [here](https://travis-ci.org/miraisolutions/secretsanta). Along with test results,
+coverage information is generated and uploaded to [codecov](codecov.io), which generates a
+[report](https://codecov.io/gh/miraisolutions/secretsanta) out of it.
+
+#### Configuration
+
+Travis CI is configured using the `.travis.yml` file. This allows specifying the environment(s) to run
+tests in; tests will be run for each specified environment. The steps required before running tests are specified under
+`install`. Finally, the task to run is defined in `script`, and we make sure coverage reports are uploaded (see
+`after_success`). A notification about completed builds is sent to our Slack channel using a
+[secure notification hook](https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications).
+
+Codecov is configured in `codecov.yml`, defining the coverage value range (in percent) to match to a color scale, as
+well as the coverage checks to be performed and their success criteria. See codecov's
+[general configuration](https://docs.codecov.io/docs/codecov-yaml) and
+[commit status evaluation](https://docs.codecov.io/docs/commit-status) documentation for more information.
+
+_Notifications from codecov can only be delivered via unencrypted webhook URLs. In order to avoid exposing such hooks in
+a public repository, we do not use this functionality here._
+
 ### Miscellaneous
+
 * `MANIFEST.in` specifies extra files that shall be included in a source distribution.
-
-[//]: # "TODO update once public and travisCI is added"
-* `.travis.yml` is untested and not being used currently, since private repositories require a paid plan.
-
-[//]: # "TODO update once public and travisCI is added"
-* `.codecov.yml` is similarly untested and unused, since Travis CI is not set up.  
-Note that this file also exposes a webhook URL into Slack, which ideally shouldn't be shared publicly.
+* Badges: This README features various badges (at the beginning), including a build status badge and a code coverage
+status badge.
