@@ -46,7 +46,8 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
     # To store the shuffled dictionary, we initialize a new variable
     senddict = {}
     # To avoid the last assignee be one's own secret santa, we may need to swap the two last entries; therefore we need
-    # to keep track of the second to last one
+    # to keep track of the second to last one. This variable must be defined here to avoid warnings about undefined
+    # names.
     swapname1 = ''
 
     np.random.seed(seed)
