@@ -134,13 +134,23 @@ make sure you re-execute `pip-compile` and `pip-sync`.
 rerun `pip-sync`) to make sure that compatible versions of your dependencies are used in the new environment.*
 
 ### Testing
-Tests are kept under `tests` and make use of the `unittest` framework.
+There are multiple ways to define and execute tests. Two of the most common ones are `doctest` and `unittest`.
 
-Run code style checks with [flake8](http://flake8.pycqa.org/en/latest/):
+The `doctest` module allows to run code examples / tests that are defined as part of `docstrings`.
+
+Use the following command to see this in action. The `-v` flag allows us to see verbose output.
+In case everything is fine, we would not see any output otherwise.
+```{bash, eval=FALSE}
+python -m doctest secretsanta/main/core.py -v
+```
+
+It is possible to run code style checks with [flake8](http://flake8.pycqa.org/en/latest/):
 ```{bash, eval=FALSE}
 flake8
 ```
 If all is fine, you will not see any output.
+
+Unit tests are kept under `tests` and make use of the `unittest` framework.
 
 Run tests using [tox](<https://tox.readthedocs.io/en/latest/>):
 ```{bash, eval=FALSE}
