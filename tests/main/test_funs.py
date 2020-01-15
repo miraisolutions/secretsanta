@@ -7,6 +7,8 @@ from hypothesis.strategies import text, lists, integers, characters
 
 
 class MakeSantaDict(unittest.TestCase):
+    # we specify some character classes to avoid unprintable characters that cause issues when used as dictionary keys.
+    # the min / max parameters passed to integers match the accepted range for seeds.
     @given(lists(text(alphabet=characters(whitelist_categories=["Lu", "Ll", "Nd", "Pc", "Pd"],
                                           whitelist_characters=["@"]), min_size=2, max_size=20), 2, 10, unique=True),
            integers(min_value=0, max_value=2**32 - 1))
@@ -28,7 +30,6 @@ class MakeSantaDict(unittest.TestCase):
     def test_send_santa_dict(self, MockSMTP, MockSanta):
         """
         Test that the function calls our sending logic with the expected parameters, the expected number of times
-        :return:
         """
         test_dict = dict(zip(["a", "b", "c"], ["a@m.com", "b@m.com", "c@m.com"]))
 

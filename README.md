@@ -179,6 +179,26 @@ mypy ./secretsanta/main/core.py
 ```
 to test if the type hints of `.py` file(s) are correct (in which case there may be no output).
 
+#### Property testing with Hypothesis
+
+We use [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) to define a _property test_ for our matching function: 
+generated example inputs are tested against desired properties. Hypothesis' generator can be configured to produce typical 
+data structures, filled with various instances of primitive types. This is done by composing specific annotations.
+* The annotation `@given(...)` must be present before the test function that is to use generated input.
+* generated arguments are defined in a comma separated list, and will be passed in order to the test function:
+```python
+from hypothesis import given
+from hypothesis.strategies import text, integers
+
+
+@given(text(), integers())
+def test_some_thing(a_string, an_int):
+    return
+
+```  
+* generation can be controlled by various optional parameters, e.g. `text(min_size=2)` for testing with strings that
+have at least 2 characters.
+
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
 
