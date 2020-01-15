@@ -1,7 +1,7 @@
 import datetime
 import smtplib
 from contextlib import suppress
-from typing import Optional, Dict, Tuple
+from typing import Optional, Dict, Tuple, List, Union
 
 import numpy as np
 
@@ -98,6 +98,13 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
 
 def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
                     senddict: Dict[str, str], test: bool = False) -> Dict[str, Tuple[int, bytes]]:
+    def santa_builder(email: Union[str, List[str]], person: str):
+        return SecretSanta(email, person)
+    return internal_send_santa_dict(smtpserverwithport, sender, pwd, senddict, santa_builder, test)
+
+
+def internal_send_santa_dict(smtpserverwithport: str, sender: str, pwd: str, senddict: Dict[str, str], santabuilder,
+                             test: bool = False) -> Dict[str, Tuple[int, bytes]]:
     # "\" is used in the docstring to escape the line ending in sphinx output
     """
     loops over a 'santa' dictionary and sends respective emails
@@ -130,7 +137,7 @@ def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
               # ... we initialize a SecretSanta instance, and call send.
               # We capture the results as individual variables from each call's result Dict,
               # so we can construct a single Dict containing all failed attempts.
-              for (email, error) in parameterized_send(SecretSanta(mail, name)).items()
+              for (email, error) in parameterized_send(santabuilder(mail, name)).items()
               }
 
     server.quit()
