@@ -70,6 +70,8 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
                 tmp = senddict[swapname1]
                 senddict[swapname1] = dictionary[picked]
                 senddict[swapname2] = tmp
+            else:
+                senddict[name] = dictionary[picked]
         else:
             # if only 2 choices are left we keep track of the name, in case the last e-mail left is the last
             # participant's
