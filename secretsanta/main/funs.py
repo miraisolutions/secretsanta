@@ -68,7 +68,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
             if picked == name:
                 swapname2 = picked
                 tmp = senddict[swapname1]
-                senddict[swapname1] = senddict[swapname2]
+                senddict[swapname1] = dictionary[picked]
                 senddict[swapname2] = tmp
         else:
             # if only 2 choices are left we keep track of the name, in case the last e-mail left is the last
@@ -85,11 +85,11 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
                 pick.remove(name)
             # randomly pick a participant
             picked = np.random.choice(pick, 1)[0]
-        if verbose:
-            print(picked)
-        # set `name`'s value in the result to the picked participant's e-mail.
-        senddict[name] = dictionary[picked]
-        names.remove(picked)
+            if verbose:
+                print(picked)
+            # set `name`'s value in the result to the picked participant's e-mail.
+            senddict[name] = dictionary[picked]
+            names.remove(picked)
 
     return senddict
 
