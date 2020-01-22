@@ -25,11 +25,13 @@ class MakeSantaDict(unittest.TestCase):
         for left, right in assignment.items():
             assert (left != right)
 
+    # We don't want to actually send e-mail, and we are testing the send_santa_dict functionality (not the SecretSanta
+    # class internals)
     @patch('secretsanta.main.core.SecretSanta')
     @patch('smtplib.SMTP')
     def test_send_santa_dict(self, MockSMTP, MockSanta):
         """
-        Test that the function calls our sending logic with the expected parameters, the expected number of times
+        Test that the function calls our email sending logic with the expected parameters, the expected number of times
         """
         test_dict = dict(zip(["a", "b", "c"], ["a@m.com", "b@m.com", "c@m.com"]))
 
