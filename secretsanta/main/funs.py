@@ -1,7 +1,7 @@
 import datetime
 import smtplib
 from contextlib import suppress
-from typing import Optional, Dict, Tuple
+from typing import Optional, Dict, Tuple, List, Union, Any
 
 import numpy as np
 
@@ -44,7 +44,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
     names = [*dictionary.keys()]
 
     # To store the shuffled dictionary, we initialize a new variable
-    senddict = {}
+    senddict: Dict[Union[str, Any], Union[str, Any]] = {}
     # To avoid the last assignee be one's own secret santa, we may need to swap the two last entries; therefore we need
     # to keep track of the second to last one. This variable must be defined here to avoid warnings about undefined
     # names.
@@ -68,8 +68,10 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
             if picked == name:
                 swapname2 = picked
                 tmp = senddict[swapname1]
-                senddict[swapname1] = senddict[swapname2]
+                senddict[swapname1] = dictionary[picked]
                 senddict[swapname2] = tmp
+            else:
+                senddict[name] = dictionary[picked]
         else:
             # if only 2 choices are left we keep track of the name, in case the last e-mail left is the last
             # participant's
@@ -85,17 +87,24 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
                 pick.remove(name)
             # randomly pick a participant
             picked = np.random.choice(pick, 1)[0]
-        if verbose:
-            print(picked)
-        # set `name`'s value in the result to the picked participant's e-mail.
-        senddict[name] = dictionary[picked]
-        names.remove(picked)
+            if verbose:
+                print(picked)
+            # set `name`'s value in the result to the picked participant's e-mail.
+            senddict[name] = dictionary[picked]
+            names.remove(picked)
 
     return senddict
 
 
 def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
                     senddict: Dict[str, str], test: bool = False) -> Dict[str, Tuple[int, bytes]]:
+    def santa_builder(email: Union[str, List[str]], person: str):
+        return SecretSanta(email, person)
+    return internal_send_santa_dict(smtpserverwithport, sender, pwd, senddict, santa_builder, test)
+
+
+def internal_send_santa_dict(smtpserverwithport: str, sender: str, pwd: str, senddict: Dict[str, str], santabuilder,
+                             test: bool = False) -> Dict[str, Tuple[int, bytes]]:
     # "\" is used in the docstring to escape the line ending in sphinx output
     """
     loops over a 'santa' dictionary and sends respective emails
@@ -128,7 +137,7 @@ def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
               # ... we initialize a SecretSanta instance, and call send.
               # We capture the results as individual variables from each call's result Dict,
               # so we can construct a single Dict containing all failed attempts.
-              for (email, error) in parameterized_send(SecretSanta(mail, name)).items()
+              for (email, error) in parameterized_send(santabuilder(mail, name)).items()
               }
 
     server.quit()

@@ -19,6 +19,8 @@ Each section below mentions typical tools and utilities in a natural order of de
 2. [Testing](#testing)  
     a. [PyCharm file types](#pycharm-file-types)  
     b. [Type hints](#type-hints)  
+    c. [Property testing](#property-testing)
+    d. [Mocks in unit tests](#mocks-in-unit-tests)
 3. [Documentation](#documentation)  
 4. [Usage / Jupyter notebook](#usage)  
 5. [Continuous Integration](#continuous-integration)
@@ -188,6 +190,32 @@ Then run e.g.:
 mypy ./secretsanta/main/core.py
 ```
 to test if the type hints of `.py` file(s) are correct (in which case there may be no output).
+
+#### Property testing
+
+We use [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) to define a _property test_ for our matching function: 
+generated example inputs are tested against desired properties. Hypothesis' generator can be configured to produce typical 
+data structures, filled with various instances of primitive types. This is done by composing specific annotations.
+* The decorator `@given(...)` must be present before the test function that shall use generated input.
+* Generated arguments are defined in a comma-separated list, and will be passed to the test function in order:
+```python
+from hypothesis import given
+from hypothesis.strategies import text, integers
+
+
+@given(text(), integers())
+def test_some_thing(a_string, an_int):
+    return
+
+```  
+* Generation can be controlled by various optional parameters, e.g. `text(min_size=2)` for testing with strings that
+have at least 2 characters.
+
+#### Mocks in unit tests
+
+Mock objects are used to avoid external side effects. We use the standard Python package `unittest.mock`. This provides
+a `@patch` decorator, which allows us to specify classes to be mocked within the scope of a given test case. See 
+*test_funs.py* and *test_core.py* for examples.
 
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
