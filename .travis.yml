@@ -1,6 +1,7 @@
 language: python
 
 # https://blog.travis-ci.com/2017-05-11-introducing-build-stages
+# python 3.5 is not pre-installed on travis anymore, but will be automatically downloaded and installed
 matrix:
   include:
     - python: "3.5"
@@ -15,7 +16,7 @@ matrix:
       env:
         - COV_CORE_SOURCE=secretsanta
         - COV_CORE_CONFIG=.coveragerc
-    - python: "3.8-dev"
+    - python: "3.8"
       env:
         - COV_CORE_SOURCE=secretsanta
         - COV_CORE_CONFIG=.coveragerc
@@ -26,7 +27,9 @@ install:
   - pip install -r requirements.txt
   - pip install codecov
 
-script: pytest --cov=secretsanta # https://stackoverflow.com/questions/58635279/pytest-and-codecov-no-coverage-report-found
+script: |
+    pytest --cov=secretsanta # https://stackoverflow.com/questions/58635279/pytest-and-codecov-no-coverage-report-found
+    python -m doctest secretsanta/main/core.py
 
 after_success:
   - codecov
