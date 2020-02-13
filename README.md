@@ -214,7 +214,7 @@ have at least 2 characters.
 
 Mock objects are used to avoid external side effects. We use the standard Python package `unittest.mock`. This provides
 a `@patch` decorator, which allows us to specify classes to be mocked within the scope of a given test case. See 
-*test_funs.py* for an example.
+*test_funs.py* and *test_core.py* for examples.
 
 ### Documentation
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
