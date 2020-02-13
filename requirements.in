@@ -1,6 +1,7 @@
 -r ./requirements-package.in
 
 flake8
+hypothesis
 jupyter
 pip-tools
 pytest
@@ -8,4 +9,3 @@ pytest-cov
 Sphinx
 tox
 twine
-hypothesis

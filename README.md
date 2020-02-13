@@ -20,6 +20,7 @@ Each section below mentions typical tools and utilities in a natural order of de
     a. [PyCharm file types](#pycharm-file-types)  
     b. [Type hints](#type-hints)  
     c. [Property testing](#property-testing)
+    d. [Mocks in unit tests](#mocks-in-unit-tests)
 3. [Documentation](#documentation)  
 4. [Usage / Jupyter notebook](#usage)  
 5. [Continuous Integration](#continuous-integration)
