@@ -29,7 +29,7 @@ class MakeSantaDict(unittest.TestCase):
     # class internals)
     @patch('secretsanta.main.core.SecretSanta')
     @patch('smtplib.SMTP')
-    def test_send_santa_dict(self, MockSMTP, MockSanta):
+    def test_send_santa_dict(self, mock_smtp, mock_santa):
         """
         Test that the function calls our email sending logic with the expected parameters, the expected number of times
         """
@@ -38,9 +38,9 @@ class MakeSantaDict(unittest.TestCase):
         smtpserverwithport = "lalaland:1337"
 
         def mocksantabuilder(email: Union[str, List[str]], person: str):
-            return MockSanta(email, person)
+            return mock_santa(email, person)
 
         funs.internal_send_santa_dict(smtpserverwithport, "mr.jack", "NoOneCanGuess1234", test_dict, mocksantabuilder)
-        MockSMTP.assert_called_with(smtpserverwithport)
-        MockSanta.assert_called_with("c@m.com", "c")
-        assert MockSanta.call_count == 3
+        mock_smtp.assert_called_with(smtpserverwithport)
+        mock_santa.assert_called_with("c@m.com", "c")
+        assert mock_santa.call_count == 3
