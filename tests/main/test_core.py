@@ -20,5 +20,24 @@ class InitializeSecretSanta(TestCase):
         santa_email = 'me@gmail.com'
         res = SecretSanta(santa_email, 'you')
         from_address = "i@gmail.com"
-        res.send("Santa Unit Test", from_address, "It's a unit test", mock_smtp, test=True)
-        mock_smtp.sendmail.assert_called_with(from_address, santa_email, ANY)
+        subject = "Santa Unit Test"
+        message = "It's a unit test"
+        res.send(subject, from_address, message, mock_smtp, test=True)
+        mock_smtp.sendmail.assert_called_with(from_address, santa_email,
+                                              SantaMessageValidator("Santa", subject,
+                                                                    santa_email, message))
+
+
+class SantaMessageValidator(object):
+    def __init__(self, sender: str, subject: str, santa_email: str, message: str):
+        self.sender = sender
+        self.subject = subject
+        self.santa_email = santa_email
+        self.message = message
+
+    def __eq__(self, other: str):
+        needed_elements = [self.sender, self.subject, self.santa_email, self.message]
+        test = all(fragment in other for fragment in needed_elements)
+        if not test:
+            print("one of %s is missing " % needed_elements)
+        return test
