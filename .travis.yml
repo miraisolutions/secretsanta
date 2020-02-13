@@ -27,8 +27,7 @@ install:
   - pip install -r requirements.txt
   - pip install codecov
 
-script:
-  - |
+script: |
     pytest --cov=secretsanta # https://stackoverflow.com/questions/58635279/pytest-and-codecov-no-coverage-report-found
     python -m doctest secretsanta/main/core.py
 
