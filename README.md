@@ -8,7 +8,7 @@ Each section below mentions typical tools and utilities in a natural order of de
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/secretsanta.svg)](https://pypistats.org/packages/secretsanta)
 [![PyPI - License](https://img.shields.io/pypi/l/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)
 
-[![Build Status](https://travis-ci.org/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.org/miraisolutions/secretsanta)
+[![Build Status](https://travis-ci.com/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.com/miraisolutions/secretsanta)
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
 ### Table of Contents
@@ -91,13 +91,13 @@ which is not committed to Git and should be re-created for the local checkout.
 Check version of Python, upgrade [pip](https://pypi.org/project/pip/) and check its version:
 ```bash
 python --version
-#> Python 3.6.7
+#> Python 3.6.8
 
 pip install --upgrade pip
 #> ...
 
 pip --version
-#> pip 19.1.1 from /home/localuser/PyCharm/secretsanta/venv/lib/python3.5/site-packages/pip (python 3.6)
+#> pip 20.0.2 from /home/localuser/PyCharm/secretsanta/venv/lib/python3.6/site-packages/pip (python 3.6)
 ```
 
 Install [pip-tools](<https://github.com/jazzband/pip-tools>):
@@ -111,10 +111,9 @@ pip list
 #> Package       Version
 #> ------------- -------
 #> Click         7.0    
-#> pip           18.1   
-#> pip-tools     3.1.0  
-#> pkg-resources 0.0.0  
-#> setuptools    20.7.0 
+#> pip           20.0.2 
+#> pip-tools     5.0.0  
+#> setuptools    46.1.3 
 #> six           1.11.0 
 ```
 
@@ -300,8 +299,8 @@ This typically includes a build, automated test runs, and possibly making sure t
 deployed to a target environment. This helps developers and users by providing timely feedback and showing what the
 results of certain checks were on a given version of the code.
 
-This repository uses [Travis CI](https://travis-ci.org) to run tests automatically when new commits are pushed. Results
-can be viewed [here](https://travis-ci.org/miraisolutions/secretsanta). Along with test results,
+This repository uses [Travis CI](https://travis-ci.com) to run tests automatically when new commits are pushed. Results
+can be viewed [here](https://travis-ci.com/miraisolutions/secretsanta). Along with test results,
 coverage information is generated and uploaded to [codecov](codecov.io), which generates a
 [report](https://codecov.io/gh/miraisolutions/secretsanta) out of it.
 
