@@ -91,13 +91,13 @@ which is not committed to Git and should be re-created for the local checkout.
 Check version of Python, upgrade [pip](https://pypi.org/project/pip/) and check its version:
 ```bash
 python --version
-#> Python 3.6.7
+#> Python 3.6.8
 
 pip install --upgrade pip
 #> ...
 
 pip --version
-#> pip 19.1.1 from /home/localuser/PyCharm/secretsanta/venv/lib/python3.5/site-packages/pip (python 3.6)
+#> pip 20.0.2 from /home/localuser/PyCharm/secretsanta/venv/lib/python3.6/site-packages/pip (python 3.6)
 ```
 
 Install [pip-tools](<https://github.com/jazzband/pip-tools>):
@@ -111,10 +111,9 @@ pip list
 #> Package       Version
 #> ------------- -------
 #> Click         7.0    
-#> pip           18.1   
-#> pip-tools     3.1.0  
-#> pkg-resources 0.0.0  
-#> setuptools    20.7.0 
+#> pip           20.0.2 
+#> pip-tools     5.0.0  
+#> setuptools    46.1.3 
 #> six           1.11.0 
 ```
 
