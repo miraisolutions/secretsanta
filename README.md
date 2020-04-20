@@ -8,7 +8,7 @@ Each section below mentions typical tools and utilities in a natural order of de
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/secretsanta.svg)](https://pypistats.org/packages/secretsanta)
 [![PyPI - License](https://img.shields.io/pypi/l/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)
 
-[![Build Status](https://travis-ci.org/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.org/miraisolutions/secretsanta)
+[![Build Status](https://travis-ci.com/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.com/miraisolutions/secretsanta)
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
 ### Table of Contents
@@ -300,8 +300,8 @@ This typically includes a build, automated test runs, and possibly making sure t
 deployed to a target environment. This helps developers and users by providing timely feedback and showing what the
 results of certain checks were on a given version of the code.
 
-This repository uses [Travis CI](https://travis-ci.org) to run tests automatically when new commits are pushed. Results
-can be viewed [here](https://travis-ci.org/miraisolutions/secretsanta). Along with test results,
+This repository uses [Travis CI](https://travis-ci.com) to run tests automatically when new commits are pushed. Results
+can be viewed [here](https://travis-ci.com/miraisolutions/secretsanta). Along with test results,
 coverage information is generated and uploaded to [codecov](codecov.io), which generates a
 [report](https://codecov.io/gh/miraisolutions/secretsanta) out of it.
 
