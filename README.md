@@ -48,12 +48,12 @@ A couple of useful references about virtual environments if you've never used th
 * [Virtual environments](https://docs.python-guide.org/dev/virtualenvs/)
 * [Creating virtual environments](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments)
 
-Install support for virtual environments with Python 3.x if you don't have it yet:
+Install support for virtual environments with Python 3.8.0 if you don't have it yet:
 ```bash
-sudo apt-get install python3-venv
+sudo apt install python3.8
 ```
 
-Configure the PyCharm project with a Python 3 virtual environment under
+Configure the PyCharm project with a Python 3.8 virtual environment under
 ```
 File > Settings > Project > Project interpreter
 ```
@@ -97,7 +97,7 @@ pip install --upgrade pip
 #> ...
 
 pip --version
-#> pip 20.0.2 from /home/localuser/PyCharm/secretsanta/venv/lib/python3.6/site-packages/pip (python 3.6)
+#> pip 20.3.3 from /home/mirai/PycharmProjects/secretsanta/venv/lib/python3.8/site-packages/pip (python 3.8)
 ```
 
 Install [pip-tools](<https://github.com/jazzband/pip-tools>):
@@ -111,10 +111,11 @@ pip list
 #> Package       Version
 #> ------------- -------
 #> Click         7.0    
-#> pip           20.0.2 
-#> pip-tools     5.0.0  
-#> setuptools    46.1.3 
-#> six           1.11.0 
+#> pip           20.3.3  
+#> pip-tools     3.1.0  
+#> pkg-resources 0.0.0  
+#> setuptools    51.0.0 
+#> six           1.15.0 
 ```
 
 Re-generate `requirements.txt` from `requirements.in`:
@@ -321,6 +322,24 @@ _Notifications from codecov can only be delivered via unencrypted webhook URLs. 
 a public repository, we do not use this functionality here._
 
 ### Miscellaneous
+
+##### Logging
+
+The `logging` package is used to track events after running the project. The main events logged in Secret Santa are: errors, warnings, and participants info. All logs activities are collected into a log file that is initiated at the beginning of the code:
+```bash
+logging.basicConfig(filename = 'file_name')
+```
+A logger is then set:
+```bash
+logger = logging.getLogger(__name__)
+```
+All functions used afterwards refer to this logger:
+```bash
+logger.error("Error message")
+logger.warning("Warning message")
+logger.info("Info")
+```
+The log file is automatically created in the current directory and can be inspected  after the project run is complete. 
 
 * `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 * Badges: This README features various badges (at the beginning), including a build status badge and a code coverage

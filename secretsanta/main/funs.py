@@ -1,13 +1,13 @@
 import datetime
+import logging
 import smtplib
 from contextlib import suppress
+from secretsanta.main.core import SecretSanta
 from typing import Optional, Dict, Tuple, List, Union, Any
 
 import numpy as np
 
 from secretsanta.main.core import SecretSanta
-
-
 # PyCharm: ctrl-p inside parentheses shows function args!
 
 
@@ -38,6 +38,8 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
     # a@acme.com and b's to c@acme.com.
     ######
 
+    logging.basicConfig(filename = 'secretsanta.log ', level = logging.DEBUG)
+    logger = logging.getLogger(__name__)
     # We need to map each person to some e-mail address, so we start by getting a list of all names
     # unpack dict_keys object into list literal (no control over order!)
     # https://stackoverflow.com/questions/16819222/how-to-return-dictionary-keys-as-a-list-in-python
@@ -52,14 +54,16 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
 
     np.random.seed(seed)
 
+    if len(dictionary) == 1:
+        logger.error("Only one person listed")
+    if len(dictionary) <= 3:
+        logger.warning("Too few people, assignment will be deterministic")
+
     # "dict"s are always unordered, therefore iterating through them has unpredictable order
     for name in dictionary:
         # print(dictionary.get(name))
         if verbose:
-            print(name)
-        # PyCharm: Alt+Enter (on variable definition) -> Add type hint - automatically generates type given variable
-        # assignment
-        # `name` is the person getting a present, we want to pick their secret santa from the available participants
+            logger.info(str(name))
         pick = names.copy()
         if len(pick) == 1:
             # if this is the last person in the list, we only have one choice left
@@ -88,7 +92,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
             # randomly pick a participant
             picked = np.random.choice(pick, 1)[0]
             if verbose:
-                print(picked)
+                logger.info(str(picked))
             # set `name`'s value in the result to the picked participant's e-mail.
             senddict[name] = dictionary[picked]
             names.remove(picked)
