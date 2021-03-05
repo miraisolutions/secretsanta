@@ -20,7 +20,7 @@ class MakeSantaDict(unittest.TestCase):
         :param seed: seed for random choice picking
         """
         test_dict = dict(zip(test_list, test_list))
-        assignment = funs.make_santa_dict(test_dict, seed)
+        assignment = funs.make_santa_dict(test_dict, seed, level)
         assert len(assignment) == len(test_list)
         for left, right in assignment.items():
             assert (left != right)

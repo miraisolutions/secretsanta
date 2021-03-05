@@ -111,8 +111,8 @@ pip list
 #> Package       Version
 #> ------------- -------
 #> Click         7.0    
-#> pip           20.3.3  
-#> pip-tools     3.1.0  
+#> pip           21.0.1 
+#> pip-tools     5.5-0
 #> pkg-resources 0.0.0  
 #> setuptools    51.0.0 
 #> six           1.15.0 
