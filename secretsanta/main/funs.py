@@ -41,7 +41,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
     ######
 
     name_file = 'secretsanta_' + time.strftime("%Y%m%d-%H%M%S") +'.log'
-    path_file = os.path.join('./log_file/', name_file)
+    path_file = os.path.join('./log_files/', name_file)
     logging.basicConfig(filename = path_file, level = level, format = '%(asctime)s %(message)s',
                         datefmt = '%Y/%m/%d %I:%M:%S %p')
     logger = logging.getLogger(__name__)
@@ -62,6 +62,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verb
 
     if len(dictionary) == 1:
         logger.error("ERROR: Only one person listed")
+        raise ValueError("Only one person listed")
     if len(dictionary) <= 3:
         logger.warning("WARNING: Too few people, assignment will be deterministic")
 
