@@ -9,8 +9,10 @@ from hypothesis.strategies import text, lists, integers, characters
 class MakeSantaDict(unittest.TestCase):
     # we specify some character classes to avoid unprintable characters that cause issues when used as dictionary keys.
     # the min / max parameters passed to integers match the accepted range for seeds.
+
     @given(lists(text(alphabet=characters(whitelist_categories=["Lu", "Ll", "Nd", "Pc", "Pd"],
-                                          whitelist_characters=["@"]), min_size=2, max_size=20), 2, 10, unique=True),
+                                          whitelist_characters=["@"]), min_size=2, max_size=20),
+                 min_size=2, max_size=10, unique=True),
            integers(min_value=0, max_value=2**32 - 1))
     def test_all_different_assign(self, test_list, seed):
         """
@@ -20,7 +22,7 @@ class MakeSantaDict(unittest.TestCase):
         :param seed: seed for random choice picking
         """
         test_dict = dict(zip(test_list, test_list))
-        assignment = funs.make_santa_dict(test_dict, seed, level)
+        assignment = funs.make_santa_dict(test_dict, seed)
         assert len(assignment) == len(test_list)
         for left, right in assignment.items():
             assert (left != right)

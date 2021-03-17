@@ -9,13 +9,13 @@ from typing import Optional, Dict, Tuple, List, Union, Any
 
 import numpy as np
 
-from secretsanta.main.core import SecretSanta
 # PyCharm: ctrl-p inside parentheses shows function args!
 
 
 # mypy is missing a library stub file for module 'numpy' and will complain about it
 # workaround: append --ignore-missing-imports to the mypy call (see https://github.com/python/mypy/issues/3905)
-def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None, verbose: bool = False, level = "ERROR") -> Dict[str, str]:
+def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None,
+                    verbose: bool = False, level: str = "ERROR") -> Dict[str, str]:
     # type triple-quotes and press enter to generate empty docstring stub
     """
     creates a random secret santa assignment as a dictionary from an initial dictionary of the participants' names and\
