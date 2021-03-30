@@ -26,7 +26,7 @@ jobs:
         pip-compile -U
         python -m pip install flake8 pytest codecov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Build and publish
+    - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
@@ -36,6 +36,5 @@ jobs:
       run: |
         pytest --cov=secretsanta
         python -m doctest secretsanta/main/core.py
-    #python -m unittest tests/main/test_funs.py
     - name: Create/upload coverage report
       run: codecov
