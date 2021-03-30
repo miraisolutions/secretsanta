@@ -6,7 +6,7 @@ name: Python package
 on:
   push:
     branches:
-      - feature/19-github-actions
+      - '**'
   pull_request:
     branches: [ master ]
 
