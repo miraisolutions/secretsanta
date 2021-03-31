@@ -8,7 +8,7 @@ Each section below mentions typical tools and utilities in a natural order of de
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/secretsanta.svg)](https://pypistats.org/packages/secretsanta)
 [![PyPI - License](https://img.shields.io/pypi/l/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)
 
-[![Build Status](https://github.com/github/docs/actions/workflows/python-package.yml/badge.svg)](https://github.com/miraisolutions/secretsanta/actions/workflows/python-package.yml)
+[![Build Status](https://github.com/miraisolutions/secretsanta/actions/workflows/python-package.yml/badge.svg)](https://github.com/miraisolutions/secretsanta/actions/workflows/python-package.yml)
 
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
