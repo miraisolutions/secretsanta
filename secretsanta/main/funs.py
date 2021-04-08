@@ -45,8 +45,6 @@ def make_santa_dict(
     # https://stackoverflow.com/questions/16819222/how-to-return-dictionary-keys-as-a-list-in-python
     names: List[str] = [*dictionary.keys()]
 
-    # To store the shuffled dictionary, we initialize a new variable
-
     np.random.seed(seed)
 
     if len(dictionary) == 1:
@@ -59,6 +57,25 @@ def make_santa_dict(
     shuffled_names = shuffle_move_all(names)
 
     return dict(zip(shuffled_names, dictionary.values()))
+
+
+def shuffle_move_all(lst):
+    """
+    randomly shuffle a list such that none of the elements remains in its previous index.
+    :param lst: the list to shuffle
+    :return: the shuffled list
+    """
+    # We start by creating pivots delimiting segments of length at least 2
+    pvts = pivots(lst)
+    for i in range(0, len(pvts) - 1):
+        start = pvts[i]
+        stop = pvts[i + 1]
+        sublen = stop - start - 1
+        # each segment of the list gets rotated by at least one, up to (not including) its length; this guarantees that
+        # no element will remain in its original position.
+        rotate_steps = 1 if sublen <= 1 else np.random.randint(1, sublen)
+        lst[start:stop] = rotate(rotate_steps, lst[start:stop])
+    return lst
 
 
 def pivots(lst):
@@ -91,25 +108,6 @@ def rotate(n, lst):
     :return: the rotated list
     """
     return lst[n:] + lst[:n]
-
-
-def shuffle_move_all(lst):
-    """
-    randomly shuffle a list such that none of the elements remains in its previous index.
-    :param lst: the list to shuffle
-    :return: the shuffled list
-    """
-    # We start by creating pivots delimiting segments of length at least 2
-    pvts = pivots(lst)
-    for i in range(0, len(pvts) - 1):
-        start = pvts[i]
-        stop = pvts[i + 1]
-        sublen = stop - start - 1
-        # each segment of the list gets rotated by at least one, up to (not including) its length; this guarantees that
-        # no element will remain in its original position.
-        rotate_steps = 1 if sublen <= 1 else np.random.randint(1, sublen)
-        lst[start:stop] = rotate(rotate_steps, lst[start:stop])
-    return lst
 
 
 def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
