@@ -1,10 +1,9 @@
 import datetime
 import logging
 import smtplib
-import time
-import os
 from contextlib import suppress
 from secretsanta.main.core import SecretSanta
+from secretsanta.main.utils import setup_logging
 from typing import Optional, Dict, Tuple, List, Union, Any
 
 import numpy as np
@@ -40,11 +39,9 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None,
     # a@acme.com and b's to c@acme.com.
     ######
 
-    name_file = 'secretsanta_' + time.strftime("%Y%m%d-%H%M%S") +'.log'
-    path_file = os.path.join('./log_files/', name_file)
-    logging.basicConfig(filename = path_file, level = level, format = '%(asctime)s %(message)s',
-                        datefmt = '%Y/%m/%d %I:%M:%S %p')
+    setup_logging(level)
     logger = logging.getLogger(__name__)
+    #print(__name__): secretsanta.main.funs
 
     # We need to map each person to some e-mail address, so we start by getting a list of all names
     # unpack dict_keys object into list literal (no control over order!)
@@ -61,16 +58,16 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None,
     np.random.seed(seed)
 
     if len(dictionary) == 1:
-        logger.error("ERROR: Only one person listed")
+        logger.error("Only one person listed")
         raise ValueError("Only one person listed")
     if len(dictionary) <= 3:
-        logger.warning("WARNING: Too few people, assignment will be deterministic")
+        logger.warning("Too few people, assignment will be deterministic")
 
     # "dict"s are always unordered, therefore iterating through them has unpredictable order
     for name in dictionary:
         # print(dictionary.get(name))
         if verbose:
-            logger.info("INFO:" + str(name))
+            logger.info(str(name))
         pick = names.copy()
         if len(pick) == 1:
             # if this is the last person in the list, we only have one choice left
@@ -99,7 +96,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None,
             # randomly pick a participant
             picked = np.random.choice(pick, 1)[0]
             if verbose:
-                logger.info("INFO:" + str(picked))
+                logger.info(str(picked))
             # set `name`'s value in the result to the picked participant's e-mail.
             senddict[name] = dictionary[picked]
             names.remove(picked)
