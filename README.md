@@ -8,7 +8,8 @@ Each section below mentions typical tools and utilities in a natural order of de
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/secretsanta.svg)](https://pypistats.org/packages/secretsanta)
 [![PyPI - License](https://img.shields.io/pypi/l/secretsanta.svg)](https://pypi.python.org/pypi/secretsanta)
 
-[![Build Status](https://travis-ci.com/miraisolutions/secretsanta.svg?branch=master)](https://travis-ci.com/miraisolutions/secretsanta)
+[![Build Status](https://github.com/miraisolutions/secretsanta/actions/workflows/python-package.yml/badge.svg)](https://github.com/miraisolutions/secretsanta/actions/workflows/python-package.yml)
+
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
 ### Table of Contents
@@ -237,11 +238,29 @@ This will lead through an interactive generation process.
 
 Suggested values / options are listed here.
 Hitting enter without typing anything will take the suggested default shown inside square brackets [ ].
-* Root path for the documentation: docs
-* Separate source and build directories: y
-* Source file suffix: .rst
-* Sphinx extensions: autodoc, doctest, intersphinx, coverage, mathjax, viewcode
-* Create Makefile: y
+ * Root path for the documentation [.]: docs
+ * Separate source and build directories (y/n) [n]: y
+ * Name prefix for templates and static dir[_]: Enter
+ * Project name: secretsanta
+ * Author name(s): Mirai Solutions
+ * Project version[]: 0.1
+ * Project release[0.1]: 0.1.1
+ * Project language [en]: None
+ * Source file suffix [.rst]: .rst
+ * Name of your master document (without suffix) [index]: Enter
+ * Do you want to use epub builder (y/n) [n]: n
+ * autodoc: automatically insert docstrings from modules (y/n) [n]: y
+ * doctest: automatically test code snippets in doctest blocks (y/n) [n]: y
+ * intersphinx: link between Sphinx documentation of different projects (y/n) [n]: y
+ * todo: write "todo" entries that can be shown or hidden on build (y/n) [n]: n
+ * coverage: checks for documentation coverage (y/n) [n]: y
+ * imgmath: include math, rendered as PNG or SVG images (y/n) [n]: n
+ * mathjax: include math, rendered in the browser by MathJax (y/n) [n]: y
+ * ifconfig: conditional inclusion of content based on config values (y/n) [n]: n
+ * viewcode: include links to the source code of documented Python objects (y/n) [n]: y
+ * githubpages: create .nojekyll file to publish the document on GitHub pages (y/n) [n]: n
+ * Create Makefile? (y/n) [y]: y
+ * Create Windows command file? (y/n) [y]: n
 
 In order to use `autodoc`, one needs to uncomment the corresponding line in `docs/source/conf.py`:
 
