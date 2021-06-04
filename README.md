@@ -325,7 +325,13 @@ a public repository, we do not use this functionality here._
 
 ##### Logging
 
-The `logging` package is used to track events after running the project. The main events logged in Secret Santa are: errors, warnings, and participants info. All logs activities are collected into a log file that is initiated at the beginning of the code:
+The `logging` package is used to track events after running the project. The main logged events (levels) in Secret Santa are: errors, warnings, and participants info. A log level is set as an environment variable, e.g.:
+```bash
+os.environ["level"] = "ERROR"
+```
+
+
+All logs activities are collected into a log file that is initiated at the beginning of the code:
 ```bash
 logging.basicConfig(filename = 'file_name')
 ```
