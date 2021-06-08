@@ -33,15 +33,10 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(cm.output[0], 'WARNING:secretsanta.main.funs:Too few people, assignment will be deterministic')
 
     # test info
-    #ls = ['Stephanie', 'Simon', 'Gustavo', 'Nicola', 'Guido', 'Francesca',
-    #      'Gabriel', 'Roland', 'Nikki', 'Peter', 'Martin', 'Riccardo']
-
     @given(lists(text(alphabet=characters(whitelist_categories=["Lu", "Ll", "Nd", "Pc", "Pd"],
                                               whitelist_characters=["@"]), min_size=2, max_size=20),
                      min_size=2, max_size=10, unique=True),
         integers(min_value=1, max_value=1))
-    #@given(lists(sampled_from(ls), min_size=4, max_size=4, unique=True),
-    #       integers(min_value=1, max_value=1))
 
     def test_info(self, test_list, seed):
         #convert list to dict
