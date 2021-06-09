@@ -35,10 +35,9 @@ class TestLogging(unittest.TestCase):
     # test info
     @given(lists(text(alphabet=characters(whitelist_categories=["Lu", "Ll", "Nd", "Pc", "Pd"],
                                               whitelist_characters=["@"]), min_size=2, max_size=20),
-                     min_size=2, max_size=10, unique=True),
-        integers(min_value=1, max_value=1))
+                     min_size=2, max_size=10, unique=True))
 
-    def test_info(self, test_list, seed):
+    def test_info(self, test_list):
         #convert list to dict
         participants_dict = {i: i for i in test_list}
         # check if directory exists, if not then create it
@@ -51,5 +50,5 @@ class TestLogging(unittest.TestCase):
         log_level = os.environ.get('log_level', os.getenv("level")).upper()
         if log_level == "INFO":
             with self.assertLogs('secretsanta.main.funs', level='INFO') as cm:
-                make_santa_dict(participants_dict, seed=seed, verbose=True, level=log_level)
+                make_santa_dict(participants_dict, seed=1, verbose=True, level=log_level)
             self.assertEqual(cm.output[0], log_level + ':secretsanta.main.funs:' + test_list[0])
