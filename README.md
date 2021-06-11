@@ -352,7 +352,8 @@ os.environ["level"] = "ERROR"
 
 All logs activities are collected into a log file that is initiated at the beginning of the code:
 ```bash
-logging.basicConfig(filename = 'file_name')
+logging.basicConfig(filename = path_to_file, level = level, format = '%(asctime)s %(levelname)s %(message)s',
+                               datefmt = '%Y/%m/%d %I:%M:%S %p')
 ```
 A logger is then set:
 ```bash
@@ -364,7 +365,7 @@ logger.error("Error message")
 logger.warning("Warning message")
 logger.info("Info")
 ```
-The log file is automatically created in the current directory and can be inspected  after the project run is complete. 
+The log file is automatically created in the `log_files` directory and can be inspected  after the project run is complete. 
 
 * `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 * Badges: This README features various badges (at the beginning), including a build status badge and a code coverage
