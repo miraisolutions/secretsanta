@@ -7,7 +7,7 @@ def setup_logging(level: str = "ERROR"):
     """
         sets up logging configuration.
 
-        :param level: logging level
+:param level: logging level
     """
 
     name_file = 'secretsanta_' + time.strftime("%Y%m%d-%H%M%S") +'.log'
