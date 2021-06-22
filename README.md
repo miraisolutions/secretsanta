@@ -365,7 +365,7 @@ logger.error("Error message")
 logger.warning("Warning message")
 logger.info("Info")
 ```
-The log file is automatically created in the `log_files` directory and can be inspected  after the project run is complete. 
+The log file is automatically created in the `log_files` directory and can be inspected after the project run is complete. 
 
 * `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 * Badges: This README features various badges (at the beginning), including a build status badge and a code coverage
