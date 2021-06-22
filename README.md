@@ -51,7 +51,7 @@ A couple of useful references about virtual environments if you've never used th
 
 Install support for virtual environments with Python 3.x if you don't have it yet. Below we assume Python 3.8:
 ```bash
-sudo apt install python3.8
+sudo apt-get install python3.8-venv
 ```
 
 Configure the PyCharm project with a Python 3.8 virtual environment under
