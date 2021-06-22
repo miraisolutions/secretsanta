@@ -49,7 +49,7 @@ A couple of useful references about virtual environments if you've never used th
 * [Virtual environments](https://docs.python-guide.org/dev/virtualenvs/)
 * [Creating virtual environments](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments)
 
-Install support for virtual environments with Python 3.8.0 if you don't have it yet:
+Install support for virtual environments with Python 3.x if you don't have it yet. Below we assume Python 3.8:
 ```bash
 sudo apt install python3.8
 ```
