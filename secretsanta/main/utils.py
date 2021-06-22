@@ -5,7 +5,7 @@ import os
 
 def setup_logging(level: str = "ERROR"):
     """
-        sets up logging configuration.
+sets up logging configuration.
 
 :param level: logging level
     """
