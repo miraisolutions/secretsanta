@@ -23,9 +23,11 @@ Each section below mentions typical tools and utilities in a natural order of de
     c. [Property testing](#property-testing)  
     d. [Mocks in unit tests](#mocks-in-unit-tests)  
 3. [Documentation](#documentation)  
-4. [Usage / Jupyter notebook](#usage)  
-5. [Continuous Integration](#continuous-integration)  
-6. [Miscellaneous](#miscellaneous)  
+4. [Usage](#usage)  
+    a. [Jupyter notebook](#jupyter-notebook)  
+    b. [Command-line interface](#command-line-interface-cli)  
+6. [Continuous Integration](#continuous-integration)  
+7. [Miscellaneous](#miscellaneous)  
 
 ### Development
 
@@ -193,7 +195,6 @@ mypy ./secretsanta/main/core.py
 to test if the type hints of `.py` file(s) are correct (in which case there may be no output).
 
 #### Property testing
-
 We use [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) to define a _property test_ for our matching function: 
 generated example inputs are tested against desired properties. Hypothesis' generator can be configured to produce typical 
 data structures, filled with various instances of primitive types. This is done by composing specific annotations.
@@ -213,7 +214,6 @@ def test_some_thing(a_string, an_int):
 have at least 2 characters.
 
 #### Mocks in unit tests
-
 Mock objects are used to avoid external side effects. We use the standard Python package `unittest.mock`. This provides
 a `@patch` decorator, which allows us to specify classes to be mocked within the scope of a given test case. See 
 *test_funs.py* and *test_core.py* for examples.
@@ -294,6 +294,8 @@ make latexpdf
 ```
 
 ### Usage
+
+#### Jupyter Notebook
 The [Jupyter](https://jupyter.org/) notebook `SecretSanta.ipynb` illustrates the usage of the `secretsanta` package.
 
 It can be run in your browser (or directly in PyCharm if you have the professional edition):
@@ -312,8 +314,20 @@ A few additional links to some typical early `Jupyter` topics:
 * [Closing running Jupyter notebook servers](https://github.com/jupyter/notebook/issues/2844)
 * [Checkpoints and autosave](https://groups.google.com/forum/#!topic/jupyter/DGCKE5fS4kQ)
 
-### Continuous Integration
+#### Command-line Interface (CLI)
 
+Python's ecosystem offers several ways to tackle command-line interfaces. The traditional standard method is to use
+the `argparse` module that is part of the standard library. This can be complemented by something like `argparsetree`
+for larger and more complex command-line applications.
+
+Here we have chosen to use [Click](https://click.palletsprojects.com/) instead, which allows us to define our CLI via
+decorated functions in a neat and compact way. Other potential alternatives could
+be [docopt](https://docopt.readthedocs.io/) or [Invoke](https://www.pyinvoke.org/).
+
+A nice comparison is
+available [here](https://realpython.com/comparing-python-command-line-parsing-libraries-argparse-docopt-click/).
+
+### Continuous Integration
 Continuous Integration (CI) aims to keep state updated to always match the code currently checked in a repository.
 This typically includes a build, automated test runs, and possibly making sure that the newly built artifacts are
 deployed to a target environment. This helps developers and users by providing timely feedback and showing what the
@@ -325,7 +339,6 @@ coverage information is generated and uploaded to [codecov](codecov.io), which g
 [report](https://codecov.io/gh/miraisolutions/secretsanta) out of it.
 
 #### Configuration
-
 Travis CI is configured using the `.travis.yml` file. This allows specifying the environment(s) to run
 tests in; tests will be run for each specified environment. The steps required before running tests are specified under
 `install`. Finally, the task to run is defined in `script`, and we make sure coverage reports are uploaded (see
@@ -343,7 +356,6 @@ a public repository, we do not use this functionality here._
 ### Miscellaneous
 
 ##### Logging
-
 The `logging` package is used to track events after running the project. The main logged events (levels) in Secret Santa are: errors, warnings, and participants info. A log level is set as an environment variable, e.g.:
 ```bash
 os.environ["level"] = "ERROR"
