@@ -84,6 +84,11 @@ class Publish(Command):
 setup(
     name=PKG_NAME,
     version=get_version(),
+    entry_points={
+        'console_scripts': [
+            'santa=secretsanta.cli.cli:santa',
+        ],
+    },
     description='Secret Santa randomizer',
     long_description=get_readme(),
     long_description_content_type='text/markdown',
