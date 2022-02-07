@@ -6,6 +6,6 @@ jupyter
 pip-tools>=5.0.0
 pytest
 pytest-cov
-Sphinx
+Sphinx<4.4  # otherwise importlib-metadata dependency bites with flake8
 tox
 twine
