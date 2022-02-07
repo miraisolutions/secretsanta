@@ -26,8 +26,8 @@ Each section below mentions typical tools and utilities in a natural order of de
 4. [Usage](#usage)  
     a. [Jupyter notebook](#jupyter-notebook)  
     b. [Command-line interface](#command-line-interface-cli)  
-6. [Continuous Integration](#continuous-integration)  
-7. [Miscellaneous](#miscellaneous)  
+5. [Continuous Integration](#continuous-integration)  
+6. [Miscellaneous](#miscellaneous)  
 
 ### Development
 
