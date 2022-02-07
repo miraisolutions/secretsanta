@@ -354,13 +354,15 @@ _Notifications from codecov can only be delivered via unencrypted webhook URLs. 
 a public repository, we do not use this functionality here._
 
 ### Miscellaneous
+* `MANIFEST.in` specifies extra files that shall be included in a source distribution.
+* Badges: This README features various badges (at the beginning), including a build status badge and a code coverage
+status badge.
 
 ##### Logging
 The `logging` package is used to track events after running the project. The main logged events (levels) in Secret Santa are: errors, warnings, and participants info. A log level is set as an environment variable, e.g.:
 ```bash
 os.environ["level"] = "ERROR"
 ```
-
 
 All logs activities are collected into a log file that is initiated at the beginning of the code:
 ```bash
@@ -377,8 +379,4 @@ logger.error("Error message")
 logger.warning("Warning message")
 logger.info("Info")
 ```
-The log file is automatically created in the `log_files` directory and can be inspected after the project run is complete. 
-
-* `MANIFEST.in` specifies extra files that shall be included in a source distribution.
-* Badges: This README features various badges (at the beginning), including a build status badge and a code coverage
-status badge.
+The log file is automatically created in the `log_files` directory and can be inspected after the project run is complete.
