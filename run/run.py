@@ -16,7 +16,7 @@ participants = {
     'Riccardo': 'riccardo'
 }
 
-for name in participants.keys() :
+for name in participants.keys():
     participants[name] += '@acme-example.com'
 
 # remove previously created file
@@ -27,5 +27,4 @@ os.remove(file_rm)
 # set logging level as environment variable
 os.environ["level"] = "DEBUG"
 log_level = os.environ.get('log_level', os.getenv("level")).upper()
-print(make_santa_dict(participants, seed = None, verbose = True, level = log_level))
-
+print(make_santa_dict(participants, seed=None, verbose=True, level=log_level))
