@@ -41,7 +41,7 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None,
 
     setup_logging(level)
     logger = logging.getLogger(__name__)
-    #print(__name__): secretsanta.main.funs
+    # print(__name__): secretsanta.main.funs
 
     # We need to map each person to some e-mail address, so we start by getting a list of all names
     # unpack dict_keys object into list literal (no control over order!)

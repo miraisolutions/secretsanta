@@ -1,7 +1,7 @@
 import click
 import json
 
-from ..main import funs as secretsanta
+from secretsanta.main import funs as secretsanta
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -22,7 +22,7 @@ def makedict(**kwargs):
     JSON is the path to a json file containing the set of participants with names and email addresses.
     """
     f_participants = kwargs['json']
-    with open(f_participants, "r") as f:
+    with open(f_participants, 'r') as f:
         participants = json.load(f)
     print(participants)
     assignments = secretsanta.make_santa_dict(participants, seed=666 if kwargs['test_run'] else None)
@@ -42,10 +42,17 @@ def senddict(**kwargs):
     JSON is the path to a json file containing the set of assignments with names and email addresses.
     """
     f_assignments = kwargs['json']
-    with open(f_assignments, "r") as f:
+    with open(f_assignments, 'r') as f:
         assignments = json.load(f)
-    check = secretsanta.send_santa_dict(kwargs['smtp'], kwargs['sender'], kwargs['pwd'], assignments, test=kwargs['test_run'])
+    check = secretsanta.send_santa_dict(
+        kwargs['smtp'],
+        kwargs['sender'],
+        kwargs['pwd'],
+        assignments,
+        test=kwargs['test_run']
+    )
     print(check)
+
 
 if __name__ == '__main__':
     santa()
