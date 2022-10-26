@@ -26,12 +26,13 @@ Each section below mentions typical tools and utilities in a natural order of de
 4. [Usage](#usage)  
     a. [Jupyter notebook](#jupyter-notebook)  
     b. [Command-line interface](#command-line-interface-cli)  
-5. [Continuous Integration](#continuous-integration)  
+    c. [Package installation & CLI](#package-installation--cli)  
+5. [Continuous integration](#continuous-integration)  
 6. [Miscellaneous](#miscellaneous)  
 
 ### Development
 
-We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment.
+We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment, but you might as well use a newer Linux version or even Windows instead.
 
 In PyCharm, check out this repository into a new project, e.g. under
 ```
@@ -184,15 +185,16 @@ Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *e
 Type hints define what type function arguments and return values should be. They are both a source of documentation
 and testing framework to identify bugs more easily, see also [PEP 484](https://www.python.org/dev/peps/pep-0484/).
 
-In order to use them, install [mypy](http://www.mypy-lang.org/) (outside of a virtual environment):
+In order to use them, install [mypy](http://www.mypy-lang.org/) (inside the virtual environment, requires Python >= 3.6):
 ```{bash, eval=FALSE}
-sudo apt install mypy
+pip install mypy
 ```
-Then run e.g.:
+Then run something like below:
 ```{bash, eval=FALSE}
 mypy ./secretsanta/main/core.py
+mypy ./tests
 ```
-to test if the type hints of `.py` file(s) are correct (in which case there may be no output).
+to test if the type hints of `.py` file(s) are correct (in which case it would typically output a "Success" message).
 
 #### Property testing
 We use [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) to define a _property test_ for our matching function: 
@@ -327,6 +329,38 @@ be [docopt](https://docopt.readthedocs.io/) or [Invoke](https://www.pyinvoke.org
 A nice comparison is
 available [here](https://realpython.com/comparing-python-command-line-parsing-libraries-argparse-docopt-click/).
 
+In order to install the package and **run the CLI commands**, you can follow the steps below.
+- set `PYTHONPATH` to point to this project. Then run:
+```bash
+python secretsanta/cli/cli.py --help
+```
+- try a specific command:
+```bash
+python secretsanta/cli/cli.py makedict --help
+python secretsanta/cli/cli.py makedict ".\validation\participants.json"
+```
+
+#### Package Installation & CLI
+
+If you install the package, you can use the CLI tool as designed for the end user:
+```bash
+python -m pip install --upgrade pip
+
+pip install --upgrade setuptools wheel
+
+python setup.py sdist bdist_wheel  # creates build and dist directories
+
+# Windows:
+pip install .\dist\secretsanta-0.1.0-py3-none-any.whl
+# if already installed, use below to force re-installation:
+pip install --force-reinstall .\dist\secretsanta-0.1.0-py3-none-any.whl
+
+# now you can use the CLI tool properly as below:
+santa --help
+santa makedict --help
+santa makedict ".\validation\participants.json"
+```
+
 ### Continuous Integration
 Continuous Integration (CI) aims to keep state updated to always match the code currently checked in a repository.
 This typically includes a build, automated test runs, and possibly making sure that the newly built artifacts are
@@ -335,7 +369,7 @@ results of certain checks were on a given version of the code.
 
 This repository uses [Travis CI](https://travis-ci.com) to run tests automatically when new commits are pushed. Results
 can be viewed [here](https://travis-ci.com/miraisolutions/secretsanta). Along with test results,
-coverage information is generated and uploaded to [codecov](codecov.io), which generates a
+coverage information is generated and uploaded to [codecov](https://codecov.io/), which generates a
 [report](https://codecov.io/gh/miraisolutions/secretsanta) out of it.
 
 #### Configuration
