@@ -3,6 +3,7 @@
 flake8
 hypothesis
 jupyter
+mypy
 pip-tools>=5.0.0
 pytest
 pytest-cov
