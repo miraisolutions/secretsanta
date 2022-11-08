@@ -3,10 +3,8 @@ import json
 
 from secretsanta.main import funs as secretsanta
 
-CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
-
-@click.group(context_settings=CONTEXT_SETTINGS)
+@click.group(context_settings={'help_option_names': ['-h', '--help']})
 @click.version_option(version='0.0.1')
 def santa():
     pass
