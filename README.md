@@ -360,7 +360,9 @@ pip install ./dist/secretsanta-0.1.0.tar.gz -e
 # if already installed, use below to force re-installation:
 pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz -e
 
-# Note the `-e` flag which stands for "editable mode" and will install the package in the repository, which means that one can adjust the code and test the updated command line without having to re-install.
+# Note the `-e` flag which stands for "editable mode" and will install the
+# package in the repository, which means that one can adjust the code
+# and test the updated command line without having to re-install.
 
 # now you can use the CLI tool properly as below:
 santa --help
