@@ -337,7 +337,7 @@ python secretsanta/cli/cli.py --help
 - try a specific command:
 ```bash
 python secretsanta/cli/cli.py makedict --help
-python secretsanta/cli/cli.py makedict ".\validation\participants.json"
+python secretsanta/cli/cli.py makedict "./validation/participants.json"
 ```
 
 #### Package Installation & CLI
