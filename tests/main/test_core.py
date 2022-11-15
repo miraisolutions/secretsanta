@@ -41,7 +41,9 @@ class SantaMockMessageValidator(object):
         self.santa_email = santa_email
         self.message = message
 
-    def __eq__(self, other: str):
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, str):
+            return NotImplemented
         needed_elements = [self.sender, self.subject, self.santa_email, self.message]
         test = all(fragment in other for fragment in needed_elements)
         if not test:

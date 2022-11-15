@@ -23,13 +23,16 @@ Each section below mentions typical tools and utilities in a natural order of de
     c. [Property testing](#property-testing)  
     d. [Mocks in unit tests](#mocks-in-unit-tests)  
 3. [Documentation](#documentation)  
-4. [Usage / Jupyter notebook](#usage)  
-5. [Continuous Integration](#continuous-integration)  
+4. [Usage](#usage)  
+    a. [Jupyter notebook](#jupyter-notebook)  
+    b. [Command-line interface](#command-line-interface-cli)  
+    c. [Package installation & CLI](#package-installation--cli)  
+5. [Continuous integration](#continuous-integration)  
 6. [Miscellaneous](#miscellaneous)  
 
 ### Development
 
-We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment.
+We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment, but you might as well use a newer Linux version or even Windows instead.
 
 In PyCharm, check out this repository into a new project, e.g. under
 ```
@@ -182,18 +185,18 @@ Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *e
 Type hints define what type function arguments and return values should be. They are both a source of documentation
 and testing framework to identify bugs more easily, see also [PEP 484](https://www.python.org/dev/peps/pep-0484/).
 
-In order to use them, install [mypy](http://www.mypy-lang.org/) (outside of a virtual environment):
+In order to use them, install [mypy](http://www.mypy-lang.org/) (inside the virtual environment, requires Python >= 3.6):
 ```{bash, eval=FALSE}
-sudo apt install mypy
+pip install mypy
 ```
-Then run e.g.:
+Then run something like below:
 ```{bash, eval=FALSE}
 mypy ./secretsanta/main/core.py
+mypy ./tests
 ```
-to test if the type hints of `.py` file(s) are correct (in which case there may be no output).
+to test if the type hints of `.py` file(s) are correct (in which case it would typically output a "Success" message).
 
 #### Property testing
-
 We use [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) to define a _property test_ for our matching function: 
 generated example inputs are tested against desired properties. Hypothesis' generator can be configured to produce typical 
 data structures, filled with various instances of primitive types. This is done by composing specific annotations.
@@ -213,7 +216,6 @@ def test_some_thing(a_string, an_int):
 have at least 2 characters.
 
 #### Mocks in unit tests
-
 Mock objects are used to avoid external side effects. We use the standard Python package `unittest.mock`. This provides
 a `@patch` decorator, which allows us to specify classes to be mocked within the scope of a given test case. See 
 *test_funs.py* and *test_core.py* for examples.
@@ -294,6 +296,8 @@ make latexpdf
 ```
 
 ### Usage
+
+#### Jupyter Notebook
 The [Jupyter](https://jupyter.org/) notebook `SecretSanta.ipynb` illustrates the usage of the `secretsanta` package.
 
 It can be run in your browser (or directly in PyCharm if you have the professional edition):
@@ -312,8 +316,61 @@ A few additional links to some typical early `Jupyter` topics:
 * [Closing running Jupyter notebook servers](https://github.com/jupyter/notebook/issues/2844)
 * [Checkpoints and autosave](https://groups.google.com/forum/#!topic/jupyter/DGCKE5fS4kQ)
 
-### Continuous Integration
+#### Command-line Interface (CLI)
 
+Python's ecosystem offers several ways to tackle command-line interfaces. The traditional standard method is to use
+the `argparse` module that is part of the standard library. This can be complemented by something like `argparsetree`
+for larger and more complex command-line applications.
+
+Here we have chosen to use [Click](https://click.palletsprojects.com/) instead, which allows us to define our CLI via
+decorated functions in a neat and compact way. Other potential alternatives could
+be [docopt](https://docopt.readthedocs.io/) or [Invoke](https://www.pyinvoke.org/).
+
+A nice comparison is
+available [here](https://realpython.com/comparing-python-command-line-parsing-libraries-argparse-docopt-click/).
+
+In order to install the package and **run the CLI commands**, you can follow the steps below.
+- On **Windows**, set `PYTHONPATH` to point to this project by adding it to environment variables in PyCharm (`File > Settings... > Terminal > Environment variables`). On **Ubuntu**, export it via command line instead: `export PYTHONPATH=$PYTHONPATH:<path to secretsanta project>`. Then run:
+```bash
+python secretsanta/cli/cli.py --help
+```
+- try a specific command:
+```bash
+python secretsanta/cli/cli.py makedict --help
+python secretsanta/cli/cli.py makedict "./validation/participants.json"
+```
+
+#### Package Installation & CLI
+
+If you install the package, you can use the CLI tool as designed for the end user:
+```bash
+python -m pip install --upgrade pip
+
+pip install --upgrade setuptools wheel
+
+python setup.py sdist bdist_wheel  # creates build and dist directories
+
+# Windows:
+pip install .\dist\secretsanta-0.1.0-py3-none-any.whl -e
+# if already installed, use below to force re-installation:
+pip install --force-reinstall .\dist\secretsanta-0.1.0-py3-none-any.whl -e
+
+# Ubuntu:
+pip install ./dist/secretsanta-0.1.0.tar.gz -e
+# if already installed, use below to force re-installation:
+pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz -e
+
+# Note the `-e` flag which stands for "editable mode" and will install the
+# package in the repository, which means that one can adjust the code
+# and test the updated command line without having to re-install.
+
+# now you can use the CLI tool properly as below:
+santa --help
+santa makedict --help
+santa makedict "./validation/participants.json"
+```
+
+### Continuous Integration
 Continuous Integration (CI) aims to keep state updated to always match the code currently checked in a repository.
 This typically includes a build, automated test runs, and possibly making sure that the newly built artifacts are
 deployed to a target environment. This helps developers and users by providing timely feedback and showing what the
@@ -321,11 +378,10 @@ results of certain checks were on a given version of the code.
 
 This repository uses [Travis CI](https://travis-ci.com) to run tests automatically when new commits are pushed. Results
 can be viewed [here](https://travis-ci.com/miraisolutions/secretsanta). Along with test results,
-coverage information is generated and uploaded to [codecov](codecov.io), which generates a
+coverage information is generated and uploaded to [codecov](https://codecov.io/), which generates a
 [report](https://codecov.io/gh/miraisolutions/secretsanta) out of it.
 
 #### Configuration
-
 Travis CI is configured using the `.travis.yml` file. This allows specifying the environment(s) to run
 tests in; tests will be run for each specified environment. The steps required before running tests are specified under
 `install`. Finally, the task to run is defined in `script`, and we make sure coverage reports are uploaded (see
@@ -341,14 +397,15 @@ _Notifications from codecov can only be delivered via unencrypted webhook URLs. 
 a public repository, we do not use this functionality here._
 
 ### Miscellaneous
+* `MANIFEST.in` specifies extra files that shall be included in a source distribution.
+* Badges: This README features various badges (at the beginning), including a build status badge and a code coverage
+status badge.
 
 ##### Logging
-
 The `logging` package is used to track events after running the project. The main logged events (levels) in Secret Santa are: errors, warnings, and participants info. A log level is set as an environment variable, e.g.:
 ```bash
 os.environ["level"] = "ERROR"
 ```
-
 
 All logs activities are collected into a log file that is initiated at the beginning of the code:
 ```bash
@@ -365,8 +422,4 @@ logger.error("Error message")
 logger.warning("Warning message")
 logger.info("Info")
 ```
-The log file is automatically created in the `log_files` directory and can be inspected after the project run is complete. 
-
-* `MANIFEST.in` specifies extra files that shall be included in a source distribution.
-* Badges: This README features various badges (at the beginning), including a build status badge and a code coverage
-status badge.
+The log file is automatically created in the `log_files` directory and can be inspected after the project run is complete.

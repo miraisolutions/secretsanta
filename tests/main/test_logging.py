@@ -2,7 +2,8 @@ import unittest
 import os
 from hypothesis import given
 from secretsanta.main.funs import make_santa_dict
-from hypothesis.strategies import text, lists, integers, characters, sampled_from
+from hypothesis.strategies import text, lists, characters, sampled_from
+
 
 class TestLogging(unittest.TestCase):
     # test error
@@ -15,8 +16,8 @@ class TestLogging(unittest.TestCase):
 
     # test warning
     ls = ['Stephanie', 'Simon', 'Gustavo']
-    @given(lists(sampled_from(ls), min_size=2, max_size=2, unique=True))
 
+    @given(lists(sampled_from(ls), min_size=2, max_size=2, unique=True))
     def test_warning(self, participants):
         # convert list to dict
         participants_dict = {i: i for i in participants}
@@ -34,11 +35,10 @@ class TestLogging(unittest.TestCase):
 
     # test info
     @given(lists(text(alphabet=characters(whitelist_categories=["Lu", "Ll", "Nd", "Pc", "Pd"],
-                                              whitelist_characters=["@"]), min_size=2, max_size=20),
-                     min_size=2, max_size=10, unique=True))
-
+                                          whitelist_characters=["@"]), min_size=2, max_size=20),
+                 min_size=2, max_size=10, unique=True))
     def test_info(self, test_list):
-        #convert list to dict
+        # convert list to dict
         participants_dict = {i: i for i in test_list}
         # check if directory exists, if not then create it
         check_dir = os.path.exists('log_files')
