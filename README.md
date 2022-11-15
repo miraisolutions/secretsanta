@@ -365,7 +365,7 @@ pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz -e
 # now you can use the CLI tool properly as below:
 santa --help
 santa makedict --help
-santa makedict ".\validation\participants.json"
+santa makedict "./validation/participants.json"
 ```
 
 ### Continuous Integration
