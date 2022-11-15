@@ -330,7 +330,7 @@ A nice comparison is
 available [here](https://realpython.com/comparing-python-command-line-parsing-libraries-argparse-docopt-click/).
 
 In order to install the package and **run the CLI commands**, you can follow the steps below.
-- set `PYTHONPATH` to point to this project. Then run:
+- On **Windows**, set `PYTHONPATH` to point to this project by adding it to environment variables in PyCharm (`File > Settings... > Terminal > Environment variables`). On **Ubuntu**, export it via command line instead `export PYTHONPATH=$PYTHONPATH:<path to secretsanta project>`. Then run:
 ```bash
 python secretsanta/cli/cli.py --help
 ```
