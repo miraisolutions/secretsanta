@@ -5,24 +5,24 @@ import glob
 import sys
 import shutil
 
+from pathlib import Path
 from setuptools import setup, find_packages, Command
 
-PROJ_DIR = os.path.abspath(os.path.dirname(__file__))
-# PROJ_DIR = os.getcwd()
+PROJ_DIR = Path(__file__).parent.resolve()
 
 PKG_NAME = 'secretsanta'
 
 # distutils should not be depended on anymore, as it will be deprecated soon
-DISTUTILS_LOG_LEVELS = {"WARN": 3, "ERROR": 4}
+DISTUTILS_LOG_LEVELS = {'WARN': 3, 'ERROR': 4}
 
 
 def get_readme():
-    with io.open(os.path.join(PROJ_DIR, 'README.md'), encoding='utf-8') as fh:
+    with io.open(PROJ_DIR / 'README.md', encoding='utf-8') as fh:
         return fh.read()
 
 
 def get_install_requirements():
-    with io.open(os.path.join(PROJ_DIR, 'requirements-package.in'), encoding='utf-8') as fh:
+    with io.open(PROJ_DIR / 'requirements-package.in', encoding='utf-8') as fh:
         return fh.readlines()
 
 
@@ -30,7 +30,7 @@ def get_version():
     """
     Return package version as listed in `__version__` in `init.py`.
     """
-    with io.open(os.path.join(PROJ_DIR, PKG_NAME, '__init__.py'), encoding='utf-8') as fh:
+    with io.open(PROJ_DIR / PKG_NAME / '__init__.py', encoding='utf-8') as fh:
         return re.search('__version__ = [\'"]([^\'"]+)[\'"]', fh.read()).group(1)
 
 

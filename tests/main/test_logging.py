@@ -1,8 +1,18 @@
 import unittest
 import os
+
+from pathlib import Path
 from hypothesis import given
 from secretsanta.main.funs import make_santa_dict
 from hypothesis.strategies import text, lists, characters, sampled_from
+
+
+def create_log_files_dir_if_missing(log_dir='log_files'):
+    # check if directory exists, if not then create it
+    check_dir = Path(log_dir).exists()
+    if not check_dir:
+        path = Path('.') / log_dir
+        path.mkdir()
 
 
 class TestLogging(unittest.TestCase):
@@ -21,12 +31,7 @@ class TestLogging(unittest.TestCase):
     def test_warning(self, participants):
         # convert list to dict
         participants_dict = {i: i for i in participants}
-        # check if directory exists, if not then create it
-        check_dir = os.path.exists('log_files')
-        if not check_dir:
-            directory = "log_files"
-            path = os.path.join('.', directory)
-            os.makedirs(path)
+        create_log_files_dir_if_missing()
         os.environ["level"] = "DEBUG"
         log_level = os.environ.get('log_level', os.getenv("level")).upper()
         with self.assertLogs('secretsanta.main.funs', level='WARNING') as cm:
@@ -40,12 +45,7 @@ class TestLogging(unittest.TestCase):
     def test_info(self, test_list):
         # convert list to dict
         participants_dict = {i: i for i in test_list}
-        # check if directory exists, if not then create it
-        check_dir = os.path.exists('log_files')
-        if not check_dir:
-            directory = "log_files"
-            path = os.path.join('.', directory)
-            os.makedirs(path)
+        create_log_files_dir_if_missing()
         os.environ["level"] = "DEBUG"
         log_level = os.environ.get('log_level', os.getenv("level")).upper()
         if log_level == "INFO":
