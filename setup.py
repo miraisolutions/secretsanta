@@ -1,4 +1,3 @@
-import io
 import os
 import re
 import glob
@@ -17,12 +16,12 @@ DISTUTILS_LOG_LEVELS = {'WARN': 3, 'ERROR': 4}
 
 
 def get_readme():
-    with io.open(PROJ_DIR / 'README.md', encoding='utf-8') as fh:
+    with open(PROJ_DIR / 'README.md', encoding='utf-8') as fh:
         return fh.read()
 
 
 def get_install_requirements():
-    with io.open(PROJ_DIR / 'requirements-package.in', encoding='utf-8') as fh:
+    with open(PROJ_DIR / 'requirements-package.in', encoding='utf-8') as fh:
         return fh.readlines()
 
 
@@ -30,7 +29,7 @@ def get_version():
     """
     Return package version as listed in `__version__` in `init.py`.
     """
-    with io.open(PROJ_DIR / PKG_NAME / '__init__.py', encoding='utf-8') as fh:
+    with open(PROJ_DIR / PKG_NAME / '__init__.py', encoding='utf-8') as fh:
         return re.search('__version__ = [\'"]([^\'"]+)[\'"]', fh.read()).group(1)
 
 
