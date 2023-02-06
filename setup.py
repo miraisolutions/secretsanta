@@ -68,12 +68,12 @@ class Publish(Command):
 
         if self.sign:
             for p in glob.glob('dist/*'):
-                os.system('gpg --detach-sign -a {}'.format(p))
+                os.system(f'gpg --detach-sign -a {p}')
 
         os.system('twine upload dist/*')
         # enter credentials for PyPI when prompted
         print('You probably want to also tag the version now:')
-        print('  git tag -a {v} -m \'version {v}\''.format(v=get_version()))
+        print(f'  git tag -a {get_version()} -m \'version {get_version()}\'')
         print('  git push --tags')
 
         if not self.no_clean:
