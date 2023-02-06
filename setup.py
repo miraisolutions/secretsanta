@@ -4,7 +4,6 @@ import re
 import glob
 import sys
 import shutil
-from distutils.log import WARN, ERROR
 
 from setuptools import setup, find_packages, Command
 
@@ -12,6 +11,9 @@ PROJ_DIR = os.path.abspath(os.path.dirname(__file__))
 # PROJ_DIR = os.getcwd()
 
 PKG_NAME = 'secretsanta'
+
+# distutils should not be depended on anymore, as it will be deprecated soon
+DISTUTILS_LOG_LEVELS = {"WARN": 3, "ERROR": 4}
 
 
 def get_readme():
@@ -50,12 +52,12 @@ class Publish(Command):
 
     def finalize_options(self):
         if not (self.wheel or self.sdist):
-            self.announce('Either --wheel and/or --sdist must be provided', ERROR)
+            self.announce('Either --wheel and/or --sdist must be provided', DISTUTILS_LOG_LEVELS["ERROR"])
             sys.exit(1)
 
     def run(self):
         if os.system('pip freeze | grep twine'):
-            self.announce('twine not installed.\nUse `pip install twine`.\nExiting.', WARN)
+            self.announce('twine not installed.\nUse `pip install twine`.\nExiting.', DISTUTILS_LOG_LEVELS["WARN"])
             sys.exit(1)
 
         if self.sdist:
