@@ -56,7 +56,8 @@ Install support for virtual environments with Python 3.x if you don't have it ye
 ```bash
 sudo apt-get install python3.8-venv
 ```
-Note that Ubuntu 22.04 does not provide 3.8 (nor 3.9) by default. It can be installed by adding the [deadsnakes](https://github.com/deadsnakes) repository.
+Note that Ubuntu 22.04 does not provide 3.8 (nor 3.9) by default. It can be installed by adding the
+[deadsnakes](https://github.com/deadsnakes) repository first to `apt`.
 
 Configure the PyCharm project with a Python 3.8 virtual environment under
 ```
