@@ -32,7 +32,7 @@ Each section below mentions typical tools and utilities in a natural order of de
 
 ### Development
 
-We assume **PyCharm** on **Ubuntu >= 16.04** as the development environment, but you might as well use a newer Linux version or even Windows instead.
+We assume **PyCharm** on **Ubuntu >= 20.04** as the development environment, but you might as well use a newer Linux version or even Windows instead.
 
 In PyCharm, check out this repository into a new project, e.g. under
 ```
@@ -56,6 +56,7 @@ Install support for virtual environments with Python 3.x if you don't have it ye
 ```bash
 sudo apt-get install python3.8-venv
 ```
+Note that Ubuntu 22.04 does not provide 3.8 (nor 3.9) by default. It can be installed by adding the [deadsnakes](https://github.com/deadsnakes) repository.
 
 Configure the PyCharm project with a Python 3.8 virtual environment under
 ```
