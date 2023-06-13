@@ -1,4 +1,6 @@
 import os
+
+from pathlib import Path
 from secretsanta.main.funs import make_santa_dict
 
 participants = {
@@ -20,9 +22,8 @@ for name in participants.keys():
     participants[name] += '@acme-example.com'
 
 # remove previously created file
-file_to_rm = os.listdir("./log_files")
-file_rm = "./log_files/" + str(file_to_rm[0])
-os.remove(file_rm)
+file_to_rm = list(Path("./log_files").iterdir())
+file_to_rm[0].unlink()
 
 # set logging level as environment variable
 os.environ["level"] = "DEBUG"

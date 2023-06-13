@@ -9,6 +9,7 @@ on:
       - '**'
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -28,7 +29,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install pip-tools
-        pip-compile -U
+        pip-compile -U --resolver=backtracking
         python -m pip install flake8 pytest codecov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8

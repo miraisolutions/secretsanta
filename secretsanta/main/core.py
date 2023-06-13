@@ -54,8 +54,10 @@ class SecretSanta:
         :param test: boolean to switch on extra subject and message text, indicating the email is sent for test purposes
         :return: send-status of email as returned by :func:`smtplib.sendmail`, empty if all were successful
         """
-        message = 'Hi there!\n\n%s %s.\n\nHo Ho Ho,\n\nSanta\n\n' % (message, self.person) + \
-                  'This is an automated message. Please do not reply!'
+        message = (
+            f'Hi there!\n\n{message} {self.person}.\n\nHo Ho Ho,\n\nSanta\n\n'
+            'This is an automated message. Please do not reply!'
+        )
 
         if test:
             message = 'THIS IS JUST A TEST, NOT THE FINAL SECRET SANTA ASSIGNMENT!\n\n' + message
@@ -65,7 +67,7 @@ class SecretSanta:
         # https://mail.python.org/pipermail//bangpypers/2012-October/008356.html
         sender = 'Santa'
         msg.add_header('reply-to', sender)
-        msg["From"] = sender + ' <' + from_address + '>'
+        msg["From"] = f'{sender} <{from_address}>'
         msg["Subject"] = subject
         # ternary operator: https://en.wikipedia.org/wiki/%3F:#Python
         msg["To"] = ','.join(self.email) if isinstance(self.email, list) else self.email
