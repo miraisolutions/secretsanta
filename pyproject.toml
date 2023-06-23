@@ -4,6 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "secretsanta"
+description = "Seret Santa Randomizer"
+readme = "README.md"
+authors = [
+    {name = "Mirai Solutions, email = "opensource@mirai-solutions.com"},
+]
+urls = {Homepage: "https://github.com/miraisolutions/secretsanta"}
 classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
@@ -11,11 +17,6 @@ classifiers=[
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Games/Entertainment',
     ]
-description = ""
-authors = [
-    {name = "Mirai Solutions, email = "opensource@mirai-solutions.com"},
-]
-readme = "README.md"
 license = {text = "MIT"}
-
+version = ["0.1.0"]
 

@@ -17,6 +17,7 @@ Each section below mentions typical tools and utilities in a natural order of de
 1. [Development](#development)  
     a. [Virtual environments](#virtual-environments)  
     b. [Project requirements](#project-requirements)  
+    c. [Pyprojecttoml migration](#pyprojecttoml-migration)
 2. [Testing](#testing)  
     a. [PyCharm file types](#pycharm-file-types)  
     b. [Type hints](#type-hints)  
@@ -140,6 +141,13 @@ make sure you re-execute `pip-compile` and `pip-sync`.
 
 *If you change the virtual environment you work with, you should instead run `pip-compile -U` (then
 rerun `pip-sync`) to make sure that compatible versions of your dependencies are used in the new environment.*
+
+#### Pyprojecttoml migration
+- version is specified within pyproject.toml and can be importe via 
+```{python, eval=FALSE}
+import importlib.metadata
+__version__ = importlib.metadata.version("mypackage")```
+
 
 ### Testing
 There are multiple ways to define and execute tests. Two of the most common ones are `doctest` and `unittest`.
