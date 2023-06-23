@@ -1,9 +1,6 @@
 # PyCharm files
 .idea/
 
-# VS Code files
-.vscode/
-
 # virtual environments
 venv*/
 
