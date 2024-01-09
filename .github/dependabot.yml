@@ -6,3 +6,9 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+
+  # Maintain dependencies for pip
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
