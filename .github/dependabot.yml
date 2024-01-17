@@ -10,6 +10,5 @@ updates:
   # Maintain dependencies for pip
   - package-ecosystem: "pip"
     directory: "/"
-    target-branch: "meetings/issue-276/add-dependabot"
     schedule:
       interval: "monthly"
