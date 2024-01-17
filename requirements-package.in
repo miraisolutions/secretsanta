@@ -1,2 +1,2 @@
 click
-numpy
+numpy==1.13.3
