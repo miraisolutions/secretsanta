@@ -3,7 +3,7 @@
 flake8
 hypothesis
 jupyter
-keyring<23.10.0  # otherwise importlib-metadata dependency bites with flake8. this is a dependency of twine.
+keyring<24.4.0  # otherwise importlib-metadata dependency bites with flake8. this is a dependency of twine.
 mypy
 pip-tools>=5.0.0
 pytest
