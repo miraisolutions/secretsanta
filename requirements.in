@@ -8,7 +8,7 @@ mypy
 pip-tools>=5.0.0
 pytest
 pytest-cov
-Sphinx<4.4  # otherwise importlib-metadata dependency bites with flake8
+Sphinx<7.3  # otherwise importlib-metadata dependency bites with flake8
 tox
 twine
 virtualenv<20.16.3  # otherwise importlib-metadata dependency bites with flake8. this is a dependency of tox.
