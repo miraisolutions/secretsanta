@@ -348,23 +348,19 @@ If you install the package, you can use the CLI tool as designed for the end use
 ```bash
 python -m pip install --upgrade pip
 
-pip install --upgrade setuptools wheel
+pip install --upgrade build
 
-python setup.py sdist bdist_wheel  # creates build and dist directories
+python -m build  # creates build and dist directories
 
 # Windows:
-pip install .\dist\secretsanta-0.1.0-py3-none-any.whl -e
+pip install .\dist\secretsanta-0.1.0-py3-none-any.whl
 # if already installed, use below to force re-installation:
-pip install --force-reinstall .\dist\secretsanta-0.1.0-py3-none-any.whl -e
+pip install --force-reinstall .\dist\secretsanta-0.1.0-py3-none-any.whl
 
 # Ubuntu:
-pip install ./dist/secretsanta-0.1.0.tar.gz -e
+pip install ./dist/secretsanta-0.1.0.tar.gz
 # if already installed, use below to force re-installation:
-pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz -e
-
-# Note the `-e` flag which stands for "editable mode" and will install the
-# package in the repository, which means that one can adjust the code
-# and test the updated command line without having to re-install.
+pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz
 
 # now you can use the CLI tool properly as below:
 santa --help
