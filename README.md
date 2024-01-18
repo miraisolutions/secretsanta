@@ -292,10 +292,6 @@ Alternative build without Makefile:
 ```bash
 sphinx-build -b html <sourcedir> <builddir>
 ```
-PDF output:
-```bash
-make latexpdf
-```
 
 ### Usage
 
