@@ -187,14 +187,13 @@ Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *e
 Type hints define what type function arguments and return values should be. They are both a source of documentation
 and testing framework to identify bugs more easily, see also [PEP 484](https://www.python.org/dev/peps/pep-0484/).
 
-In order to use them, install [mypy](http://www.mypy-lang.org/) (inside the virtual environment, requires Python >= 3.6):
-```{bash, eval=FALSE}
-pip install mypy
-```
-Then run something like below:
+mypy comes installed in the virtual environment as it's part of requirements.in.
+
+Run something like below:
 ```{bash, eval=FALSE}
 mypy ./secretsanta/main/core.py
 mypy ./tests
+mypy .
 ```
 to test if the type hints of `.py` file(s) are correct (in which case it would typically output a "Success" message).
 
