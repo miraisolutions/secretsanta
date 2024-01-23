@@ -54,3 +54,6 @@ norecursedirs = [
     ".git",
     "docs"
 ]
+
+[tool.mypy]
+exclude = ["venv"]
