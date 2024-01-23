@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "secretsanta"
+description = "Secret Santa randomizer"
+readme = "README.md"
+authors = [
+    { name = "Mirai Solutions", email = "opensource@mirai-solutions.com" },
+]
+urls = { Homepage = "https://github.com/miraisolutions/secretsanta" }
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: POSIX :: Linux',
+    'Programming Language :: Python :: 3 :: Only',
+    'Topic :: Games/Entertainment',
+]
+license = { text = "MIT" }
+version = "0.1.dev1"
+keywords = ["secret", "santa"]
+
+[project.scripts]
+santa = "secretsanta.cli.cli:santa"
+
+[tool.setuptools.packages.find]
+include = ["secretsanta"]
+
+[tool.setuptools_scm]
+
+[tool.coverage.html]
+# Directory where coverage report should be written.
+directory = "coverage"
+
+[tool.coverage.report]
+# Show which lines were missed in summary report.
+show_missing = true
+
+[tool.coverage.run]
+# Measure branch coverage in addition to statement coverage.
+branch = true
+# The source directory to measure. This is already in 'tox.ini'.
+#source = secretsanta
+
+[tool.pytest.ini_options]
+norecursedirs = [
+    "bin",
+    "include",
+    "lib",
+    "lib64",
+    "share",
+    ".tox",
+    ".git",
+    "docs"
+]
