@@ -16,14 +16,15 @@ import numpy as np
 def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None,
                     verbose: bool = False, level: str = "ERROR") -> Dict[str, str]:
     # type triple-quotes and press enter to generate empty docstring stub
-    """
-    creates a random secret santa assignment as a dictionary from an initial dictionary of the participants' names and\
-    associated email addresses.
+    """Creates a random secret santa assignment as a dictionary from an initial dictionary of the participants' names
+    and associated email addresses.
 
-    :param dictionary: mapping names to email addresses
-    :param seed: seed for numpy random number generator
-    :param verbose: boolean to control print output
-    :return: shuffled (randomized) dictionary, guaranteed not to map any name to its original email in `dictionary`
+    Args:
+        dictionary: mapping names to email addresses
+        seed: seed for numpy random number generator
+        verbose: boolean to control print output
+    Returns:
+        Shuffled (randomized) dictionary, guaranteed not to map any name to its original email in `dictionary`
     """
     ######
     # Implementation note: the main challenge we have beyond simply shuffling a list is to ensure no one gets assigned
@@ -114,16 +115,16 @@ def send_santa_dict(smtpserverwithport: str, sender: str, pwd: str,
 def internal_send_santa_dict(smtpserverwithport: str, sender: str, pwd: str, senddict: Dict[str, str], santabuilder,
                              test: bool = False) -> Dict[str, Tuple[int, bytes]]:
     # "\" is used in the docstring to escape the line ending in sphinx output
-    """
-    loops over a 'santa' dictionary and sends respective emails
+    """Loops over a 'santa' dictionary and sends respective emails
 
-    :param smtpserverwithport: SMTP server including port (colon-separated)
-    :param sender: email address from which to send emails
-    :param pwd: password for sender's email account
-    :param senddict: mapping of names to email addresses
-    :param test: boolean to allow test-run
-    :return: all failed email sending attempts as returned by :func:`smtplib.sendmail()`, empty if all\
-    were successful
+    Args:
+        smtpserverwithport: SMTP server including port (colon-separated)
+        sender: email address from which to send emails
+        pwd: password for sender's email account
+        senddict: mapping of names to email addresses
+        test: boolean to allow test-run
+    Returns:
+        All failed email sending attempts as returned by :func:`smtplib.sendmail()`, empty if all were successful
     """
     # create SMTP server object and connect
     server = smtplib.SMTP(smtpserverwithport)

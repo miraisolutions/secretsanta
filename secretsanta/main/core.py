@@ -25,18 +25,19 @@ class SecretSanta:
     # constructor
     def __init__(self: "SecretSanta", email: Union[str, List[str]], person: str) -> None:
         # https://stackoverflow.com/questions/5599254/how-to-use-sphinxs-autodoc-to-document-a-classs-init-self-method
-        """
-        init method
+        """init method
 
-        :param email: email address(es)
-        :param person: person
-        :return: class instance
+        Args:
+            email: email address(es).
+            person: person.
 
-        :Example:
+        Returns:
+            Class instance.
 
-        >>> obj = SecretSanta('me@gmail.com', 'you')
-        >>> obj.helper
-        'rudolph'
+        Example:
+            >>> obj = SecretSanta('me@gmail.com', 'you')
+            >>> obj.helper
+            'rudolph'
         """
         self.email = email
         self.person = person
@@ -44,15 +45,16 @@ class SecretSanta:
     # Note: Instead of returning a dictionary, it may also raise an error (see SMTP.sendmail documentation)
     def send(self: "SecretSanta", subject: str, from_address: str,
              message: str, mailserver: SMTP, test: bool = False) -> Dict[str, Tuple[int, bytes]]:
-        """
-        send method
+        """ Method for sending out emails
 
-        :param subject: subject for email
-        :param from_address: sender email address
-        :param message: customizable part of email body (message), which is prepended to ``self.person``
-        :param mailserver: SMTP server object (initialized via :func:`smtplib.SMTP`)
-        :param test: boolean to switch on extra subject and message text, indicating the email is sent for test purposes
-        :return: send-status of email as returned by :func:`smtplib.sendmail`, empty if all were successful
+        Args:
+            subject: subject for email
+            from_address: sender email address
+            message: customizable part of email body (message), which is prepended to ``self.person``
+            mailserver: SMTP server object (initialized via :func:`smtplib.SMTP`)
+            test: boolean to switch on extra subject and message text, indicating the email is sent for test purposes
+        Returns:
+            Send-status of email as returned by :func:`smtplib.sendmail`, empty if all were successful
         """
         message = (
             f'Hi there!\n\n{message} {self.person}.\n\nHo Ho Ho,\n\nSanta\n\n'

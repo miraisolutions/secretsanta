@@ -15,11 +15,12 @@ class MakeSantaDict(unittest.TestCase):
                       min_size=2, max_size=20), min_size=2, max_size=10, unique=True),
            integers(min_value=0, max_value=2**32 - 1))
     def test_all_different_assign(self, test_list, seed):
-        """
-        Test that a generated list of unique names, turned into a dictionary, are all assigned to one another, without
+        """Test that a generated list of unique names, turned into a dictionary, are all assigned to one another, without
         self-assignment.
-        :param test_list: list of names
-        :param seed: seed for random choice picking
+
+        Args:
+            test_list: list of names
+            seed: seed for random choice picking
         """
         test_dict = dict(zip(test_list, test_list))
         assignment = funs.make_santa_dict(test_dict, seed)
