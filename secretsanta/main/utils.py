@@ -11,6 +11,8 @@ def setup_logging(level: str = "ERROR"):
     :param level: logging level
     """
     name_file = f'secretsanta_{time.strftime("%Y%m%d-%H%M%S")}.log'
-    path_file = Path('./log_files/') / name_file
+    log_dir = Path("./log_files/")
+    log_dir.mkdir(exist_ok=True)
+    path_file = log_dir / name_file
     logging.basicConfig(filename=path_file, level=level, format='%(asctime)s %(levelname)s %(message)s',
                         datefmt='%Y/%m/%d %I:%M:%S %p')

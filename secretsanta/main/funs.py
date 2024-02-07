@@ -58,7 +58,6 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None,
     np.random.seed(seed)
 
     if len(dictionary) == 1:
-        logger.error("Only one person listed")
         raise ValueError("Only one person listed")
     if len(dictionary) <= 3:
         logger.warning("Too few people, assignment will be deterministic")
