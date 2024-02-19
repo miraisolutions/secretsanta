@@ -12,4 +12,3 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    target-branch: "meetings/issue-276/add-dependabot"
