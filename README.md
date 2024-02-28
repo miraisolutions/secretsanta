@@ -222,7 +222,8 @@ a `@patch` decorator, which allows us to specify classes to be mocked within the
 *test_funs.py* and *test_core.py* for examples.
 
 ### Documentation
-Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
+Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html). We use Google style docstrings as that seems to be prevalent in the industry,
+with the addition of `napoleon` Sphinx extension.
 
 Prerequisite: Installation. Open a terminal (outside of a virtual environment) and run below command:
 ```{bash, eval=FALSE}
