@@ -187,14 +187,13 @@ Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *e
 Type hints define what type function arguments and return values should be. They are both a source of documentation
 and testing framework to identify bugs more easily, see also [PEP 484](https://www.python.org/dev/peps/pep-0484/).
 
-In order to use them, install [mypy](http://www.mypy-lang.org/) (inside the virtual environment, requires Python >= 3.6):
-```{bash, eval=FALSE}
-pip install mypy
-```
-Then run something like below:
+mypy comes installed in the virtual environment as it's part of requirements.in.
+
+Run something like below:
 ```{bash, eval=FALSE}
 mypy ./secretsanta/main/core.py
 mypy ./tests
+mypy .
 ```
 to test if the type hints of `.py` file(s) are correct (in which case it would typically output a "Success" message).
 
@@ -223,7 +222,8 @@ a `@patch` decorator, which allows us to specify classes to be mocked within the
 *test_funs.py* and *test_core.py* for examples.
 
 ### Documentation
-Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html).
+Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html). We use Google style docstrings as that seems to be prevalent in the industry,
+with the addition of `napoleon` Sphinx extension.
 
 Prerequisite: Installation. Open a terminal (outside of a virtual environment) and run below command:
 ```{bash, eval=FALSE}
@@ -344,23 +344,19 @@ If you install the package, you can use the CLI tool as designed for the end use
 ```bash
 python -m pip install --upgrade pip
 
-pip install --upgrade setuptools wheel
+pip install --upgrade build
 
-python setup.py sdist bdist_wheel  # creates build and dist directories
+python -m build  # creates build and dist directories
 
 # Windows:
-pip install .\dist\secretsanta-0.1.0-py3-none-any.whl -e
+pip install .\dist\secretsanta-0.1.0-py3-none-any.whl
 # if already installed, use below to force re-installation:
-pip install --force-reinstall .\dist\secretsanta-0.1.0-py3-none-any.whl -e
+pip install --force-reinstall .\dist\secretsanta-0.1.0-py3-none-any.whl
 
 # Ubuntu:
-pip install ./dist/secretsanta-0.1.0.tar.gz -e
+pip install ./dist/secretsanta-0.1.0.tar.gz
 # if already installed, use below to force re-installation:
-pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz -e
-
-# Note the `-e` flag which stands for "editable mode" and will install the
-# package in the repository, which means that one can adjust the code
-# and test the updated command line without having to re-install.
+pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz
 
 # now you can use the CLI tool properly as below:
 santa --help

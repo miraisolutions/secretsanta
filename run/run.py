@@ -25,7 +25,5 @@ for name in participants.keys():
 file_to_rm = list(Path("./log_files").iterdir())
 file_to_rm[0].unlink()
 
-# set logging level as environment variable
-os.environ["level"] = "DEBUG"
-log_level = os.environ.get('log_level', os.getenv("level")).upper()
+log_level = os.environ.get('log_level', "DEBUG").upper()
 print(make_santa_dict(participants, seed=None, verbose=True, level=log_level))

@@ -13,3 +13,9 @@ Modules
 
 .. automodule:: secretsanta.main.funs
    :members:
+
+``secretsanta.main.utils``
+-------------------------
+
+.. automodule:: secretsanta.main.utils
+   :members:
