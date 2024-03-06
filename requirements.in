@@ -3,11 +3,12 @@
 flake8
 hypothesis
 jupyter
-keyring<23.10.0  # otherwise importlib-metadata dependency bites with flake8. this is a dependency of twine.
+keyring
 mypy
+pip-tools
 pytest
 pytest-cov
-Sphinx<4.4  # otherwise importlib-metadata dependency bites with flake8
+Sphinx
 tox
 twine
-virtualenv<20.16.3  # otherwise importlib-metadata dependency bites with flake8. this is a dependency of tox.
+virtualenv
