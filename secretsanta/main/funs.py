@@ -58,6 +58,8 @@ def make_santa_dict(dictionary: Dict[str, str], seed: Optional[int] = None,
     np.random.seed(seed)
 
     if len(dictionary) == 1:
+        # Despite this often being perceived as an anti-pattern, we want the exception to be shown in log files also.
+        logger.error("Only one person listed")
         raise ValueError("Only one person listed")
     if len(dictionary) <= 3:
         logger.warning("Too few people, assignment will be deterministic")
