@@ -15,17 +15,19 @@ Building and publishing
 -----------------------
 
 The Sphinx documentation source files are ``reStructuredText`` files, and
-are contained in the ``docs/source`` sub-folder. ``docs`` also contains the ``Makefile``
-for the build. To do a new build make sure you are in the ``docs`` sub-folder
-and run
+are contained in the ``docs/source`` sub-folder.
+
+To build the documentation, ensure you have set up your development environment
+(see main README) and run the `docs` session using Nox:
 
 ::
 
-    make html
+    nox -s docs
+
+This command uses `sphinx-build` to generate the HTML output.
 
 You should see a new set of HTML files and assets in the ``docs/build/html``
-sub-folder (the build directory can be changed to ``docs`` itself in the
-``Makefile`` but that is not recommended).
+sub-folder. Open `docs/build/html/index.html` in your browser to view the docs.
 
 ..
     commented-out:: The ``docs`` sub-folder should always contain the latest copy of the built

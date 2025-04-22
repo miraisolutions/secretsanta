@@ -4,6 +4,8 @@ Installation
 Dependencies
 ------------
 
+This project requires Python 3.8 or newer.
+
 -----
 Linux
 -----
@@ -14,21 +16,22 @@ This is just an example!
 * **Red Hat**: 'Development Tools' and zlib-devel
 
 
-Install With Pip
-----------------
+Install With Pip / uv
+---------------------
 
-The latest released version of the package can be installed using pip
-by running something like::
+The latest released version of the package can be installed using pip or uv:
+::
 
-    pip3 install --user secretsanta
+    pip install secretsanta
+    # or
+    uv pip install secretsanta
 
-Alternatively you can install the latest development version using::
+Alternatively you can install the latest development version directly from GitHub:
+::
 
-    pip3 install --user git+https://userName@github.com/miraisolutions/secretsanta
+    pip install git+https://github.com/miraisolutions/secretsanta.git
+    # or
+    uv pip install git+https://github.com/miraisolutions/secretsanta.git
 
-Make sure to substitute ``userName`` with your Github user name!
-
-(If you are in a virtual environment, simply use below instead)::
-
-    pip install git+https://userName@github.com/miraisolutions/secretsanta
+For development, clone the repository and use `uv` to set up the environment (see the main README's [Development](#development) section).
 

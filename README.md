@@ -16,13 +16,14 @@ Each section below mentions typical tools and utilities in a natural order of de
 
 1. [Development](#development)  
     a. [Virtual environments](#virtual-environments)  
-    b. [Project requirements](#project-requirements)  
+    b. [Project requirements & Environment Setup](#project-requirements--environment-setup)  
 2. [Testing](#testing)  
-    a. [PyCharm file types](#pycharm-file-types)  
-    b. [Type hints](#type-hints)  
-    c. [Property testing](#property-testing)  
+    a. [Running Tests with Nox](#running-tests-with-nox)  
+    b. [PyCharm file types](#pycharm-file-types)  
+    c. [Type hints](#type-hints)  
     d. [Mocks in unit tests](#mocks-in-unit-tests)  
 3. [Documentation](#documentation)  
+    a. [Building Docs with Nox](#building-docs-with-nox)  
 4. [Usage](#usage)  
     a. [Jupyter notebook](#jupyter-notebook)  
     b. [Command-line interface](#command-line-interface-cli)  
@@ -83,63 +84,48 @@ source ./venv/bin/activate
 You can also switch to a different project interpreter in PyCharm (Ctrl + Shift + A, search for `Switch Project Interpreter`).
 Open terminals and Python consoles then need to be restarted for the environment to match the project interpreter.
 
-#### Project requirements
+#### Project requirements & Environment Setup
 
-The project includes files `requirements.in` and `requirements-package.in`, defining module / package dependencies. 
-Such files are compiled into an actual `requirements.txt` file,
-which is not committed to Git and should be re-created for the local checkout.
+This project uses [uv](https://github.com/astral-sh/uv) for dependency management and [Nox](https://nox.thea.codes/) for task automation and testing across multiple Python versions.
 
 **Important:** make sure all commands are executed inside the virtual environment, e.g. at such a prompt:
 ```
 #> (venv) localuser@Ubuntu:~/PyCharm/secretsanta$
 ```
 
-Check version of Python, upgrade [pip](https://pypi.org/project/pip/) and check its version:
+First, ensure you have `uv` and `nox` installed. You can install them into your global Python environment or use `pipx`:
+```bash
+pip install uv nox
+# or
+pipx install uv nox
+```
+
+Check versions of Python, `uv`, and `nox`:
 ```bash
 python --version
-#> Python 3.6.8
-
-pip install --upgrade pip
-#> ...
-
-pip --version
-#> pip 20.3.3 from /home/mirai/PycharmProjects/secretsanta/venv/lib/python3.8/site-packages/pip (python 3.8)
+uv --version
+nox --version
 ```
 
-Install [pip-tools](<https://github.com/jazzband/pip-tools>):
+To set up your development environment, synchronize it with the locked dependencies specified in `uv.lock`:
 ```bash
-pip install pip-tools
+# Install runtime, dev, test, and docs dependencies
+uv sync --all-extras --dev
 ```
 
-List installed modules:
-```{bash, eval=FALSE}
-pip list
-#> Package       Version
-#> ------------- -------
-#> Click         7.0    
-#> pip           21.0.1 
-#> pip-tools     5.5-0
-#> pkg-resources 0.0.0  
-#> setuptools    51.0.0 
-#> six           1.15.0 
+If you modify dependencies in `pyproject.toml`, update the lock file:
+```bash
+uv lock
+```
+Then re-sync your environment:
+```bash
+uv sync --all-extras --dev
 ```
 
-Re-generate `requirements.txt` from `requirements.in`:
-```{bash, eval=FALSE}
-pip-compile
+You can also run commands within the managed environment using `uv run`:
+```bash
+uv run -- python secretsanta/cli/cli.py --help
 ```
-Install dependencies defined in `requirements.txt`:
-```{bash, eval=FALSE}
-pip-sync
-```
-*Alternatively, you can right-click on the `secretsanta` project folder in the `Project` explorer and click
-**Synchronize 'secretsanta'** to refresh and see the generated file `requirements.txt`.*
-
-Now you're ready to go. Would there be any update to the `requirements.in` files,
-make sure you re-execute `pip-compile` and `pip-sync`.
-
-*If you change the virtual environment you work with, you should instead run `pip-compile -U` (then
-rerun `pip-sync`) to make sure that compatible versions of your dependencies are used in the new environment.*
 
 ### Testing
 There are multiple ways to define and execute tests. Two of the most common ones are `doctest` and `unittest`.
@@ -150,29 +136,51 @@ Use the following command to see this in action. The `-v` flag allows us to see 
 In case everything is fine, we would not see any output otherwise.
 ```{bash, eval=FALSE}
 python -m doctest secretsanta/main/core.py -v
+# Or run via nox (included in the 'tests' session)
+nox -s tests -- -m doctest secretsanta/main/core.py -v
 ```
 
 It is possible to run code style checks with [flake8](http://flake8.pycqa.org/en/latest/):
 ```{bash, eval=FALSE}
-flake8
+# Run directly
+flake8 secretsanta tests
+# Or run via nox
+nox -s lint
 ```
-If all is fine, you will not see any output.
+If all is fine, you will not see any output from `flake8` directly. `nox` will report success.
 
-Unit tests are kept under `tests` and make use of the `unittest` framework.
+Unit tests are kept under `tests`.
 
-Run tests using [tox](<https://tox.readthedocs.io/en/latest/>):
-```{bash, eval=FALSE}
-tox
+#### Running Tests with Nox
+
+[Nox](https://nox.thea.codes/) is used to automate testing across multiple Python versions (defined in `noxfile.py`).
+
+List available Nox sessions:
+```bash
+nox --list
 ```
-The `tox.ini` file contains the following configurations:
-* `flake8` (checks code style and reports potential issues)
-* `pytest` (which is used as a test runner)
-* `pytest-cov` (measures and reports test coverage, see also `.coveragerc` file)
-* `tox` (where the Python versions to test with are defined)
 
-If you run `tox` outside of the virtual environment, it can run tests for multiple Python versions - this is configured
-using `envlist`.The tests will only be run for any Python version that is available in the environment where you run them
-(see `skip_missing_interpreters` configuration key).
+Run all test sessions (for Python 3.8, 3.9, 3.10, 3.11, 3.12):
+```bash
+nox -s tests
+```
+
+Run tests for a specific Python version:
+```bash
+nox -s tests-3.10
+```
+
+Run linting session:
+```bash
+nox -s lint
+```
+
+Run all sessions:
+```bash
+nox
+```
+
+Nox handles creating temporary virtual environments for each session, installing dependencies using `uv`, and running the specified commands. Test coverage is measured using `pytest-cov` (see `.coveragerc` and `pyproject.toml` for configuration).
 
 #### PyCharm file types
 In PyCharm, you can associate files to a certain type under:
@@ -187,15 +195,16 @@ Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *e
 Type hints define what type function arguments and return values should be. They are both a source of documentation
 and testing framework to identify bugs more easily, see also [PEP 484](https://www.python.org/dev/peps/pep-0484/).
 
-mypy comes installed in the virtual environment as it's part of requirements.in.
+mypy comes installed via `uv sync --dev`.
 
 Run something like below:
 ```{bash, eval=FALSE}
 mypy ./secretsanta/main/core.py
 mypy ./tests
 mypy .
+# Or run via nox (if a session is added)
+# nox -s typecheck
 ```
-to test if the type hints of `.py` file(s) are correct (in which case it would typically output a "Success" message).
 
 #### Property testing
 We use [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) to define a _property test_ for our matching function: 
@@ -222,76 +231,21 @@ a `@patch` decorator, which allows us to specify classes to be mocked within the
 *test_funs.py* and *test_core.py* for examples.
 
 ### Documentation
-Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html). We use Google style docstrings as that seems to be prevalent in the industry,
-with the addition of `napoleon` Sphinx extension.
+Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html). We use Google style docstrings, parsed with the `napoleon` Sphinx extension.
 
-Prerequisite: Installation. Open a terminal (outside of a virtual environment) and run below command:
-```{bash, eval=FALSE}
-sudo apt-get install python3-sphinx
-```
-Check installation (and version):
-```{bash, eval=FALSE}
-sphinx-build --version
-```
+Dependencies (like Sphinx) are installed via `uv sync --all-extras`.
 
-##### Initializing documentation - already done - for reference:
-```{bash, eval=FALSE}
-sphinx-quickstart
-```
-This will lead through an interactive generation process.
+#### Building Docs with Nox
 
-Suggested values / options are listed here.
-Hitting enter without typing anything will take the suggested default shown inside square brackets [ ].
- * Root path for the documentation [.]: docs
- * Separate source and build directories (y/n) [n]: y
- * Name prefix for templates and static dir[_]: Enter
- * Project name: secretsanta
- * Author name(s): Mirai Solutions
- * Project version[]: 0.1
- * Project release[0.1]: 0.1.1
- * Project language [en]: None
- * Source file suffix [.rst]: .rst
- * Name of your master document (without suffix) [index]: Enter
- * Do you want to use epub builder (y/n) [n]: n
- * autodoc: automatically insert docstrings from modules (y/n) [n]: y
- * doctest: automatically test code snippets in doctest blocks (y/n) [n]: y
- * intersphinx: link between Sphinx documentation of different projects (y/n) [n]: y
- * todo: write "todo" entries that can be shown or hidden on build (y/n) [n]: n
- * coverage: checks for documentation coverage (y/n) [n]: y
- * imgmath: include math, rendered as PNG or SVG images (y/n) [n]: n
- * mathjax: include math, rendered in the browser by MathJax (y/n) [n]: y
- * ifconfig: conditional inclusion of content based on config values (y/n) [n]: n
- * viewcode: include links to the source code of documented Python objects (y/n) [n]: y
- * githubpages: create .nojekyll file to publish the document on GitHub pages (y/n) [n]: n
- * Create Makefile? (y/n) [y]: y
- * Create Windows command file? (y/n) [y]: n
-
-In order to use `autodoc`, one needs to uncomment the corresponding line in `docs/source/conf.py`:
-
-```sys.path.insert(0, os.path.abspath(...```
-
-And set the appropriate path to the directory containing the modules to be documented.
- 
-*For Sphinx/autodoc to work, the docstrings must be written in correct 
-[reStructuredText](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html),
-see [documentation](https://pythonhosted.org/an_example_pypi_project/sphinx.html#auto-directives) for details.*
-
-##### Building docs
-You should be inside the documentation root directory.  
-Using the Makefile:
-
+Use Nox to build the documentation:
 ```bash
-cd docs
-make html
+nox -s docs
 ```
-You can view the documentation by right-click opening `index.html` (`docs/build/html`) in your browser of choice.
-Previewing the .rst files does not work properly in PyCharm, apparently because 
-[it only supports a subset of Sphinx](https://stackoverflow.com/questions/53130720/sphinx-unknown-directive-type-toctree-error-in-pycharm-but-index-html-works).
+This command runs `sphinx-build` in a dedicated environment managed by Nox.
 
-Alternative build without Makefile:
-```bash
-sphinx-build -b html <sourcedir> <builddir>
-```
+You can view the documentation by opening `docs/build/html/index.html` in your browser.
+
+*Previewing the .rst files directly in PyCharm might not render Sphinx directives correctly.*
 
 ### Usage
 
@@ -327,15 +281,17 @@ be [docopt](https://docopt.readthedocs.io/) or [Invoke](https://www.pyinvoke.org
 A nice comparison is
 available [here](https://realpython.com/comparing-python-command-line-parsing-libraries-argparse-docopt-click/).
 
-In order to install the package and **run the CLI commands**, you can follow the steps below.
-- On **Windows**, set `PYTHONPATH` to point to this project by adding it to environment variables in PyCharm (`File > Settings... > Terminal > Environment variables`). On **Ubuntu**, export it via command line instead: `export PYTHONPATH=$PYTHONPATH:<path to secretsanta project>`. Then run:
+In order to run the CLI commands during development, use `uv run`:
 ```bash
-python secretsanta/cli/cli.py --help
+uv run -- santa --help
+uv run -- santa makedict --help
+uv run -- santa makedict "./validation/participants.json"
 ```
-- try a specific command:
+Alternatively, activate your virtual environment (where dependencies are installed via `uv sync`) and run directly:
 ```bash
-python secretsanta/cli/cli.py makedict --help
-python secretsanta/cli/cli.py makedict "./validation/participants.json"
+# Assuming your venv is activated
+santa --help
+santa makedict "./validation/participants.json"
 ```
 
 #### Package Installation & CLI
@@ -365,30 +321,22 @@ santa makedict "./validation/participants.json"
 ```
 
 ### Continuous Integration
-Continuous Integration (CI) aims to keep state updated to always match the code currently checked in a repository.
-This typically includes a build, automated test runs, and possibly making sure that the newly built artifacts are
-deployed to a target environment. This helps developers and users by providing timely feedback and showing what the
-results of certain checks were on a given version of the code.
+Continuous Integration (CI) is handled by GitHub Actions (see `.github/workflows/python-package.yml`).
 
-This repository uses [Travis CI](https://travis-ci.com) to run tests automatically when new commits are pushed. Results
-can be viewed [here](https://travis-ci.com/miraisolutions/secretsanta). Along with test results,
-coverage information is generated and uploaded to [codecov](https://codecov.io/), which generates a
-[report](https://codecov.io/gh/miraisolutions/secretsanta) out of it.
+The workflow automatically:
+1. Checks out the code.
+2. Sets up multiple Python versions.
+3. Installs `uv` and `nox`.
+4. Installs project dependencies using `uv sync` via Nox.
+5. Runs linting and tests using `nox`.
+6. Builds the documentation using `nox`.
+7. Uploads coverage reports to [Codecov](https://codecov.io/).
 
-#### Configuration
-Travis CI is configured using the `.travis.yml` file. This allows specifying the environment(s) to run
-tests in; tests will be run for each specified environment. The steps required before running tests are specified under
-`install`. Finally, the task to run is defined in `script`, and we make sure coverage reports are uploaded (see
-`after_success`). A notification about completed builds is sent to our Slack channel using a
-[secure notification hook](https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications).
+Build status and coverage reports are linked via badges at the top of this README.
 
-Codecov is configured in `codecov.yml`, defining the coverage value range (in percent) to match to a color scale, as
-well as the coverage checks to be performed and their success criteria. See codecov's
-[general configuration](https://docs.codecov.io/docs/codecov-yaml) and
-[commit status evaluation](https://docs.codecov.io/docs/commit-status) documentation for more information.
+Code scanning is performed using CodeQL (see `.github/workflows/codeql.yml`).
 
-_Notifications from codecov can only be delivered via unencrypted webhook URLs. In order to avoid exposing such hooks in
-a public repository, we do not use this functionality here._
+Dependency updates are managed by Dependabot (see `.github/dependabot.yml`).
 
 ### Miscellaneous
 * `MANIFEST.in` specifies extra files that shall be included in a source distribution.
