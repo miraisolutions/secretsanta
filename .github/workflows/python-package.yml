@@ -13,34 +13,25 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
-
+      matrix: { python-version: ["3.8","3.9","3.10","3.11","3.12"] }
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python ${{ matrix.python-version }} # Keep this step to ensure Nox uses the correct Python version per matrix entry
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install pip-tools
-        pip-compile -U --resolver=backtracking
-        python -m pip install flake8 pytest codecov
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        pytest --cov=secretsanta
-        python -m doctest secretsanta/main/core.py
-    - name: Create/upload coverage report
-      run: codecov
+    - name: Install uv and Nox
+      run: pipx install uv nox # Install uv and nox globally for the runner
+      # uses: astral-sh/setup-uv@v1 # Alternative: Use setup-uv action
+      # with:
+      #   enable-cache: true
+      #   cache-dependency-glob: "uv.lock"
+    - name: Install project dependencies via Nox (using uv)
+      run: nox -s tests-${{ matrix.python-version }} --install-only # Install deps for the specific Python version test session
+    - name: Lint & Test via nox
+      run: nox --python ${{ matrix.python-version }} -s lint_critical lint_style tests-${{ matrix.python-version }} # Run critical lint, style lint and the specific test session
+    - name: Build docs
+      run: nox -s docs
+

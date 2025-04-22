@@ -71,3 +71,6 @@ norecursedirs = [
 
 [tool.mypy]
 exclude = ["venv"]
+
+[tool.flake8]
+max-line-length = 127
