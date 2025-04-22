@@ -20,6 +20,20 @@ classifiers = [
 license = { text = "MIT" }
 version = "0.1.dev1"
 keywords = ["secret", "santa"]
+dependencies = [
+  "click",
+  "numpy",
+]
+
+[project.optional-dependencies]
+dev = [
+  "flake8",
+  "hypothesis",
+  "pytest",
+  "pytest-cov",
+  "mypy",
+  "sphinx",
+]
 
 [project.scripts]
 santa = "secretsanta.cli.cli:santa"
