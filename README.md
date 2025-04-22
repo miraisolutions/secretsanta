@@ -268,16 +268,8 @@ a `@patch` decorator, which allows us to specify classes to be mocked within the
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html). We use Google style docstrings as that seems to be prevalent in the industry,
 with the addition of `napoleon` Sphinx extension.
 
-Prerequisite: Installation. Open a terminal (outside of a virtual environment) and run below command:
-```{bash, eval=FALSE}
-sudo apt-get install python3-sphinx
-```
-Check installation (and version):
-```{bash, eval=FALSE}
-sphinx-build --version
-```
+Dependencies (like Sphinx) are installed via `uv sync --all-extras`.
 
-##### Initializing documentation - already done - for reference:
 #### Initializing documentation - already done - for reference
 
 ```{bash, eval=FALSE}
