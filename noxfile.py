@@ -16,31 +16,28 @@ def tests(sess):
 
 @session(venv_backend="uv")
 def lint(sess):
-    sess.install(".", "flake8")
-    sess.run("flake8", "secretsanta", "tests")
+    sess.install(".", "ruff")
+    sess.run("ruff", "check")
+    sess.run("ruff", "format", "--check")
 
 
-@session(venv_backend="uv")
+@session(venv_backend="uv", default=False)
 def lint_critical(sess):
-    sess.install(".", "flake8")
+    sess.install(".", "ruff")
     # stop the build if there are Python syntax errors or undefined names
     sess.run(
-        "flake8",
+        "ruff",
+        "check",
         ".",
-        "--count",
         "--select=E9,F63,F7,F82",
-        "--show-source",
         "--statistics",
     )
 
 
-@session(venv_backend="uv")
+@session(venv_backend="uv", default=False)
 def lint_style(sess):
-    sess.install(".", "flake8")
-    # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-    sess.run(
-        "flake8", ".", "--count", "--exit-zero", "--max-complexity=10", "--statistics"
-    )  # max-line-length is now in pyproject.toml
+    sess.install(".", "ruff")
+    sess.run("ruff", "check", "--exit-zero", "--statistics")
 
 
 @session(venv_backend="uv")

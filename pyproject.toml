@@ -60,16 +60,9 @@ norecursedirs = [
 [tool.mypy]
 exclude = [".venv", "build"]
 
-[tool.flake8]
-max-line-length = 127
+[tool.ruff]
+line-length = 127 # The GitHub editor is 127 chars wide
+
 
 [dependency-groups]
-dev = [
-  "ruff>=0.11.7",
-  "flake8",
-  "hypothesis",
-  "pytest",
-  "pytest-cov",
-  "mypy",
-  "sphinx",
-]
+dev = ["ruff>=0.11.7", "hypothesis", "pytest", "pytest-cov", "mypy", "sphinx"]
