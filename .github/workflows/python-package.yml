@@ -18,20 +18,16 @@ jobs:
       matrix: { python-version: ["3.8","3.9","3.10","3.11","3.12"] }
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }} # Keep this step to ensure Nox uses the correct Python version per matrix entry
-      uses: actions/setup-python@v5
+    - uses: astral-sh/setup-uv@v6
       with:
+        enable-cache: true
         python-version: ${{ matrix.python-version }}
-    - name: Install uv and Nox
-      run: pipx install uv nox # Install uv and nox globally for the runner
-      # uses: astral-sh/setup-uv@v1 # Alternative: Use setup-uv action
-      # with:
-      #   enable-cache: true
-      #   cache-dependency-glob: "uv.lock"
+    - name: install nox
+      run: uv tool install nox
     - name: Install project dependencies via Nox (using uv)
-      run: nox -s tests-${{ matrix.python-version }} --install-only # Install deps for the specific Python version test session
+      run: uvx nox -s tests-${{ matrix.python-version }} --install-only # Install deps for the specific Python version test session
     - name: Lint & Test via nox
-      run: nox --python ${{ matrix.python-version }} -s lint_critical lint_style tests-${{ matrix.python-version }} # Run critical lint, style lint and the specific test session
+      run: uvx nox --python ${{ matrix.python-version }} -s lint_critical lint_style tests-${{ matrix.python-version }} # Run critical lint, style lint and the specific test session
     - name: Build docs
-      run: nox -s docs
+      run: uvx nox -s docs
 
