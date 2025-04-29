@@ -24,8 +24,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: install nox
       run: uv tool install nox
-    - name: Lint & Test via nox
-      run: uvx nox --python ${{ matrix.python-version }} -s lint_critical lint_style tests-${{ matrix.python-version }} # Run critical lint, style lint and the specific test session
+    - name: Run unit tests
+      run: uvx nox --python ${{ matrix.python-version }} -s tests-${{ matrix.python-version }} # Run the specific test session
 
   lint_and_docs:
     runs-on: ubuntu-latest
