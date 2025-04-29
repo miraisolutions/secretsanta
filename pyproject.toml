@@ -21,20 +21,7 @@ license = { text = "MIT" }
 version = "0.1.dev1"
 keywords = ["secret", "santa"]
 requires-python = ">=3.8"
-dependencies = [
-  "click",
-  "numpy",
-]
-
-[project.optional-dependencies]
-dev = [
-  "flake8",
-  "hypothesis",
-  "pytest",
-  "pytest-cov",
-  "mypy",
-  "sphinx",
-]
+dependencies = ["click", "numpy"]
 
 [project.scripts]
 santa = "secretsanta.cli.cli:santa"
@@ -73,5 +60,9 @@ norecursedirs = [
 [tool.mypy]
 exclude = [".venv", "build"]
 
-[tool.flake8]
-max-line-length = 127
+[tool.ruff]
+line-length = 127 # The GitHub editor is 127 chars wide
+
+
+[dependency-groups]
+dev = ["ruff>=0.11.7", "hypothesis", "pytest", "pytest-cov", "mypy", "sphinx"]
