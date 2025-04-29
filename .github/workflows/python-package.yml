@@ -27,7 +27,7 @@ jobs:
     - name: Run unit tests
       run: uvx nox --python ${{ matrix.python-version }} -s tests-${{ matrix.python-version }} # Run the specific test session
     - name: Run documentation tests
-      run: uvx nox doctest
+      run: uvx nox -s doctest
 
   lint_and_docs:
     runs-on: ubuntu-latest
