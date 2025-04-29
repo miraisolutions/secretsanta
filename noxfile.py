@@ -47,3 +47,9 @@ def lint_style(sess):
 def docs(sess):
     sess.install(".", *proj["project"]["optional-dependencies"]["dev"])
     sess.run("sphinx-build", "docs/source", "docs/build/html")
+
+
+@session(venv_backend="uv")
+def doctest(sess):
+    sess.install(".", *proj["project"]["optional-dependencies"]["dev"])
+    sess.run("sphinx-build", "-b", "doctest", "docs/source", "docs/build/doctest")

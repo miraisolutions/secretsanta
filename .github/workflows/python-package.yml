@@ -26,9 +26,13 @@ jobs:
       run: uv tool install nox
     - name: Run unit tests
       run: uvx nox --python ${{ matrix.python-version }} -s tests-${{ matrix.python-version }} # Run the specific test session
+    - name: Run documentation tests
+      run: uvx nox doctest
 
   lint_and_docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
     - uses: actions/checkout@v4
     - uses: astral-sh/setup-uv@c7f87aa956e4c323abf06d5dec078e358f6b4d04 # v6.0.0; prevent CWE-829

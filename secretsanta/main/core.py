@@ -35,6 +35,7 @@ class SecretSanta:
             Class instance.
 
         Example:
+            >>> from secretsanta.main.core import SecretSanta
             >>> obj = SecretSanta('me@gmail.com', 'you')
             >>> obj.helper
             'rudolph'

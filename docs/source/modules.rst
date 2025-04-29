@@ -15,7 +15,7 @@ Modules
    :members:
 
 ``secretsanta.main.utils``
--------------------------
+--------------------------
 
 .. automodule:: secretsanta.main.utils
    :members:
