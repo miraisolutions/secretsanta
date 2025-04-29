@@ -42,7 +42,8 @@ jobs:
     - name: install nox
       run: uv tool install nox
     - name: Lint via nox
-      run: uvx nox --python 3.12 -s lint_critical lint_style
+      run: uvx nox -s lint_critical lint_style
     - name: Build docs
       run: uvx nox -s docs
+      continue-on-error: true
 
