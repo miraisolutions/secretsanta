@@ -10,7 +10,7 @@ proj = nox.project.load_toml("pyproject.toml")
 @session(python=["3.8", "3.9", "3.10", "3.11", "3.12"], venv_backend="uv")
 def tests(sess):
     # install runtime + dev deps
-    sess.install(".", *proj["project"]["optional-dependencies"]["dev"])
+    sess.install(".", *proj["dependency-groups"]["dev"])
     sess.run("pytest", "--cov=secretsanta")
 
 
@@ -45,11 +45,11 @@ def lint_style(sess):
 
 @session(venv_backend="uv")
 def docs(sess):
-    sess.install(".", *proj["project"]["optional-dependencies"]["dev"])
+    sess.install(".", *proj["dependency-groups"]["dev"])
     sess.run("sphinx-build", "docs/source", "docs/build/html")
 
 
 @session(venv_backend="uv")
 def doctest(sess):
-    sess.install(".", *proj["project"]["optional-dependencies"]["dev"])
+    sess.install(".", *proj["dependency-groups"]["dev"])
     sess.run("sphinx-build", "-b", "doctest", "docs/source", "docs/build/doctest")
