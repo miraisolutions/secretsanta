@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix: { python-version: ["3.8","3.9","3.10","3.11","3.12"] }
@@ -24,10 +24,21 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: install nox
       run: uv tool install nox
-    - name: Install project dependencies via Nox (using uv)
-      run: uvx nox -s tests-${{ matrix.python-version }} --install-only # Install deps for the specific Python version test session
     - name: Lint & Test via nox
       run: uvx nox --python ${{ matrix.python-version }} -s lint_critical lint_style tests-${{ matrix.python-version }} # Run critical lint, style lint and the specific test session
+
+  lint_and_docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: astral-sh/setup-uv@c7f87aa956e4c323abf06d5dec078e358f6b4d04 # v6.0.0; prevent CWE-829
+      with:
+        enable-cache: true
+        python-version: 3.12
+    - name: install nox
+      run: uv tool install nox
+    - name: Lint via nox
+      run: uvx nox --python 3.12 -s lint_critical lint_style
     - name: Build docs
       run: uvx nox -s docs
 
