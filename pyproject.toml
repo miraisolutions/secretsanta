@@ -27,7 +27,7 @@ dependencies = ["click", "numpy"]
 santa = "secretsanta.cli.cli:santa"
 
 [tool.setuptools.packages.find]
-include = ["secretsanta"]
+include = ["secretsanta", "secretsanta.*"]
 
 [tool.setuptools_scm]
 
