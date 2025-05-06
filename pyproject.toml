@@ -65,4 +65,12 @@ line-length = 127 # The GitHub editor is 127 chars wide
 
 
 [dependency-groups]
-dev = ["ruff>=0.11.7", "hypothesis", "pytest", "pytest-cov", "mypy", "sphinx"]
+dev = [
+    "nox",
+    "ruff>=0.11.7",
+    "hypothesis",
+    "pytest",
+    "pytest-cov",
+    "mypy",
+    "sphinx",
+]
