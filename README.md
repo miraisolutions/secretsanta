@@ -159,16 +159,17 @@ python -m doctest secretsanta/main/core.py -v
 uv run nox -s tests -- -m doctest secretsanta/main/core.py -v
 ```
 
-It is possible to run code style checks with [flake8](http://flake8.pycqa.org/en/latest/):
+It is possible to run code style checks with [ruff](https://docs.astral.sh/ruff/):
 
 ```{bash, eval=FALSE}
 # Run directly
-flake8 secretsanta tests
+uv run ruff check
+uv run ruff format --check
 # Or run via nox
 uv run nox -s lint
 ```
 
-If all is fine, you will not see any output from `flake8` directly. `nox` will report success.
+If all is fine, you will not see any output from `ruff` directly. `nox` will report success.
 
 Unit tests are kept under `tests`.
 
@@ -200,7 +201,7 @@ Run linting session:
 uv run nox -s lint
 ```
 
-Run all sessions:
+Run all sessions marked as default:
 
 ```bash
 uv run nox
