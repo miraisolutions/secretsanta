@@ -41,6 +41,12 @@ def lint_style(sess):
 
 
 @session(venv_backend="uv")
+def typecheck(sess):
+    sess.install(".", "mypy")
+    sess.run("mypy", "--strict", ".")
+
+
+@session(venv_backend="uv")
 def docs(sess):
     sess.install(".", *proj["dependency-groups"]["dev"])
     sess.run("sphinx-build", "docs/source", "docs/build/html")
