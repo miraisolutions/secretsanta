@@ -66,7 +66,9 @@ pip install uv
 pipx install uv
 ```
 
-Check version of `uv`:
+See also [other installation options](https://docs.astral.sh/uv/getting-started/installation/)
+
+Check that `uv` has been installed, and its version:
 
 ```bash
 uv --version
@@ -261,7 +263,7 @@ a `@patch` decorator, which allows us to specify classes to be mocked within the
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html). We use Google style docstrings as that seems to be prevalent in the industry,
 with the addition of `napoleon` Sphinx extension.
 
-Dependencies (like Sphinx) are installed via `uv sync --dev`.
+The required dependencies, defined in pyproject.toml (e.g. Sphinx) are installed via `uv sync --dev`.
 
 ### Initializing documentation - already done - for reference
 
