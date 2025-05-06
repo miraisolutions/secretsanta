@@ -76,7 +76,7 @@ To set up your development environment, synchronize it with the locked dependenc
 
 ```bash
 # Install runtime, dev, test, and docs dependencies
-uv sync --all-extras
+uv sync --dev
 ```
 
 If you modify dependencies in `pyproject.toml`, update the lock file:
@@ -88,7 +88,7 @@ uv lock
 Then re-sync your environment:
 
 ```bash
-uv sync --all-extras
+uv sync --dev
 ```
 
 You can also run commands within the managed environment using `uv run`:
@@ -261,7 +261,7 @@ a `@patch` decorator, which allows us to specify classes to be mocked within the
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html). We use Google style docstrings as that seems to be prevalent in the industry,
 with the addition of `napoleon` Sphinx extension.
 
-Dependencies (like Sphinx) are installed via `uv sync --all-extras`.
+Dependencies (like Sphinx) are installed via `uv sync --dev`.
 
 ### Initializing documentation - already done - for reference
 
@@ -339,6 +339,11 @@ Below gives you some useful information about the location of `Jupyter` related 
 ```bash
 jupyter --path
 ```
+
+Additionally, you can open and run SecretSanta.ipynb in vs code, provided:
+
+* you have the `Jupyter` extension installed
+* you add the jupyter dependencies to your development environment: `uv sync --all-groups`
 
 <!-- e.g.: `etc/jupyter/custom/custom.js` -->
 
