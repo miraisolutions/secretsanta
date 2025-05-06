@@ -105,20 +105,18 @@ This project uses [uv](https://github.com/astral-sh/uv) for dependency managemen
 #> (venv) localuser@Ubuntu:~/PyCharm/secretsanta$
 ```
 
-First, ensure you have `uv` and `nox` installed. You can install them into your global Python environment or use `pipx`:
+First, ensure you have `uv` installed. You can install them into your global Python environment or use `pipx`:
 
 ```bash
-pip install uv nox
+pip install uv
 # or
-pipx install uv nox
+pipx install uv
 ```
 
-Check versions of Python, `uv`, and `nox`:
+Check version of `uv`:
 
 ```bash
-python --version
 uv --version
-nox --version
 ```
 
 To set up your development environment, synchronize it with the locked dependencies specified in `uv.lock`:
@@ -158,7 +156,7 @@ In case everything is fine, we would not see any output otherwise.
 ```{bash, eval=FALSE}
 python -m doctest secretsanta/main/core.py -v
 # Or run via nox (included in the 'tests' session)
-nox -s tests -- -m doctest secretsanta/main/core.py -v
+uv run nox -s tests -- -m doctest secretsanta/main/core.py -v
 ```
 
 It is possible to run code style checks with [flake8](http://flake8.pycqa.org/en/latest/):
@@ -167,7 +165,7 @@ It is possible to run code style checks with [flake8](http://flake8.pycqa.org/en
 # Run directly
 flake8 secretsanta tests
 # Or run via nox
-nox -s lint
+uv run nox -s lint
 ```
 
 If all is fine, you will not see any output from `flake8` directly. `nox` will report success.
@@ -181,31 +179,31 @@ Unit tests are kept under `tests`.
 List available Nox sessions:
 
 ```bash
-nox --list
+uv run nox --list
 ```
 
 Run all test sessions (for Python 3.8, 3.9, 3.10, 3.11, 3.12):
 
 ```bash
-nox -s tests
+uv run nox -s tests
 ```
 
 Run tests for a specific Python version:
 
 ```bash
-nox -s tests-3.10
+uv run nox -s tests-3.10
 ```
 
 Run linting session:
 
 ```bash
-nox -s lint
+uv run nox -s lint
 ```
 
 Run all sessions:
 
 ```bash
-nox
+uv run nox
 ```
 
 Nox handles creating temporary virtual environments for each session, installing dependencies using `uv`, and running the specified commands. Test coverage is measured using `pytest-cov` (see `.coveragerc` and `pyproject.toml` for configuration).
@@ -238,14 +236,18 @@ mypy .
 # Or run via nox (if a session is added)
 # nox -s typecheck
 ```
+
 to test if the type hints of `.py` file(s) are correct (in which case it would typically output a "Success" message).
 
 #### Property testing
-We use [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) to define a _property test_ for our matching function: 
-generated example inputs are tested against desired properties. Hypothesis' generator can be configured to produce typical 
+
+We use [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) to define a *property test* for our matching function:
+generated example inputs are tested against desired properties. Hypothesis' generator can be configured to produce typical
 data structures, filled with various instances of primitive types. This is done by composing specific annotations.
+
 * The decorator `@given(...)` must be present before the test function that shall use generated input.
 * Generated arguments are defined in a comma-separated list, and will be passed to the test function in order:
+
 ```python
 from hypothesis import given
 from hypothesis.strategies import text, integers
@@ -256,15 +258,18 @@ def test_some_thing(a_string, an_int):
     return
 
 ```  
+
 * Generation can be controlled by various optional parameters, e.g. `text(min_size=2)` for testing with strings that
 have at least 2 characters.
 
 #### Mocks in unit tests
+
 Mock objects are used to avoid external side effects. We use the standard Python package `unittest.mock`. This provides
-a `@patch` decorator, which allows us to specify classes to be mocked within the scope of a given test case. See 
+a `@patch` decorator, which allows us to specify classes to be mocked within the scope of a given test case. See
 *test_funs.py* and *test_core.py* for examples.
 
 ### Documentation
+
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html). We use Google style docstrings as that seems to be prevalent in the industry,
 with the addition of `napoleon` Sphinx extension.
 
@@ -320,7 +325,7 @@ see [documentation](https://pythonhosted.org/an_example_pypi_project/sphinx.html
 Use Nox to build the documentation:
 
 ```bash
-nox -s docs
+uv run nox -s docs
 ```
 
 This command runs `sphinx-build` in a dedicated environment managed by Nox.
