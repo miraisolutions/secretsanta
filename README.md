@@ -13,7 +13,7 @@ Each section below mentions typical tools and utilities in a natural order of de
 
 [![codecov](https://codecov.io/gh/miraisolutions/secretsanta/branch/master/graph/badge.svg)](https://codecov.io/gh/miraisolutions/secretsanta)
 
-### Table of Contents
+## Table of Contents
 
 1. [Development](#development)  
     a. [Virtual environments](#virtual-environments)  
@@ -33,15 +33,13 @@ Each section below mentions typical tools and utilities in a natural order of de
 5. [Continuous integration](#continuous-integration)  
 6. [Miscellaneous](#miscellaneous)  
 
-### Development
+## Development
 
 We assume **PyCharm** on **Ubuntu >= 20.04** as the development environment, but you might as well use a newer Linux version or even Windows instead.
 
 In PyCharm, check out this repository into a new project, e.g. under
 
-```
-VCS > Checkout from Version Control
-```
+`VCS > Checkout from Version Control`
 
 Shell commands below should be entered in the **Terminal** pane of PyCharm.
 
@@ -50,7 +48,7 @@ Shell commands below should be entered in the **Terminal** pane of PyCharm.
 [//]: # "(I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)"
 [//]: # "This is a comment. See https://stackoverflow.com/questions/4823468/comments-in-markdown"
 
-#### Project requirements & Environment Setup
+### Project requirements & Environment Setup
 
 This project uses [uv](https://github.com/astral-sh/uv) for dependency management and [Nox](https://nox.thea.codes/) for task automation and testing across multiple Python versions.
 
@@ -99,7 +97,7 @@ You can also run commands within the managed environment using `uv run`:
 uv run -- python secretsanta/cli/cli.py --help
 ```
 
-#### Virtual environments
+### Virtual environments
 
 A virtual environment for the project is created automatically by `uv sync`. This keeps the global Python environment clean.
 A couple of useful references about virtual environments if you've never used them before:
@@ -135,7 +133,7 @@ source ./venv/bin/activate
 You can also switch to a different project interpreter in PyCharm (Ctrl + Shift + A, search for `Switch Project Interpreter`).
 Open terminals and Python consoles then need to be restarted for the environment to match the project interpreter.
 
-### Testing
+## Testing
 
 There are multiple ways to define and execute tests. Two of the most common ones are `doctest` and `unittest`.
 
@@ -164,7 +162,7 @@ If all is fine, you will not see any output from `ruff` directly. `nox` will rep
 
 Unit tests are kept under `tests`.
 
-#### Running Tests with Nox
+### Running Tests with Nox
 
 [Nox](https://nox.thea.codes/) is used to automate testing across multiple Python versions (defined in `noxfile.py`).
 
@@ -200,19 +198,17 @@ uv run nox
 
 Nox handles creating temporary virtual environments for each session, installing dependencies using `uv`, and running the specified commands. Test coverage is measured using `pytest-cov` (see `.coveragerc` and `pyproject.toml` for configuration).
 
-#### PyCharm file types
+### PyCharm file types
 
 In PyCharm, you can associate files to a certain type under:
 
-```
-File > Settings > Editor > File Types
-```
+`File > Settings > Editor > File Types`
 
 E.g. use this to get `.coveragerc` marked up as `INI` (you can do this after installing the .ini support PyCharm plugin).
 Alternatively, you can register the `*.ini` and `.coveragerc` patterns to the *existing* **Buildout Config**
 [file type](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206585245/comments/205965729).
 
-#### Type hints
+### Type hints
 
 Type hints define what type function arguments and return values should be. They are both a source of documentation
 and testing framework to identify bugs more easily, see also [PEP 484](https://www.python.org/dev/peps/pep-0484/).
@@ -231,7 +227,7 @@ mypy .
 
 to test if the type hints of `.py` file(s) are correct (in which case it would typically output a "Success" message).
 
-#### Property testing
+### Property testing
 
 We use [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) to define a *property test* for our matching function:
 generated example inputs are tested against desired properties. Hypothesis' generator can be configured to produce typical
@@ -254,20 +250,20 @@ def test_some_thing(a_string, an_int):
 * Generation can be controlled by various optional parameters, e.g. `text(min_size=2)` for testing with strings that
 have at least 2 characters.
 
-#### Mocks in unit tests
+### Mocks in unit tests
 
 Mock objects are used to avoid external side effects. We use the standard Python package `unittest.mock`. This provides
 a `@patch` decorator, which allows us to specify classes to be mocked within the scope of a given test case. See
 *test_funs.py* and *test_core.py* for examples.
 
-### Documentation
+## Documentation
 
 Documentation is done using [Sphinx](http://www.sphinx-doc.org/en/master/usage/quickstart.html). We use Google style docstrings as that seems to be prevalent in the industry,
 with the addition of `napoleon` Sphinx extension.
 
 Dependencies (like Sphinx) are installed via `uv sync --all-extras`.
 
-#### Initializing documentation - already done - for reference
+### Initializing documentation - already done - for reference
 
 ```{bash, eval=FALSE}
 sphinx-quickstart
@@ -312,7 +308,7 @@ And set the appropriate path to the directory containing the modules to be docum
 [reStructuredText](http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html),
 see [documentation](https://pythonhosted.org/an_example_pypi_project/sphinx.html#auto-directives) for details.*
 
-#### Building Docs with Nox
+### Building Docs with Nox
 
 Use Nox to build the documentation:
 
@@ -326,9 +322,9 @@ You can view the documentation by opening `docs/build/html/index.html` in your b
 
 *Previewing the .rst files directly in PyCharm might not render Sphinx directives correctly.*
 
-### Usage
+## Usage
 
-#### Jupyter Notebook
+### Jupyter Notebook
 
 The [Jupyter](https://jupyter.org/) notebook `SecretSanta.ipynb` illustrates the usage of the `secretsanta` package.
 
@@ -351,7 +347,7 @@ A few additional links to some typical early `Jupyter` topics:
 * [Closing running Jupyter notebook servers](https://github.com/jupyter/notebook/issues/2844)
 * [Checkpoints and autosave](https://groups.google.com/forum/#!topic/jupyter/DGCKE5fS4kQ)
 
-#### Command-line Interface (CLI)
+### Command-line Interface (CLI)
 
 Python's ecosystem offers several ways to tackle command-line interfaces. The traditional standard method is to use
 the `argparse` module that is part of the standard library. This can be complemented by something like `argparsetree`
@@ -380,7 +376,7 @@ santa --help
 santa makedict "./validation/participants.json"
 ```
 
-#### Package Installation & CLI
+### Package Installation & CLI
 
 If you install the package, you can use the CLI tool as designed for the end user:
 
@@ -407,7 +403,7 @@ santa makedict --help
 santa makedict "./validation/participants.json"
 ```
 
-### Continuous Integration
+## Continuous Integration
 
 Continuous Integration (CI) aims to keep state updated to always match the code currently checked in a repository.
 This typically includes a build, automated test runs, and possibly making sure that the newly built artifacts are
@@ -431,13 +427,13 @@ well as the coverage checks to be performed and their success criteria. See code
 *Notifications from codecov can only be delivered via unencrypted webhook URLs. In order to avoid exposing such hooks in
 a public repository, we do not use this functionality here.*
 
-### Miscellaneous
+## Miscellaneous
 
 * `MANIFEST.in` specifies extra files that shall be included in a source distribution.
 * Badges: This README features various badges (at the beginning), including a build status badge and a code coverage
 status badge.
 
-##### Logging
+### Logging
 
 The `logging` package is used to track events after running the project. The main logged events (levels) in Secret Santa are: errors, warnings, and participants info. A log level is set as an environment variable, e.g.:
 
