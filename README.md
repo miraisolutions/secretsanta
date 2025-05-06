@@ -50,51 +50,6 @@ Shell commands below should be entered in the **Terminal** pane of PyCharm.
 [//]: # "(I tried both *Quick Lists* and *Macros* but neither seems exactly fit for this purpose.)"
 [//]: # "This is a comment. See https://stackoverflow.com/questions/4823468/comments-in-markdown"
 
-#### Virtual environments
-
-We'll use a virtual environment to keep things neat and tidy.  
-A couple of useful references about virtual environments if you've never used them before:
-
-* [Virtual environments](https://docs.python-guide.org/dev/virtualenvs/)
-* [Creating virtual environments](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments)
-
-Install support for virtual environments with Python 3.x if you don't have it yet. Below we assume Python 3.8:
-
-```bash
-sudo apt-get install python3.8-venv
-```
-
-Note that Ubuntu 22.04 does not provide 3.8 (nor 3.9) by default. It can be installed by adding the
-[deadsnakes](https://github.com/deadsnakes) repository first to `apt`.
-
-Configure the PyCharm project with a Python 3.8 virtual environment under
-
-`File > Settings > Project > Project interpreter`
-
-Click on the top-right *gear* icon and select `Add...`, then create a new `Virtualenv Environment`, using `<PROJECT_PATH>/venv`
-as location and Python 3.x as interpreter. Also un-tick all checkboxes.
-
-*We do not use `pipenv` here. You may however use it to create a new environment
-[in the same way](https://www.jetbrains.com/help/pycharm/pipenv.html#pipenv-existing-project).*
-
-With these settings, anything you execute within the PyCharm project, either at the Terminal or in the Python Console,
-will run in the virtual environment. Close and re-open PyCharm to make sure the settings are picked up.
-
-Note that you can still temporarily leave the virtual environment from an active Terminal using
-
-```bash
-deactivate
-```
-
-and re-activate it using
-
-```bash
-source ./venv/bin/activate
-```
-
-You can also switch to a different project interpreter in PyCharm (Ctrl + Shift + A, search for `Switch Project Interpreter`).
-Open terminals and Python consoles then need to be restarted for the environment to match the project interpreter.
-
 #### Project requirements & Environment Setup
 
 This project uses [uv](https://github.com/astral-sh/uv) for dependency management and [Nox](https://nox.thea.codes/) for task automation and testing across multiple Python versions.
@@ -123,7 +78,7 @@ To set up your development environment, synchronize it with the locked dependenc
 
 ```bash
 # Install runtime, dev, test, and docs dependencies
-uv sync --all-extras --dev
+uv sync --all-extras
 ```
 
 If you modify dependencies in `pyproject.toml`, update the lock file:
@@ -135,7 +90,7 @@ uv lock
 Then re-sync your environment:
 
 ```bash
-uv sync --all-extras --dev
+uv sync --all-extras
 ```
 
 You can also run commands within the managed environment using `uv run`:
@@ -143,6 +98,42 @@ You can also run commands within the managed environment using `uv run`:
 ```bash
 uv run -- python secretsanta/cli/cli.py --help
 ```
+
+#### Virtual environments
+
+A virtual environment for the project is created automatically by `uv sync`. This keeps the global Python environment clean.
+A couple of useful references about virtual environments if you've never used them before:
+
+* [Virtual environments](https://docs.python-guide.org/dev/virtualenvs/)
+* [Creating virtual environments](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments)
+
+Configure the PyCharm project with the project's Python virtual environment under
+
+`File > Settings > Project: secretsanta > Python Interpreter`
+
+Click on `Add Interpreter` and select `Add Local Interpreter`, then choose `Select Existing`, using `<PROJECT_PATH>/.venv/bin/python`
+as the path.
+
+*We do not use `pipenv` here. You may however use it to create a new environment
+[in a similar way](https://www.jetbrains.com/help/pycharm/pipenv.html#pipenv-existing-project).*
+
+With these settings, anything you execute within the PyCharm project, either at the Terminal or in the Python Console,
+will run in the virtual environment. Close and re-open PyCharm to make sure the settings are picked up.
+
+Note that you can still temporarily leave the virtual environment from an active Terminal using
+
+```bash
+deactivate
+```
+
+and re-activate it using
+
+```bash
+source ./venv/bin/activate
+```
+
+You can also switch to a different project interpreter in PyCharm (Ctrl + Shift + A, search for `Switch Project Interpreter`).
+Open terminals and Python consoles then need to be restarted for the environment to match the project interpreter.
 
 ### Testing
 
