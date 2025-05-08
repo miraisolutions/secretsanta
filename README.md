@@ -387,24 +387,29 @@ santa makedict "./validation/participants.json"
 
 If you install the package, you can use the CLI tool as designed for the end user:
 
+#### Build the package wheel
+
 ```bash
-python -m pip install --upgrade pip
+uv build --wheel # creates build and dist directories
+```
+#### Install
 
-pip install --upgrade build
-
-python -m build  # creates build and dist directories
-
-# Windows:
-pip install .\dist\secretsanta-0.1.0-py3-none-any.whl
+*On Windows*
+```cmd
+uv pip install .\dist\secretsanta-0.1.0-py3-none-any.whl
 # if already installed, use below to force re-installation:
-pip install --force-reinstall .\dist\secretsanta-0.1.0-py3-none-any.whl
+uv pip install --force-reinstall .\dist\secretsanta-0.1.0-py3-none-any.whl
+```
 
-# Ubuntu:
-pip install ./dist/secretsanta-0.1.0.tar.gz
+*On Ubuntu*
+```bash
+uv pip install ./dist/secretsanta-0.1.0.tar.gz
 # if already installed, use below to force re-installation:
-pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz
+uv pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz
+```
 
-# now you can use the CLI tool properly as below:
+#### Use the CLI tool:
+```sh
 santa --help
 santa makedict --help
 santa makedict "./validation/participants.json"
