@@ -422,16 +422,18 @@ This typically includes a build, automated test runs, and possibly making sure t
 deployed to a target environment. This helps developers and users by providing timely feedback and showing what the
 results of certain checks were on a given version of the code.
 
-Coverage information is generated and uploaded to [codecov](https://codecov.io/), which generates a
+We use GitHub Actions to implement CI. Building and checking the package is implemented in [python-package.yml](./.github/workflows/python-package.yml). This includes running tests and code linting / formatting checks.
+
+- Coverage information is generated and uploaded to [codecov](https://codecov.io/), which generates a
 [report](https://codecov.io/gh/miraisolutions/secretsanta) out of it.
 
 Build status and coverage reports are linked via badges at the top of this README.
 
-Code scanning is performed using CodeQL (see `.github/workflows/codeql.yml`).
+Code scanning for security is performed using CodeQL ([codeql.yml](.github/workflows/codeql.yml)).
 
-Dependency updates are managed by Dependabot (see `.github/dependabot.yml`).
+Dependency updates are managed by Dependabot (see [dependabot.yml](.github/dependabot.yml)).
 
-Codecov is configured in `codecov.yml`, defining the coverage value range (in percent) to match to a color scale, as
+Codecov is configured in [codecov.yml](./codecov.yml), defining the coverage value range (in percent) to match to a color scale, as
 well as the coverage checks to be performed and their success criteria. See codecov's
 [general configuration](https://docs.codecov.io/docs/codecov-yaml) and
 [commit status evaluation](https://docs.codecov.io/docs/commit-status) documentation for more information.
