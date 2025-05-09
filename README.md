@@ -392,27 +392,32 @@ If you install the package, you can use the CLI tool as designed for the end use
 ```bash
 uv build --wheel # creates build and dist directories
 ```
-#### Install
+#### Install in a new project / environment
 
 *On Windows*
 ```cmd
-uv pip install .\dist\secretsanta-0.1.0-py3-none-any.whl
-# if already installed, use below to force re-installation:
-uv pip install --force-reinstall .\dist\secretsanta-0.1.0-py3-none-any.whl
+uv init # creates a new uv project
+uv add ..\secretsanta\dist\secretsanta-0.1.0-py3-none-any.whl
+# if already installed, delete the old uv.lock first
+rm uv.lock
+uv add ..\secretsanta\dist\secretsanta-0.1.0-py3-none-any.whl
 ```
 
 *On Ubuntu*
 ```bash
-uv pip install ./dist/secretsanta-0.1.0.tar.gz
-# if already installed, use below to force re-installation:
-uv pip install --force-reinstall ./dist/secretsanta-0.1.0.tar.gz
+uv init # creates a new uv project
+uv add ../secretsanta/dist/secretsanta-0.1.0-py3-none-any.whl
+# if already installed, delete the old uv.lock first
+rm uv.lock
+uv add --force-reinstall ./dist/secretsanta-0.1.0.tar.gz
 ```
 
 #### Use the CLI tool:
+
 ```sh
-santa --help
-santa makedict --help
-santa makedict "./validation/participants.json"
+uv run santa --help
+uv run santa makedict --help
+uv run santa makedict "./validation/participants.json"
 ```
 
 ## Continuous Integration
