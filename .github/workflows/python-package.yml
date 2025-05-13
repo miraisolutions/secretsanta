@@ -26,6 +26,8 @@ jobs:
       run: uv run nox --python ${{ matrix.python-version }} -s tests-${{ matrix.python-version }} # Run the specific test session
     - name: Run documentation tests
       run: uv run nox -s doctest
+    - run: uv run --with codecov codecov
+      if: ${{ matrix.python-version == '3.12' }}
 
   lint_and_docs:
     runs-on: ubuntu-latest
@@ -42,4 +44,3 @@ jobs:
     - name: Build docs
       run: uv run nox -s docs
       continue-on-error: true
-
