@@ -24,14 +24,14 @@ The latest released version of the package can be installed using pip or uv:
 
     pip install secretsanta
     # or
-    uv pip install secretsanta
+    uv tool install secretsanta
 
 Alternatively you can install the latest development version directly from GitHub:
 ::
 
     pip install git+https://github.com/miraisolutions/secretsanta.git
     # or
-    uv pip install git+https://github.com/miraisolutions/secretsanta.git
+    uv tool install git+https://github.com/miraisolutions/secretsanta.git
 
 For development, clone the repository and use `uv` to set up the environment (see the main README's [Development](#development) section).
 
