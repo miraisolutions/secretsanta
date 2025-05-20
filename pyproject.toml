@@ -12,12 +12,11 @@ authors = [
 urls = { Homepage = "https://github.com/miraisolutions/secretsanta" }
 classifiers = [
     'Development Status :: 4 - Beta',
-    'License :: OSI Approved :: MIT License',
     'Operating System :: POSIX :: Linux',
     'Programming Language :: Python :: 3 :: Only',
     'Topic :: Games/Entertainment',
 ]
-license = { text = "MIT" }
+license = "MIT"
 version = "0.1.dev1"
 keywords = ["secret", "santa"]
 requires-python = ">=3.8"
