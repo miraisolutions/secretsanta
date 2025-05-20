@@ -177,7 +177,7 @@ List available Nox sessions:
 uv run nox --list
 ```
 
-Run all test sessions (for Python 3.8, 3.9, 3.10, 3.11, 3.12):
+Run all test sessions (for Python 3.9, 3.10, 3.11, 3.12):
 
 ```bash
 uv run nox -s tests

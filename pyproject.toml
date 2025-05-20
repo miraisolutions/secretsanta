@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools>=77.0.0", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -19,7 +19,7 @@ classifiers = [
 license = "MIT"
 version = "0.1.dev1"
 keywords = ["secret", "santa"]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 dependencies = ["click", "numpy"]
 
 [project.scripts]

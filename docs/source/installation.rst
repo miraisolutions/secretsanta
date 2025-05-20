@@ -4,7 +4,7 @@ Installation
 Dependencies
 ------------
 
-This project requires Python 3.8 or newer.
+This project requires Python 3.9 or newer.
 
 -----
 Linux
