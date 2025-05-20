@@ -81,7 +81,10 @@ To set up your development environment, synchronize it with the locked dependenc
 uv sync --dev
 ```
 
-If you modify dependencies in `pyproject.toml`, update the lock file:
+You can add dependencies with `uv add some_package`, optionally with a version specifier (e.g. `uv add some_package>=1.2.3`).
+This will modify `pyproject.toml` and `uv.lock` and re-sync the environment.
+
+If you modify dependencies in `pyproject.toml`, update the lock file separately:
 
 ```bash
 uv lock
@@ -145,7 +148,7 @@ Use the following command to see this in action. The `-v` flag allows us to see 
 In case everything is fine, we would not see any output otherwise.
 
 ```{bash, eval=FALSE}
-python -m doctest secretsanta/main/core.py -v
+uv run python -m doctest secretsanta/main/core.py -v
 # Or run via nox (included in the 'tests' session)
 uv run nox -s tests -- -m doctest secretsanta/main/core.py -v
 ```
@@ -220,9 +223,9 @@ mypy comes installed via `uv sync --dev`.
 Run something like below:
 
 ```{bash, eval=FALSE}
-mypy ./secretsanta/main/core.py
-mypy ./tests
-mypy .
+uv run mypy ./secretsanta/main/core.py
+uv run mypy ./tests
+uv run mypy .
 # Or run via nox (if a session is added)
 # nox -s typecheck
 ```
@@ -392,9 +395,11 @@ If you install the package, you can use the CLI tool as designed for the end use
 ```bash
 uv build --wheel # creates build and dist directories
 ```
+
 #### Install in a new project / environment
 
-*On Windows*
+##### On Windows
+
 ```cmd
 uv init # creates a new uv project
 uv add ..\secretsanta\dist\secretsanta-0.1.0-py3-none-any.whl
@@ -403,7 +408,8 @@ rm uv.lock
 uv add ..\secretsanta\dist\secretsanta-0.1.0-py3-none-any.whl
 ```
 
-*On Ubuntu*
+##### On Ubuntu
+
 ```bash
 uv init # creates a new uv project
 uv add ../secretsanta/dist/secretsanta-0.1.0-py3-none-any.whl
@@ -412,7 +418,7 @@ rm uv.lock
 uv add --force-reinstall ./dist/secretsanta-0.1.0.tar.gz
 ```
 
-#### Use the CLI tool:
+#### Use the CLI tool
 
 ```sh
 uv run santa --help
@@ -429,7 +435,7 @@ results of certain checks were on a given version of the code.
 
 We use GitHub Actions to implement CI. Building and checking the package is implemented in [python-package.yml](./.github/workflows/python-package.yml). This includes running tests and code linting / formatting checks.
 
-- Coverage information is generated and uploaded to [codecov](https://codecov.io/), which generates a
+Coverage information is generated and uploaded to [codecov](https://codecov.io/), which generates a
 [report](https://codecov.io/gh/miraisolutions/secretsanta) out of it.
 
 Build status and coverage reports are linked via badges at the top of this README.
