@@ -20,4 +20,4 @@ jobs:
         uv build --wheel
         uv publish
 
-# for testing publication: use `uv publish --index test`. Ask for the test token. (user mirai-solutions-gmbh on test.pypi.org)
+# for testing publication: use `uv publish --publish-url https://test.pypi.org/legacy`. Ask for the test token. (user mirai-solutions-gmbh on test.pypi.org)
