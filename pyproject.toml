@@ -58,7 +58,7 @@ norecursedirs = [
 ]
 
 [tool.mypy]
-exclude = [".venv", "build", "noxfile.py", "tests"]
+exclude = [".venv", "build"]
 
 [tool.ruff]
 line-length = 127 # The GitHub editor is 127 chars wide
