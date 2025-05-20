@@ -12,35 +12,35 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
-
+      matrix: { python-version: ["3.9","3.10","3.11","3.12", "3.13"] }
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+    - uses: astral-sh/setup-uv@c7f87aa956e4c323abf06d5dec078e358f6b4d04 # v6.0.0; prevent CWE-829
       with:
+        enable-cache: true
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install pip-tools
-        pip-compile -U --resolver=backtracking
-        python -m pip install flake8 pytest codecov
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        pytest --cov=secretsanta
-        python -m doctest secretsanta/main/core.py
-    - name: Create/upload coverage report
-      run: codecov
+    - name: Run unit tests
+      run: uv run nox --python ${{ matrix.python-version }} -s tests-${{ matrix.python-version }} # Run the specific test session
+    - name: Run documentation tests
+      run: uv run nox -s doctest
+    - run: uv run --with codecov codecov
+      if: ${{ matrix.python-version == '3.12' }}
+
+  lint_and_docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@v4
+    - uses: astral-sh/setup-uv@c7f87aa956e4c323abf06d5dec078e358f6b4d04 # v6.0.0; prevent CWE-829
+      with:
+        enable-cache: true
+        python-version: 3.12
+    - name: Lint via nox
+      run: uv run nox -s lint_critical lint_style
+    - name: Build docs
+      run: uv run nox -s docs
+      continue-on-error: true

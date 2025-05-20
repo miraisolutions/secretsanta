@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools>=77.0.0", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -12,20 +12,21 @@ authors = [
 urls = { Homepage = "https://github.com/miraisolutions/secretsanta" }
 classifiers = [
     'Development Status :: 4 - Beta',
-    'License :: OSI Approved :: MIT License',
     'Operating System :: POSIX :: Linux',
     'Programming Language :: Python :: 3 :: Only',
     'Topic :: Games/Entertainment',
 ]
-license = { text = "MIT" }
+license = "MIT"
 version = "0.1.dev1"
 keywords = ["secret", "santa"]
+requires-python = ">=3.9"
+dependencies = ["click", "numpy"]
 
 [project.scripts]
 santa = "secretsanta.cli.cli:santa"
 
 [tool.setuptools.packages.find]
-include = ["secretsanta"]
+include = ["secretsanta", "secretsanta.*"]
 
 [tool.setuptools_scm]
 
@@ -52,8 +53,25 @@ norecursedirs = [
     "share",
     ".tox",
     ".git",
-    "docs"
+    "docs",
 ]
 
 [tool.mypy]
-exclude = ["venv"]
+exclude = [".venv", "build"]
+
+[tool.ruff]
+line-length = 127 # The GitHub editor is 127 chars wide
+
+
+[dependency-groups]
+dev = [
+    "nox",
+    "ruff>=0.11.7",
+    "hypothesis",
+    "pytest",
+    "pytest-cov",
+    "mypy",
+    "sphinx",
+]
+
+jupyter = ["ipykernel", "pip"]

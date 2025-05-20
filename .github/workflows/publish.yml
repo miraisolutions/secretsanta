@@ -9,18 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - uses: astral-sh/setup-uv@c7f87aa956e4c323abf06d5dec078e358f6b4d04 # v6.0.0; prevent CWE-829
       with:
-        python-version: '3.10.x'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install build twine
+        enable-cache: true
+        python-version: 3.12
     - name: Build and publish
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USER }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
       run: |
-        python3 -m build
-        twine upload dist/*
+        uv build --wheel
+        uv publish
+
+# for testing publication: use `uv publish --publish-url https://test.pypi.org/legacy`. Ask for the test token. (user mirai-solutions-gmbh on test.pypi.org)
