@@ -5,7 +5,7 @@ on:
     types: published
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -13,11 +13,28 @@ jobs:
       with:
         enable-cache: true
         python-version: 3.12
-    - name: Build and publish
-      env:
-        UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
-      run: |
-        uv build --wheel
-        uv publish
+    - name: Build wheel
+      run: uv build --wheel
+    - name: Upload wheel artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist/*.whl
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist
+    - name: pypi-publish
+      uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
+      with:
+        packages-dir: dist
 
 # for testing publication: use `uv publish --publish-url https://test.pypi.org/legacy`. Ask for the test token. (user mirai-solutions-gmbh on test.pypi.org)
