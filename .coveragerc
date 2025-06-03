@@ -12,5 +12,5 @@ show_missing = true
 [run]
 # Measure branch coverage in addition to statement coverage.
 branch = true
-# The source directory to measure. This is already in 'tox.ini'.
+# The source directory to measure. This is passed to --cov in noxfile.py.
 #source = secretsanta
