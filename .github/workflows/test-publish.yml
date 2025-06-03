@@ -3,6 +3,9 @@ name: TEST Upload Python Package to PyPI
 on:
     workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
