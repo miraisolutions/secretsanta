@@ -37,4 +37,3 @@ jobs:
       with:
         packages-dir: dist
 
-# for testing publication: use `uv publish --publish-url https://test.pypi.org/legacy`. Ask for the test token. (user mirai-solutions-gmbh on test.pypi.org)
