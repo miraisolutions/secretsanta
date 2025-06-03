@@ -43,8 +43,11 @@ jobs:
       with:
         enable-cache: true
         python-version: 3.12
+    - name: check lock file
+      run: uv lock --check
     - name: Lint via nox
       run: uv run nox -s lint_critical lint_style
+      if: always()
     - name: Build docs
       run: uv run nox -s docs
-      continue-on-error: true
+      if: always()
