@@ -11,7 +11,7 @@ proj = nox.project.load_toml("pyproject.toml")
 def tests(sess):
     # install runtime + dev deps
     sess.install(".", *proj["dependency-groups"]["dev"])
-    sess.run("pytest", "--cov=secretsanta")
+    sess.run("pytest", "--cov=secretsanta", "--cov-report", "xml", "--cov-report", "term-missing")
 
 
 @session(venv_backend="uv")
