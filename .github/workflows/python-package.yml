@@ -26,7 +26,11 @@ jobs:
       run: uv run nox --python ${{ matrix.python-version }} -s tests-${{ matrix.python-version }} # Run the specific test session
     - name: Run documentation tests
       run: uv run nox -s doctest
-    - run: uv run --with codecov codecov
+    
+    - uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
+      with:
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
       if: ${{ matrix.python-version == '3.12' }}
 
   lint_and_docs:
