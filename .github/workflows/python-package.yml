@@ -11,6 +11,9 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+permissions:
+      contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -35,8 +38,6 @@ jobs:
 
   lint_and_docs:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
     - uses: actions/checkout@v4
     - uses: astral-sh/setup-uv@c7f87aa956e4c323abf06d5dec078e358f6b4d04 # v6.0.0; prevent CWE-829
