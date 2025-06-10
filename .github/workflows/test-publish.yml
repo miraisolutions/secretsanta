@@ -1,17 +1,17 @@
-name: Upload Python Package to PyPI
+name: TEST Upload Python Package to PyPI
 
 on:
-  release:
-    types: published
+    workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
     - uses: actions/checkout@v4
-    - uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb # v6.1.0; prevent CWE-829
+    - uses: astral-sh/setup-uv@c7f87aa956e4c323abf06d5dec078e358f6b4d04 # v6.0.0; prevent CWE-829
       with:
         enable-cache: true
         python-version: 3.12
@@ -38,4 +38,5 @@ jobs:
       uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
       with:
         packages-dir: dist
-
+        repository-url: https://test.pypi.org/legacy/
+        verbose: true

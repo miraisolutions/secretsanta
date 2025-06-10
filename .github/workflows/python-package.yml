@@ -11,6 +11,9 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+permissions:
+      contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -26,21 +29,26 @@ jobs:
       run: uv run nox --python ${{ matrix.python-version }} -s tests-${{ matrix.python-version }} # Run the specific test session
     - name: Run documentation tests
       run: uv run nox -s doctest
-    - run: uv run --with codecov codecov
+    
+    - uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
+      with:
+        fail_ci_if_error: true # optional (default = false)
+        verbose: true # optional (default = false)
       if: ${{ matrix.python-version == '3.12' }}
 
   lint_and_docs:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
     - uses: actions/checkout@v4
     - uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb # v6.1.0; prevent CWE-829
       with:
         enable-cache: true
         python-version: 3.12
+    - name: check lock file
+      run: uv lock --check
     - name: Lint via nox
       run: uv run nox -s lint_critical lint_style
+      if: always()
     - name: Build docs
       run: uv run nox -s docs
-      continue-on-error: true
+      if: always()
