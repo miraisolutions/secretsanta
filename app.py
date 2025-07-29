@@ -15,6 +15,10 @@ st.write(
 # Initialize session state for assignments
 if "assignments" not in st.session_state:
     st.session_state.assignments = None
+if "assignments_viewed" not in st.session_state:
+    st.session_state.assignments_viewed = False
+if "show_email_form" not in st.session_state:
+    st.session_state.show_email_form = False
 
 # Create a sample DataFrame for the data editor
 initial_df = pd.DataFrame(
@@ -60,20 +64,59 @@ if st.button("Generate Assignments", type="primary"):
     else:
         participants_dict = dict(zip(participants_df["Name"], participants_df["Email"]))
         st.session_state.assignments = santa.make_santa_dict(participants_dict)
+        st.session_state.assignments_viewed = False
+        st.session_state.show_email_form = False
 
 if st.session_state.assignments:
-    st.header("Generated Assignments")
-    st.write("Below are the assignments. Each person on the left is the Secret Santa for the person on the right.")
+    st.success("Assignments have been generated!")
 
-    assignments_json = json.dumps(st.session_state.assignments, indent=4)
-    st.code(assignments_json, language="json")
+    if st.session_state.assignments_viewed:
+        st.warning("You have viewed the assignments. Sending emails for this set of assignments is disabled.")
+    else:
+        st.info("Choose to view assignments or send emails. Viewing will prevent sending.")
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("View Assignments"):
+                st.session_state.assignments_viewed = True
+                st.rerun()
+        with col2:
+            if st.button("Send Emails"):
+                st.session_state.show_email_form = True
 
-    assignments_str = "\n".join(
-        [f"{giver} -> {receiver}" for giver, receiver in st.session_state.assignments.items()]
-    )
-    st.download_button(
-        label="Download Assignments as TXT",
-        data=assignments_str,
-        file_name="secret_santa_assignments.txt",
-        mime="text/plain",
-    )
+    if st.session_state.get("show_email_form") and not st.session_state.assignments_viewed:
+        with st.form("email_form"):
+            st.subheader("Email Sender Configuration")
+            smtp_server = st.text_input("SMTP Server:Port", "smtp.gmail.com:587")
+            sender_email = st.text_input("Sender Email", "santa.claus@acme-example.com")
+            password = st.text_input("Password", type="password")
+
+            submitted = st.form_submit_button("Send")
+            if submitted:
+                with st.spinner("Sending emails..."):
+                    check = santa.send_santa_dict(
+                        smtp_server, sender_email, password, st.session_state.assignments
+                    )
+                if not check:
+                    st.success("All emails sent successfully!")
+                else:
+                    st.error(f"Failed to send some emails: {check}")
+                st.session_state.assignments_viewed = True  # Allow viewing after sending
+                st.session_state.show_email_form = False
+                st.rerun()
+
+    if st.session_state.assignments_viewed:
+        st.header("Generated Assignments")
+        st.write("Below are the assignments. Each person on the left is the Secret Santa for the person on the right.")
+
+        assignments_json = json.dumps(st.session_state.assignments, indent=4)
+        st.code(assignments_json, language="json")
+
+        assignments_str = "\n".join(
+            [f"{giver} -> {receiver}" for giver, receiver in st.session_state.assignments.items()]
+        )
+        st.download_button(
+            label="Download Assignments as TXT",
+            data=assignments_str,
+            file_name="secret_santa_assignments.txt",
+            mime="text/plain",
+        )
