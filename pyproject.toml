@@ -20,7 +20,7 @@ license = "MIT"
 version = "0.2.0"
 keywords = ["secret", "santa"]
 requires-python = ">=3.9"
-dependencies = ["click", "numpy"]
+dependencies = ["click", "numpy", "streamlit>=1.47.1"]
 
 [project.scripts]
 santa = "secretsanta.cli.cli:santa"
