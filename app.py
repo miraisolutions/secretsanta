@@ -54,7 +54,7 @@ if st.button("Generate Assignments", type="primary"):
     participants_df = edited_df.copy()
 
     # Filter out rows where 'Name' or 'Email' is missing or empty string.
-    participants_df.dropna(subset=["Name", "Email"], inplace=True)
+    participants_df = participants_df.dropna(subset=["Name", "Email"])
     participants_df = participants_df[participants_df["Name"].str.strip() != ""]
     participants_df = participants_df[participants_df["Email"].str.strip() != ""]
 
