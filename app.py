@@ -17,6 +17,8 @@ if "assignments_viewed" not in st.session_state:
     st.session_state.assignments_viewed = False
 if "show_email_form" not in st.session_state:
     st.session_state.show_email_form = False
+if "emails_sent" not in st.session_state:
+    st.session_state.emails_sent = False
 
 # Create a sample DataFrame for the data editor
 initial_df = pd.DataFrame(
@@ -64,11 +66,14 @@ if st.button("Generate Assignments", type="primary"):
         st.session_state.assignments = santa.make_santa_dict(participants_dict)
         st.session_state.assignments_viewed = False
         st.session_state.show_email_form = False
+        st.session_state.emails_sent = False
 
 if st.session_state.assignments:
     st.success("Assignments have been generated!")
 
-    if st.session_state.assignments_viewed:
+    if st.session_state.emails_sent:
+        st.warning("Emails have been sent. Viewing assignments is disabled.")
+    elif st.session_state.assignments_viewed:
         st.warning("You have viewed the assignments. Sending emails for this set of assignments is disabled.")
     else:
         st.info("Choose to view assignments or send emails. Viewing will prevent sending.")
@@ -81,7 +86,11 @@ if st.session_state.assignments:
             if st.button("Send Emails"):
                 st.session_state.show_email_form = True
 
-    if st.session_state.get("show_email_form") and not st.session_state.assignments_viewed:
+    if (
+        st.session_state.get("show_email_form")
+        and not st.session_state.assignments_viewed
+        and not st.session_state.emails_sent
+    ):
         with st.form("email_form"):
             st.subheader("Email Sender Configuration")
             smtp_server = st.text_input("SMTP Server:Port", "smtp.gmail.com:587")
@@ -107,8 +116,9 @@ if st.session_state.assignments:
                         st.error(f"Test run failed: {check}")
                     else:
                         st.error(f"Failed to send some emails: {check}")
+                # mark emails sent on real send
                 if not test_run:
-                    st.session_state.assignments_viewed = True  # Allow viewing after sending
+                    st.session_state.emails_sent = True
                 st.session_state.show_email_form = False
                 st.rerun()
 
