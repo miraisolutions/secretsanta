@@ -103,19 +103,19 @@ if st.session_state.assignments:
                 if test_run:
                     st.info("Running in test mode - no emails will be sent")
                 with st.spinner("Sending emails..." if not test_run else "Sending test emails..."):
-                    check = santa.send_santa_dict(
+                    error = santa.send_santa_dict(
                         smtp_server, sender_email, password, st.session_state.assignments, test=test_run
                     )
-                if not check:
+                if not error:
                     if test_run:
                         st.success("Test run completed successfully! Test emails sent.")
                     else:
                         st.success("All emails sent successfully!")
                 else:
                     if test_run:
-                        st.error(f"Test run failed: {check}")
+                        st.error(f"Test run failed: {error}")
                     else:
-                        st.error(f"Failed to send some emails: {check}")
+                        st.error(f"Failed to send some emails: {error}")
                 # mark emails sent on real send
                 if not test_run:
                     st.session_state.emails_sent = True
