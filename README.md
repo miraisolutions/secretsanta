@@ -488,3 +488,7 @@ logger.info("Info")
 ```
 
 The log file is automatically created in the `log_files` directory and can be inspected after the project run is complete.
+
+### Streamlit app
+
+run the streamlit app with `uv run streamlit run app.py`
