@@ -4,9 +4,9 @@ import streamlit as st
 
 from secretsanta.main import funs as santa
 
-st.set_page_config(page_title="Secret Santa Generator", layout="wide")
+st.set_page_config(page_title="Secret Santa Generator", layout="wide", page_icon="🎄")
 
-st.title("Secret Santa Assignment Generator")
+st.title("🎄 Secret Santa Assignment Generator 🎅")
 
 st.write("Add participant names and emails below. You need at least 3 participants for the random assignment to work.")
 
