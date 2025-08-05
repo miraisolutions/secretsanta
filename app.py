@@ -8,9 +8,7 @@ st.set_page_config(page_title="Secret Santa Generator", layout="wide")
 
 st.title("Secret Santa Assignment Generator")
 
-st.write(
-    "Add participant names and emails below. You need at least 3 participants for the random assignment to work."
-)
+st.write("Add participant names and emails below. You need at least 3 participants for the random assignment to work.")
 
 # Initialize session state for assignments
 if "assignments" not in st.session_state:
@@ -54,9 +52,9 @@ if st.button("Generate Assignments", type="primary"):
     participants_df = edited_df.copy()
 
     # Filter out rows where 'Name' or 'Email' is missing or empty string.
-    participants_df.dropna(subset=['Name', 'Email'], inplace=True)
-    participants_df = participants_df[participants_df['Name'].str.strip() != '']
-    participants_df = participants_df[participants_df['Email'].str.strip() != '']
+    participants_df.dropna(subset=["Name", "Email"], inplace=True)
+    participants_df = participants_df[participants_df["Name"].str.strip() != ""]
+    participants_df = participants_df[participants_df["Email"].str.strip() != ""]
 
     if len(participants_df) < 3:
         st.error("You need at least 3 participants with both Name and Email.")
@@ -89,18 +87,28 @@ if st.session_state.assignments:
             smtp_server = st.text_input("SMTP Server:Port", "smtp.gmail.com:587")
             sender_email = st.text_input("Sender Email", "santa.claus@acme-example.com")
             password = st.text_input("Password", type="password")
+            test_run = st.checkbox("Test Run", help="Check this to perform a test run, will send test emails.")
 
             submitted = st.form_submit_button("Send")
             if submitted:
-                with st.spinner("Sending emails..."):
+                if test_run:
+                    st.info("Running in test mode - no emails will be sent")
+                with st.spinner("Sending emails..." if not test_run else "Sending test emails..."):
                     check = santa.send_santa_dict(
-                        smtp_server, sender_email, password, st.session_state.assignments
+                        smtp_server, sender_email, password, st.session_state.assignments, test=test_run
                     )
                 if not check:
-                    st.success("All emails sent successfully!")
+                    if test_run:
+                        st.success("Test run completed successfully! Test emails sent.")
+                    else:
+                        st.success("All emails sent successfully!")
                 else:
-                    st.error(f"Failed to send some emails: {check}")
-                st.session_state.assignments_viewed = True  # Allow viewing after sending
+                    if test_run:
+                        st.error(f"Test run failed: {check}")
+                    else:
+                        st.error(f"Failed to send some emails: {check}")
+                if not test_run:
+                    st.session_state.assignments_viewed = True  # Allow viewing after sending
                 st.session_state.show_email_form = False
                 st.rerun()
 
