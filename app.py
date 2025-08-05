@@ -95,6 +95,10 @@ if st.session_state.assignments:
             st.subheader("Email Sender Configuration")
             smtp_server = st.text_input("SMTP Server:Port", "smtp.gmail.com:587")
             sender_email = st.text_input("Sender Email", "santa.claus@acme-example.com")
+            st.warning(
+                "⚠️ For security, do **not** use your primary email password. "
+                "Instead, use an [app-specific password](https://support.google.com/accounts/answer/185833) or similar feature provided by your email service."
+            )
             password = st.text_input("Password", type="password")
             test_run = st.checkbox("Test Run", help="Check this to perform a test run, will send test emails.")
 
