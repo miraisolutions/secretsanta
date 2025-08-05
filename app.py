@@ -111,12 +111,12 @@ if st.session_state.assignments:
         assignments_json = json.dumps(st.session_state.assignments, indent=4)
         st.code(assignments_json, language="json")
 
-        assignments_str = "\n".join(
-            [f"{giver} -> {receiver}" for giver, receiver in st.session_state.assignments.items()]
+        assignments_csv = "Secret Santa,Recipient\n" + "\n".join(
+            [f"{giver},{receiver}" for giver, receiver in st.session_state.assignments.items()]
         )
         st.download_button(
-            label="Download Assignments as TXT",
-            data=assignments_str,
-            file_name="secret_santa_assignments.txt",
-            mime="text/plain",
+            label="Download Assignments as CSV",
+            data=assignments_csv,
+            file_name="secret_santa_assignments.csv",
+            mime="text/csv",
         )
