@@ -1,5 +1,4 @@
 import json
-import pandas as pd
 import streamlit as st
 
 from secretsanta.main import funs as santa
@@ -20,20 +19,17 @@ if "show_email_form" not in st.session_state:
 if "emails_sent" not in st.session_state:
     st.session_state.emails_sent = False
 
-# Create a sample DataFrame for the data editor
-initial_df = pd.DataFrame(
-    [
-        {"Name": "Jane", "Email": "jane.smith@acme-example.com"},
-        {"Name": "John", "Email": "john.doe@acme-example.com"},
-        {"Name": "Bob", "Email": "robert.lambda@acme-example.com"},
-    ],
-    columns=["Name", "Email"],
-)
+# Create a sample dictionary for the data editor
+initial_data = [
+    {"Name": "Jane", "Email": "jane.smith@acme-example.com"},
+    {"Name": "John", "Email": "john.doe@acme-example.com"},
+    {"Name": "Bob", "Email": "robert.lambda@acme-example.com"},
+]
 
 st.header("Participants")
 
-edited_df = st.data_editor(
-    initial_df,
+edited_data = st.data_editor(
+    initial_data,
     num_rows="dynamic",
     use_container_width=True,
     column_config={
@@ -51,18 +47,19 @@ edited_df = st.data_editor(
 )
 
 if st.button("Generate Assignments", type="primary"):
-    participants_df = edited_df.copy()
-
     # Filter out rows where 'Name' or 'Email' is missing or empty string.
-    participants_df = participants_df.dropna(subset=["Name", "Email"])
-    participants_df = participants_df[participants_df["Name"].str.strip() != ""]
-    participants_df = participants_df[participants_df["Email"].str.strip() != ""]
+    valid_participants = []
+    for row in edited_data:
+        name = row.get("Name", "").strip() if row.get("Name") else ""
+        email = row.get("Email", "").strip() if row.get("Email") else ""
+        if name and email:
+            valid_participants.append({"Name": name, "Email": email})
 
-    if len(participants_df) < 3:
+    if len(valid_participants) < 3:
         st.error("You need at least 3 participants with both Name and Email.")
         st.session_state.assignments = None
     else:
-        participants_dict = dict(zip(participants_df["Name"], participants_df["Email"]))
+        participants_dict = {participant["Name"]: participant["Email"] for participant in valid_participants}
         st.session_state.assignments = santa.make_santa_dict(participants_dict)
         st.session_state.assignments_viewed = False
         st.session_state.show_email_form = False
