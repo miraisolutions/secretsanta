@@ -1789,7 +1789,6 @@ dependencies = [
     { name = "click" },
     { name = "numpy", version = "2.0.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "numpy", version = "2.2.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
-    { name = "pandas" },
     { name = "streamlit" },
 ]
 
@@ -1813,7 +1812,6 @@ jupyter = [
 requires-dist = [
     { name = "click" },
     { name = "numpy" },
-    { name = "pandas" },
     { name = "streamlit", specifier = ">=1.47.1" },
 ]
 
