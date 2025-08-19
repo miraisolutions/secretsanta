@@ -491,4 +491,17 @@ The log file is automatically created in the `log_files` directory and can be in
 
 ### Streamlit app
 
-run the streamlit app with `uv run streamlit run app.py`
+run the streamlit app with `uv run streamlit run app.py`.
+
+#### Configuration
+
+The email prompt and "deploy" button that streamlit displays by default are disabled in the [config](.streamlit/config.toml)
+
+For development, it is convenient to add a global user config under ~/.streamlit/config.toml with:
+
+```toml
+[server]
+runOnSave = true
+```
+
+This is not included in the app config, as it should not be enabled when deployed / in regular use.
