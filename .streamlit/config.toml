@@ -1,5 +1,4 @@
 [server]
-runOnSave = true
 showEmailPrompt = false
 
 [theme]
@@ -7,3 +6,6 @@ base = "dark"
 primaryColor = "#C41E3A" # Cardinal Red
 backgroundColor = "#146B3A" # Forest Green
 secondaryBackgroundColor = "#2F845A" # Lighter green
+
+[client]
+toolbarMode = "viewer"
