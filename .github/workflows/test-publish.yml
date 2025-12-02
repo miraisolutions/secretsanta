@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v5
-    - uses: astral-sh/setup-uv@1e862dfacbd1d6d858c55d9b792c756523627244 # v6.8.0; prevent CWE-829
+    - uses: astral-sh/setup-uv@1e862dfacbd1d6d858c55d9b792c756523627244 # v7.1.4; prevent CWE-829
       with:
         enable-cache: true
         python-version: 3.12
