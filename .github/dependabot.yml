@@ -6,6 +6,10 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      github-core:
+        patterns:
+          - "actions/*"
 
   # Maintain dependencies for pip
   - package-ecosystem: "pip"
