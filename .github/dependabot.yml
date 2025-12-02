@@ -11,8 +11,8 @@ updates:
         patterns:
           - "actions/*"
 
-  # Maintain dependencies for pip
-  - package-ecosystem: "pip"
+  # Maintain dependencies for UV packages
+  - package-ecosystem: "uv"
     directory: "/"
     schedule:
       interval: "monthly"
