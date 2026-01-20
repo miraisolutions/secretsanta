@@ -14,7 +14,7 @@ jobs:
     - uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0; prevent CWE-829
       with:
         enable-cache: true
-        python-version: 3.12
+        python-version: 3.14
     - name: Build wheel
       run: uv build --wheel
     - name: Upload wheel artifact
