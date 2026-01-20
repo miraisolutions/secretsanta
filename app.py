@@ -31,7 +31,7 @@ st.header("Participants")
 edited_data = st.data_editor(
     initial_data,
     num_rows="dynamic",
-    use_container_width=True,
+    width='stretch',
     column_config={
         "Name": st.column_config.TextColumn(
             "Name",
