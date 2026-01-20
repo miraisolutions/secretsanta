@@ -7,7 +7,7 @@ import nox.project
 proj = nox.project.load_toml("pyproject.toml")
 
 
-@session(python=["3.9", "3.10", "3.11", "3.12", "3.13"], venv_backend="uv")
+@session(python=["3.10", "3.11", "3.12", "3.13", "3.14"], venv_backend="uv")
 def tests(sess):
     # install runtime + dev deps
     sess.install(".", *proj["dependency-groups"]["dev"])
