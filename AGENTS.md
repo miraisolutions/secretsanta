@@ -37,7 +37,7 @@ Order: standard library → third-party → local modules, separated by blank li
 
 - Use Python 3.9+ syntax: `list[str]`, `dict[str, str]`
 - Forward references with string quotes: `"SecretSanta"`
-- Prefer `Optional[int]` over `int | None`
+- Prefer `int | None` over `Optional[int]`
 - Always annotate function arguments and return values
 - Use mypy in strict mode
 
