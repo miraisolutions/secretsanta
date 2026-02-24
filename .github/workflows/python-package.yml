@@ -21,7 +21,7 @@ jobs:
       matrix: { python-version: ["3.10","3.11","3.12","3.13","3.14"] }
     steps:
     - uses: actions/checkout@v6
-    - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.2.1; prevent CWE-829
+    - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0; prevent CWE-829
       with:
         enable-cache: true
         python-version: ${{ matrix.python-version }}
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.2.1; prevent CWE-829
+    - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0; prevent CWE-829
       with:
         enable-cache: true
         python-version: 3.12
